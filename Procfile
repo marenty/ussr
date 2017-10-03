@@ -1,1 +1,1 @@
-web: gunicorn ussr.wsgi --log-file -
+web: gunicorn ussrBE.wsgi:application --log-file -
