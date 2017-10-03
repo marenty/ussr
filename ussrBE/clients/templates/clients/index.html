@@ -1,0 +1,10 @@
+<p>pipa</p>
+{% if plannedServicesList %}
+    <ul>
+    {% for service in plannedServicesList %}
+        <li><a href="{% url 'clients:blockedReason' service.id_cl_blocked_reason_dict %}">{{ service.id_cl_blocked_reason_dict }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>brak czegostam w liscie.</p>
+{% endif %}    

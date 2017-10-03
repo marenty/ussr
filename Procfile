@@ -1,0 +1,1 @@
+web: gunicorn ussr.wsgi --log-file -
