@@ -251,6 +251,9 @@ class ContactType(models.Model):
         verbose_name = 'Typ kontaktu'
         verbose_name_plural = 'Slownik typow kontaktu'
 
+    def __str__(self):
+        return str(self.id_contact_type)
+
 
 class CountryDict(models.Model):
     country = models.CharField(primary_key=True, max_length=100)
@@ -358,6 +361,14 @@ class Machine(models.Model):
     class Meta:
         managed = False
         db_table = 'machine'
+        verbose_name = 'Maszyna'
+        verbose_name_plural = 'Maszyny'
+
+    def __str__(self):
+        if self.machine_name:
+            return self.machine_name
+        else:
+            return str(self.machine_type) + str(self.id_machine)
 
 
 class MachineType(models.Model):
@@ -367,6 +378,11 @@ class MachineType(models.Model):
     class Meta:
         managed = False
         db_table = 'machine_type'
+        verbose_name = 'Typ maszyny'
+        verbose_name_plural = 'Typy maszyn'
+
+    def __str__(self):
+        return str(self.id_machine_type)
 
 
 class ResourcesUsage(models.Model):
@@ -382,6 +398,11 @@ class ResourcesUsage(models.Model):
         managed = False
         db_table = 'resources_usage'
         unique_together = (('worker', 'time_slot', 'calendar_date'), ('machine', 'time_slot', 'calendar_date'),)
+        verbose_name = 'Uzycie zasobu'
+        verbose_name_plural = 'Wykorzystanie zasobow'
+
+    def __str__(self):
+        return str(self.id_resources_usage)
 
 
 class ResourcesUsageParams(models.Model):
@@ -390,6 +411,11 @@ class ResourcesUsageParams(models.Model):
     class Meta:
         managed = False
         db_table = 'resources_usage_params'
+        verbose_name = 'Parametry modulu wykorzystania zasobow'
+        verbose_name_plural = 'Parametry modulu wykorzystania zasobow'
+
+    def __str__(self):
+        return 'Parametry modulu wykorzystania zasobow'
 
 
 class SeDict(models.Model):
@@ -404,6 +430,11 @@ class SeDict(models.Model):
     class Meta:
         managed = False
         db_table = 'se_dict'
+        verbose_name = 'Serwis'
+        verbose_name_plural = 'Slownik serwisow'
+
+    def __str__(self):
+        return str(self.id_se_dict)
 
 
 class SeDiscount(models.Model):
@@ -415,7 +446,11 @@ class SeDiscount(models.Model):
     class Meta:
         managed = False
         db_table = 'se_discount'
+        verbose_name = 'Znizka na serwis'
+        verbose_name_plural = 'Znizki na serwis'
 
+    def __str__(self):
+        return str(self.id_sex_dict)
 
 class SeRequirement(models.Model):
     id_se_requirement = models.AutoField(primary_key=True)
@@ -430,7 +465,11 @@ class SeRequirement(models.Model):
     class Meta:
         managed = False
         db_table = 'se_requirement'
+        verbose_name = 'Wymaganie serwisu'
+        verbose_name_plural = 'Wymagania serwisow'
 
+    def __str__(self):
+        return str(self.id_se_requirement)
 
 class Service(models.Model):
     id_service = models.AutoField(primary_key=True)
@@ -460,6 +499,11 @@ class Service(models.Model):
     class Meta:
         managed = False
         db_table = 'service'
+        verbose_name = 'Serwis'
+        verbose_name_plural = 'Lista serwisow'
+
+    def __str__(self):
+        return str(self.id_service)
 
 
 class ServiceArchived(models.Model):
@@ -500,6 +544,12 @@ class ServiceArchived(models.Model):
     class Meta:
         managed = False
         db_table = 'service_archived'
+        verbose_name = 'Serwis archiwalny'
+        verbose_name_plural = 'Archiwum serwisow'
+
+    def __str__(self):
+        return str(self.id_service_archived)
+
 
 
 class SexDict(models.Model):
@@ -509,6 +559,11 @@ class SexDict(models.Model):
     class Meta:
         managed = False
         db_table = 'sex_dict'
+        verbose_name = 'Plec'
+        verbose_name_plural = 'Slownik plci'
+
+    def __str__(self):
+        return str(self.id_sex_dict)
 
 
 class TimeSlotList(models.Model):
@@ -517,6 +572,11 @@ class TimeSlotList(models.Model):
     class Meta:
         managed = False
         db_table = 'time_slot_list'
+        verbose_name = 'Sloty czasowe'
+        verbose_name_plural = 'Sloty czasowe'
+
+    def __str__(self):
+        return str(self.id_time_slot)
 
 
 class TimeSlotParams(models.Model):
@@ -525,6 +585,11 @@ class TimeSlotParams(models.Model):
     class Meta:
         managed = False
         db_table = 'time_slot_params'
+        verbose_name = 'Parametry slotow czasowych'
+        verbose_name_plural = 'Parametry slotow czasowych'
+
+    def __str__(self):
+        return 'Parametry slotow czasowych'
 
 
 class WoAbility(models.Model):
@@ -537,6 +602,11 @@ class WoAbility(models.Model):
     class Meta:
         managed = False
         db_table = 'wo_ability'
+        verbose_name = 'Umiejetnosc pracownika'
+        verbose_name_plural = 'Umiejetnosci pracownikow'
+
+    def __str__(self):
+        return str(self.id_wo_ability)
 
 
 class WoAbilityDict(models.Model):
@@ -547,7 +617,11 @@ class WoAbilityDict(models.Model):
     class Meta:
         managed = False
         db_table = 'wo_ability_dict'
+        verbose_name = 'Umiejetnosc'
+        verbose_name_plural = 'Slownik umiejetnosci'
 
+    def __str__(self):
+        return str(self.id_wo_ability_dict)
 
 class WoAbilityGroupDict(models.Model):
     id_wo_ablility_group_dict = models.CharField(primary_key=True, max_length=10)
@@ -556,7 +630,11 @@ class WoAbilityGroupDict(models.Model):
     class Meta:
         managed = False
         db_table = 'wo_ability_group_dict'
+        verbose_name = 'Grupa umiejetnosci'
+        verbose_name_plural = 'Slownik grup umijetnosci'
 
+    def __str__(self):
+        return str(self.id_wo_ablility_group_dict)
 
 class WoAbsence(models.Model):
     id_wo_absence = models.IntegerField(primary_key=True)
@@ -572,6 +650,11 @@ class WoAbsence(models.Model):
     class Meta:
         managed = False
         db_table = 'wo_absence'
+        verbose_name = 'Absencja pracownika'
+        verbose_name_plural = 'Absencje pracownikow'
+
+    def __str__(self):
+        return str(id_wo_absence)
 
 
 class WoAbsenceType(models.Model):
@@ -581,7 +664,11 @@ class WoAbsenceType(models.Model):
     class Meta:
         managed = False
         db_table = 'wo_absence_type'
+        verbose_name = 'Absencja'
+        verbose_name_plural = 'Slownik absencji'
 
+    def __str__(self):
+        return str(self.id_wo_absence_type)
 
 class WoGroup(models.Model):
     id_wo_group = models.AutoField(primary_key=True)
@@ -592,7 +679,11 @@ class WoGroup(models.Model):
     class Meta:
         managed = False
         db_table = 'wo_group'
+        verbose_name = 'Grupa - pracownik'
+        verbose_name_plural = 'Grupy pracownikow'
 
+    def __str__(self):
+        return str(self.worker_group) + " " + str(self.worker)
 
 class WoGroupDict(models.Model):
     id_wo_group_dict = models.CharField(primary_key=True, max_length=10)
@@ -601,7 +692,11 @@ class WoGroupDict(models.Model):
     class Meta:
         managed = False
         db_table = 'wo_group_dict'
+        verbose_name = 'Grupa (nazwa slownikowa)'
+        verbose_name_plural = 'Slownik grupy pracownikow'
 
+    def __str__(self):
+        return str(self.id_wo_group_dict)
 
 class WoGroupPrivilege(models.Model):
     id_wo_group_privilege = models.AutoField(primary_key=True)
@@ -614,6 +709,11 @@ class WoGroupPrivilege(models.Model):
         managed = False
         db_table = 'wo_group_privilege'
         unique_together = (('worker_group', 'privilege'),)
+        verbose_name = 'Uprawnienie grupy'
+        verbose_name_plural = 'Uprawnienia grupy'
+
+    def __str__(self):
+        return str(self.privilage) + " " + str(self.worker_group)
 
 
 class WoNotification(models.Model):
@@ -629,6 +729,11 @@ class WoNotification(models.Model):
     class Meta:
         managed = False
         db_table = 'wo_notification'
+        verbose_name = 'Alert pracownika'
+        verbose_name_plural = 'Alerty pracownika'
+
+    def __str__(self):
+        return str(self.id_wo_notification)
 
 
 class WoPrivilegeDict(models.Model):
@@ -638,7 +743,11 @@ class WoPrivilegeDict(models.Model):
     class Meta:
         managed = False
         db_table = 'wo_privilege_dict'
+        verbose_name = 'Uprawnienie pracownika'
+        verbose_name_plural = 'Slownik uprawnien pracownikow'
 
+    def __str__(self):
+        return str(self.id_wo_privilige_dict)
 
 class WoPrivilegeLevelDict(models.Model):
     id_wo_privilege_level_dict = models.CharField(primary_key=True, max_length=10)
@@ -646,7 +755,11 @@ class WoPrivilegeLevelDict(models.Model):
     class Meta:
         managed = False
         db_table = 'wo_privilege_level_dict'
+        verbose_name = 'Poziom uprawnienia pracownika'
+        verbose_name_plural = 'Slownik poziomow uprawnien pracownika'
 
+    def __str__(self):
+        return str(self.id_sex_dict)
 
 class WoUser(models.Model):
     app_user = models.CharField(primary_key=True, max_length=10)

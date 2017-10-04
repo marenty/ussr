@@ -33,6 +33,7 @@ ALLOWED_HOSTS = ['0.0.0.0',
 # Application definition
 
 INSTALLED_APPS = [
+    'grappelli',
     'clients.apps.ClientsConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -136,3 +137,5 @@ STATICFILES_DIRS = (
 )
 
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+
+GRAPPELLI_ADMIN_TITLE = "USSR"
