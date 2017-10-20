@@ -1,0 +1,22 @@
+{% extends 'company/base.html' %}
+
+{% block content %}
+
+  <p>Temat: {{ machinetype }}</p>
+  <a href="{% url 'company:new_machine' machinetype.id %}">Dodaj nową maszynę</a>
+
+  <p>Dostępne maszyny:</p>
+  <ul>
+  {% for machine in machines %}
+    <li>
+      <p>{{ machine.machine_name }}</p>
+	  <a href="{% url 'company:edit_machine' machine.id %}">Edytuj maszyne</a>
+    </li>
+  {% empty %}
+    <li>
+      Nie ma jeszcze żadnego wpisu.
+    </li>
+  {% endfor %}
+  </ul>
+
+{% endblock content %}

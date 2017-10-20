@@ -1,0 +1,17 @@
+{% extends "company/base.html" %}
+
+{% block content %}
+
+  <p>Klienci:</p>
+
+  <ul>
+    {% for client in clients_all %}
+      <li>
+		<a href="{% url 'company:client' client.id_client %}">{{ client }}</a>
+	  </li>
+    {% empty %}
+      <li>Nie został jeszcze dodany żaden klient.</li>
+    {% endfor %}
+  </ul>
+  <a href="{% url 'company:new_client' %}">Dodaj nowego klienta</a>
+{% endblock content %}

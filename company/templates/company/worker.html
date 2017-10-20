@@ -1,0 +1,14 @@
+companycompany{% extends 'company/base.html' %}
+
+{% block content %}
+
+
+  <p>Pracownik: {{ worker }}:</p>
+       <p>Imie: {{ worker.first_name }}</p>
+	   <p>Nazwisko: {{ worker.last_name }}</p>
+	   <p>Tytuł: {{ worker.worker_title }}</p>
+	   <p>Gotowość: {{ worker.active }}</p>
+	   <p>Notatki: {{ worker.notes }}</p>
+	   <a href="{% url 'company:edit_worker' worker.id %}">Edycja wpisu</a>
+
+{% endblock content %}

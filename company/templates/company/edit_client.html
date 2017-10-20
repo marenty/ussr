@@ -1,0 +1,14 @@
+company{% extends "company/base.html" %}
+
+{% block content %}
+
+
+  <p>Edycja wpisu:</p>
+
+  <form action="{% url 'company:edit_client' client.id %}" method='post'>
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button name="submit">Zapisz zmiany</button>
+  </form>
+
+{% endblock content %}

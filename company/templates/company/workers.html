@@ -1,0 +1,17 @@
+{% extends "company/base.html" %}
+
+{% block content %}
+
+  <p>Pracownicy:</p>
+
+  <ul>
+    {% for worker in workers %}
+      <li>
+	 <a href="{% url 'company:worker' worker.id %}">{{ worker}}</a>
+	  </li>
+    {% empty %}
+      <li>Nie został jeszcze dodany żaden pracownik.</li>
+    {% endfor %}
+  </ul>
+<a href="{% url 'company:new_worker' %}">Dodaj nowego pracownika</a>
+{% endblock content %}

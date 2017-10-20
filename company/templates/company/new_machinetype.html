@@ -1,0 +1,12 @@
+{% extends "company/base.html" %}
+
+{% block content %}
+  <p>Dodaj nowy typ maszyn:</p>
+
+  <form action="{% url 'company:new_machinetype' %}" method='post'>
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button name="submit">Dodaj nowy typ</button>
+  </form>
+
+{% endblock content %}

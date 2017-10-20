@@ -1,0 +1,25 @@
+{% extends 'company/base.html' %}
+
+{% block content %}
+
+
+  <p>Klient: {{ client }}:</p>
+      <p>Imie: {{ client.first_name }}</p>
+	   <p>Nazwisko: {{ client.last_name }}</p>
+	   <p>: {{ client.is_company }}</p>
+	   <p>Adres: {{ client.client_name }}</p>
+	   <p>NIP: {{ client.nip }}</p>
+	   <p>Zblokowany: {{ client.is_blocked }}</p>
+	   <p>Powód blokady: {{ client.blocked_notes }}</p>
+	   <p>Coś: {{ client.default_reminder_sms_minutes }}</p>
+	   <p>Potwierdzony?: {{ client.is_confirmed }}</p>
+	   <p>Powód zarejstrowany: {{ client.is_rejected }}</p>
+	   <p>Adres IP: {{ client.ip_address }}</p>
+	   <p>Email: {{ client.default_reminder_email_minutes}}</p>
+	   <p>Coś: {{ client.default_finished_info_sms }}</p>
+	   <p>Coś: {{ client.default_finished_info_email}}</p>
+	   <p>Coś: {{ client.client_discount_percent_sum}}</p>
+	   <p>Notatki: {{ client.notes }}</p>
+	   <a href="{% url 'company:edit_client' client.id_client %}">Edycja wpisu</a>
+
+{% endblock content %}

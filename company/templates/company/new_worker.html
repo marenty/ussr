@@ -1,0 +1,9 @@
+{% extends "company/base.html" %}
+{% block content %}
+<p>Dodaj nowego pracownika:</p>
+<form action="{% url 'company:new_worker' %}" method='post'>
+{% csrf_token %}
+{{ form.as_p }}
+<button name="submit">Dodaj pracownika</button>
+</form>
+{% endblock content %}
