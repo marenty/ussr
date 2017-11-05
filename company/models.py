@@ -9,7 +9,7 @@ from __future__ import unicode_literals
 
 from django.db import models
 
-
+#nie korzystamy
 class ClBlockedReasonDict(models.Model):
     id_cl_blocked_reason_dict = models.CharField(primary_key=True, max_length=10)
     blocked_reason_name = models.CharField(unique=True, max_length=200, blank=True, null=True)
@@ -24,6 +24,7 @@ class ClBlockedReasonDict(models.Model):
         return "[" + self.id_cl_blocked_reason_dict + "]" + " " + self.blocked_reason_name
 
 
+#nie korzystamy
 class ClCommunicationLog(models.Model):
     id_cl_communication_log = models.AutoField(primary_key=True)
     client = models.ForeignKey('Client', models.DO_NOTHING, db_column='client', blank=True, null=True)
@@ -48,6 +49,7 @@ class ClCommunicationLog(models.Model):
         return str(self.id_cl_communication_log)
 
 
+#nie korzystamy
 class ClCommunicationReason(models.Model):
     id_client_communication_reason = models.CharField(primary_key=True, max_length=10)
     reason_name = models.CharField(unique=True, max_length=100, blank=True, null=True)
@@ -62,6 +64,7 @@ class ClCommunicationReason(models.Model):
         return str(self.id_client_communication_reason)
 
 
+#nie korzystamy
 class ClDiscount(models.Model):
     id_cl_discount = models.AutoField(primary_key=True)
     client = models.ForeignKey('Client', models.DO_NOTHING, db_column='client')
@@ -77,6 +80,7 @@ class ClDiscount(models.Model):
 
     def __str__(self):
         return str(self.id_cl_discount)
+
 
 class ClParams(models.Model):
     max_debt = models.FloatField()
@@ -97,6 +101,7 @@ class ClParams(models.Model):
 
     def __str__(self):
         return str(self.company_branch)
+
 
 class ClPayment(models.Model):
     id_cl_payment = models.AutoField(primary_key=True)
@@ -147,6 +152,7 @@ class ClPaymentLine(models.Model):
         return str(self.id_cl_payment_line)
 
 
+#nie korzystamy
 class ClUnconfirmed(models.Model):
     cl_unconfirmed = models.AutoField(primary_key=True)
     first_name = models.CharField(max_length=20, blank=True, null=True)
@@ -173,24 +179,34 @@ class Client(models.Model):
     sex = models.ForeignKey('SexDict', models.DO_NOTHING, db_column='sex', blank=True, null=True)
     first_name = models.CharField(max_length=20, blank=True, null=True)
     last_name = models.CharField(max_length=20, blank=True, null=True)
-    is_company = models.NullBooleanField()
+    is_company = models.NullBooleanField(default=False)
     client_name = models.CharField(max_length=200, blank=True, null=True)
     nip = models.CharField(max_length=11, blank=True, null=True)
     contact = models.ForeignKey('Contact', models.DO_NOTHING, db_column='contact', blank=True, null=True)
-    is_blocked = models.NullBooleanField()
+    is_blocked = models.NullBooleanField(default=False)
+    # TODO schowac w adminie
     blocked_reason = models.ForeignKey(ClBlockedReasonDict, models.DO_NOTHING, blank=True, null=True)
+    # TODO schowac w adminie
     blocked_notes = models.CharField(max_length=400, blank=True, null=True)
-    default_invoice = models.NullBooleanField()
+    # TODO schowac w adminie ???
+    default_invoice = models.NullBooleanField(default=True)
+    # TODO schowac w adminie
     default_reminder_sms_minutes = models.IntegerField(blank=True, null=True)
-    is_confirmed = models.NullBooleanField()
-    is_rejected = models.NullBooleanField()
+    is_confirmed = models.NullBooleanField(default=True)
+    # TODO schowac w adminie
+    is_rejected = models.NullBooleanField(default=False)
+    # TODO schowac w adminie
     ip_address = models.CharField(max_length=20, blank=True, null=True)
+    # TODO schowac w adminie
     default_reminder_email_minutes = models.IntegerField(blank=True, null=True)
+    # TODO schowac w adminie
     default_finished_info_sms = models.IntegerField(blank=True, null=True)
+    # TODO schowac w adminie
     default_finished_info_email = models.IntegerField(blank=True, null=True)
+    # TODO schowac w adminie
     client_discount_percent_sum = models.FloatField(blank=True, null=True)
     notes = models.CharField(max_length=400, blank=True, null=True)
-    default_company_branch = models.ForeignKey('CompanyBranch', models.DO_NOTHING, db_column='default_company_branch')
+    default_company_branch = models.ForeignKey('CompanyBranch', models.DO_NOTHING, db_column='default_company_branch', default='main')
 
     class Meta:
         managed = True
@@ -201,6 +217,7 @@ class Client(models.Model):
     def __str__(self):
         return str("{0} {1} {2}".format(self.first_name, self.last_name, self.client_name))
         ##return 'abc'
+
 
 class CompanyBranch(models.Model):
     id_company_branch = models.CharField(primary_key=True, max_length=10)
@@ -229,7 +246,7 @@ class Contact(models.Model):
     apartment_no = models.CharField(max_length=5, blank=True, null=True)
     city = models.CharField(max_length=50, blank=True, null=True)
     zip = models.CharField(max_length=10, blank=True, null=True)
-    country = models.ForeignKey('CountryDict', models.DO_NOTHING, db_column='country', blank=True, null=True)
+    country = models.ForeignKey('CountryDict', models.DO_NOTHING, db_column='country', blank=True, null=True, default='Polska')
     notes = models.CharField(max_length=400, blank=True, null=True)
 
     class Meta:
@@ -240,6 +257,7 @@ class Contact(models.Model):
 
     def __str__(self):
         return str(self.id_contact)
+
 
 class ContactType(models.Model):
     id_contact_type = models.CharField(primary_key=True, max_length=10)
@@ -268,6 +286,7 @@ class CountryDict(models.Model):
         return self.country
 
 
+#nie korzystamy
 class Currrency(models.Model):
     id_currency = models.CharField(primary_key=True, max_length=10)
     currency_name = models.CharField(unique=True, max_length=100, blank=True, null=True)
@@ -280,6 +299,7 @@ class Currrency(models.Model):
         verbose_name_plural = 'Slownik walut'
 
 
+#nie korzystamy
 class DiscountDict(models.Model):
     id_discount_dict = models.CharField(primary_key=True, max_length=10)
     discount_name = models.CharField(max_length=100, blank=True, null=True)
@@ -298,6 +318,8 @@ class DiscountDict(models.Model):
     def __str__(self):
         return self.discount_name
 
+
+#nie korzystamy
 class DiscountScope(models.Model):
     id_discount_scope = models.CharField(primary_key=True, max_length=10)
 
@@ -332,6 +354,7 @@ class Location(models.Model):
 
     def __str__(self):
         return self.location_name
+
 
 class LocationType(models.Model):
     id_location_type = models.CharField(primary_key=True, max_length=10)
@@ -440,6 +463,7 @@ class SeDict(models.Model):
         return str(self.id_se_dict)
 
 
+#nie korzystamy
 class SeDiscount(models.Model):
     id_se_discount = models.AutoField(primary_key=True)
     discount = models.ForeignKey(DiscountDict, models.DO_NOTHING, db_column='discount')
@@ -454,6 +478,7 @@ class SeDiscount(models.Model):
 
     def __str__(self):
         return str(self.id_sex_dict)
+
 
 class SeRequirement(models.Model):
     id_se_requirement = models.AutoField(primary_key=True)
@@ -473,6 +498,7 @@ class SeRequirement(models.Model):
 
     def __str__(self):
         return str(self.id_se_requirement)
+
 
 class Service(models.Model):
     id_service = models.AutoField(primary_key=True)
@@ -509,6 +535,7 @@ class Service(models.Model):
         return str(self.id_service)
 
 
+#nie korzystamy
 class ServiceArchived(models.Model):
     id_service_archived = models.AutoField(primary_key=True)
     id_service = models.IntegerField()
@@ -554,7 +581,6 @@ class ServiceArchived(models.Model):
         return str(self.id_service_archived)
 
 
-
 class SexDict(models.Model):
     id_sex_dict = models.CharField(primary_key=True, max_length=1)
     sex = models.CharField(max_length=10, blank=True, null=True)
@@ -569,6 +595,7 @@ class SexDict(models.Model):
         return str(self.id_sex_dict)
 
 
+#nie korzystamy
 class TimeSlotList(models.Model):
     id_time_slot = models.DateTimeField(primary_key=True)
 
@@ -626,6 +653,8 @@ class WoAbilityDict(models.Model):
     def __str__(self):
         return str(self.id_wo_ability_dict)
 
+
+#nie korzystamy
 class WoAbilityGroupDict(models.Model):
     id_wo_ablility_group_dict = models.CharField(primary_key=True, max_length=10)
     ability_group_name = models.CharField(unique=True, max_length=200)
@@ -639,6 +668,8 @@ class WoAbilityGroupDict(models.Model):
     def __str__(self):
         return str(self.id_wo_ablility_group_dict)
 
+
+#nie korzystamy
 class WoAbsence(models.Model):
     id_wo_absence = models.IntegerField(primary_key=True)
     worker = models.ForeignKey('Worker', models.DO_NOTHING, db_column='worker')
@@ -660,6 +691,7 @@ class WoAbsence(models.Model):
         return str(id_wo_absence)
 
 
+#nie korzystamy
 class WoAbsenceType(models.Model):
     id_wo_absence_type = models.CharField(primary_key=True, max_length=10)
     absence_name = models.CharField(unique=True, max_length=200, blank=True, null=True)
@@ -673,6 +705,8 @@ class WoAbsenceType(models.Model):
     def __str__(self):
         return str(self.id_wo_absence_type)
 
+
+#nie korzystamy
 class WoGroup(models.Model):
     id_wo_group = models.AutoField(primary_key=True)
     worker = models.ForeignKey('Worker', models.DO_NOTHING, db_column='worker')
@@ -688,6 +722,8 @@ class WoGroup(models.Model):
     def __str__(self):
         return str(self.worker_group) + " " + str(self.worker)
 
+
+#nie korzystamy
 class WoGroupDict(models.Model):
     id_wo_group_dict = models.CharField(primary_key=True, max_length=10)
     worker_group_name = models.CharField(max_length=200, blank=True, null=True)
@@ -701,6 +737,8 @@ class WoGroupDict(models.Model):
     def __str__(self):
         return str(self.id_wo_group_dict)
 
+
+#nie korzystamy
 class WoGroupPrivilege(models.Model):
     id_wo_group_privilege = models.AutoField(primary_key=True)
     worker_group = models.ForeignKey(WoGroupDict, models.DO_NOTHING, db_column='worker_group')
@@ -719,6 +757,7 @@ class WoGroupPrivilege(models.Model):
         return str(self.privilage) + " " + str(self.worker_group)
 
 
+#nie korzystamy
 class WoNotification(models.Model):
     id_wo_notification = models.AutoField(primary_key=True)
     worker = models.ForeignKey('Worker', models.DO_NOTHING, db_column='worker')
@@ -739,6 +778,7 @@ class WoNotification(models.Model):
         return str(self.id_wo_notification)
 
 
+#nie korzystamy
 class WoPrivilegeDict(models.Model):
     id_wo_privilige_dict = models.IntegerField(primary_key=True)
     privilege_name = models.CharField(unique=True, max_length=200, blank=True, null=True)
@@ -752,6 +792,8 @@ class WoPrivilegeDict(models.Model):
     def __str__(self):
         return str(self.id_wo_privilige_dict)
 
+
+#nie korzystamy
 class WoPrivilegeLevelDict(models.Model):
     id_wo_privilege_level_dict = models.CharField(primary_key=True, max_length=10)
 
@@ -764,6 +806,8 @@ class WoPrivilegeLevelDict(models.Model):
     def __str__(self):
         return str(self.id_sex_dict)
 
+
+#nie korzystamy
 class WoUser(models.Model):
     app_user = models.CharField(primary_key=True, max_length=10)
     worker = models.ForeignKey('Worker', models.DO_NOTHING, db_column='worker')
@@ -794,6 +838,7 @@ class WorkdayCalendar(models.Model):
     def __str__(self):
         return str(self.company_branch)
 
+
 class WorkdayCalendarParams(models.Model):
     default_workday_start_time = models.DateField(blank=True, null=True)
     default_workday_end_time = models.DateField(blank=True, null=True)
@@ -816,10 +861,10 @@ class Worker(models.Model):
     first_name = models.CharField(max_length=20, blank=True, null=True)
     last_name = models.CharField(max_length=20, blank=True, null=True)
     worker_title = models.CharField(max_length=200, blank=True, null=True)
-    active = models.NullBooleanField()
+    active = models.NullBooleanField(default=True)
     contact = models.ForeignKey(Contact, models.DO_NOTHING, db_column='contact', blank=True, null=True)
     notes = models.CharField(max_length=400, blank=True, null=True)
-    company_branch = models.CharField(max_length=10)
+    company_branch = models.CharField(max_length=10, default='main')
 
     class Meta:
         managed = False
@@ -831,6 +876,7 @@ class Worker(models.Model):
         return self.last_name
 
 
+#nie korzystamy
 class ZipCodesDict(models.Model):
     id_zip_codes_dict = models.AutoField(primary_key=True)
     country = models.ForeignKey(CountryDict, models.DO_NOTHING, db_column='country')
