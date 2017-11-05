@@ -34,7 +34,7 @@ ALLOWED_HOSTS = ['0.0.0.0',
 
 INSTALLED_APPS = [
     'grappelli',
-    'company.apps.CompanyConfig',
+    #'company.apps.CompanyConfig',
     # 'machines.apps.MachinesConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -82,9 +82,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'ussr',
-        'USER': 'postgres',
-        'PASSWORD': 'rsur',
-        'HOST': 'localhost',
+        'USER': 'ks',
+        'PASSWORD': 'procesor',
+        'HOST': 'ussr.ckcaelqjxpvo.eu-west-1.rds.amazonaws.com',
     }
 }
 
