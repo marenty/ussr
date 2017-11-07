@@ -432,7 +432,8 @@ class ResourcesUsage(models.Model):
 
 
 class ResourcesUsageParams(models.Model):
-    allow_using_machine_without_service_days_before_date = models.IntegerField(primary_key=True)
+    id_resources_usage_params = models.AutoField(primary_key=True)
+    allow_using_machine_without_service_days_before_date = models.IntegerField(default=100)
 
     class Meta:
         managed = False
