@@ -37,7 +37,7 @@ class ClCommunicationLog(models.Model):
     notes = models.IntegerField(blank=True, null=True)
     created_datetime = models.DateTimeField(blank=True, null=True)
     created_by = models.CharField(max_length=10, blank=True, null=True)
-    company_branch = models.ForeignKey('CompanyBranch', models.DO_NOTHING, db_column='company_branch')
+    company_branch = models.ForeignKey('CompanyBranch', models.DO_NOTHING, db_column='company_branch', default='main')
 
     class Meta:
         managed = False
@@ -69,7 +69,7 @@ class ClDiscount(models.Model):
     id_cl_discount = models.AutoField(primary_key=True)
     client = models.ForeignKey('Client', models.DO_NOTHING, db_column='client')
     discount = models.ForeignKey('DiscountDict', models.DO_NOTHING, db_column='discount')
-    company_branch = models.CharField(max_length=10)
+    company_branch = models.ForeignKey('CompanyBranch', models.DO_NOTHING, db_column='company_branch', default='main')
 
     class Meta:
         managed = False
@@ -91,7 +91,7 @@ class ClParams(models.Model):
     default_finished_info_email = models.BooleanField()
     max_worktime_wo_conf_minutes = models.IntegerField()
     default_currency = models.ForeignKey('Currrency', models.DO_NOTHING, db_column='default_currency')
-    company_branch = models.ForeignKey('CompanyBranch', models.DO_NOTHING, db_column='company_branch')
+    company_branch = models.ForeignKey('CompanyBranch', models.DO_NOTHING, db_column='company_branch', default='main')
 
     class Meta:
         managed = False
@@ -120,7 +120,7 @@ class ClPayment(models.Model):
     notes = models.CharField(max_length=400, blank=True, null=True)
     created_datetime = models.DateTimeField(blank=True, null=True)
     created_by = models.CharField(max_length=10, blank=True, null=True)
-    company_branch = models.ForeignKey('CompanyBranch', models.DO_NOTHING, db_column='company_branch')
+    company_branch = models.ForeignKey('CompanyBranch', models.DO_NOTHING, db_column='company_branch', default='main')
 
     class Meta:
         managed = False
@@ -140,7 +140,7 @@ class ClPaymentLine(models.Model):
     qty = models.FloatField(blank=True, null=True)
     final_price = models.FloatField(blank=True, null=True)
     currency = models.ForeignKey('Currrency', models.DO_NOTHING, db_column='currency')
-    company_branch = models.ForeignKey('CompanyBranch', models.DO_NOTHING, db_column='company_branch')
+    company_branch = models.ForeignKey('CompanyBranch', models.DO_NOTHING, db_column='company_branch', default='main')
 
     class Meta:
         managed = False
@@ -344,7 +344,7 @@ class Location(models.Model):
     location_type = models.ForeignKey('LocationType', models.DO_NOTHING, db_column='location_type')
     is_operational = models.NullBooleanField()
     notes = models.CharField(max_length=400, blank=True, null=True)
-    company_branch = models.ForeignKey(CompanyBranch, models.DO_NOTHING, db_column='company_branch')
+    company_branch = models.ForeignKey('CompanyBranch', models.DO_NOTHING, db_column='company_branch', default='main')
 
     class Meta:
         managed = False
@@ -379,7 +379,7 @@ class Machine(models.Model):
     last_service = models.DateField(blank=True, null=True)
     is_operational = models.NullBooleanField()
     notes = models.CharField(max_length=400, blank=True, null=True)
-    company_branch = models.ForeignKey(CompanyBranch, models.DO_NOTHING, db_column='company_branch')
+    company_branch = models.ForeignKey('CompanyBranch', models.DO_NOTHING, db_column='company_branch', default='main')
 
     class Meta:
         managed = False
@@ -417,7 +417,7 @@ class ResourcesUsage(models.Model):
     start_timestamp = models.DateTimeField(db_column='start_timestamp')
     finish_timestamp = models.DateTimeField(db_column='finish_timestamp')
     calendar_date = models.ForeignKey('WorkdayCalendar', models.DO_NOTHING, db_column='calendar_date', blank=True, null=True)
-    company_branch = models.ForeignKey(CompanyBranch, models.DO_NOTHING, db_column='company_branch')
+    company_branch = models.ForeignKey('CompanyBranch', models.DO_NOTHING, db_column='company_branch', default='main')
 
 
     class Meta:
@@ -468,7 +468,7 @@ class SeDiscount(models.Model):
     id_se_discount = models.AutoField(primary_key=True)
     discount = models.ForeignKey(DiscountDict, models.DO_NOTHING, db_column='discount')
     service = models.ForeignKey('Service', models.DO_NOTHING, db_column='service')
-    company_branch = models.CharField(max_length=10)
+    company_branch = models.ForeignKey('CompanyBranch', models.DO_NOTHING, db_column='company_branch', default='main')
 
     class Meta:
         managed = False
@@ -523,7 +523,7 @@ class Service(models.Model):
     created_by = models.CharField(max_length=10, blank=True, null=True)
     confirmed_datetime = models.DateTimeField(blank=True, null=True)
     confirmed_by = models.CharField(max_length=10, blank=True, null=True)
-    company_branch = models.ForeignKey(CompanyBranch, models.DO_NOTHING, db_column='company_branch')
+    company_branch = models.ForeignKey('CompanyBranch', models.DO_NOTHING, db_column='company_branch', default='main')
 
     class Meta:
         managed = False
@@ -568,7 +568,7 @@ class ServiceArchived(models.Model):
     deleted_timestamp = models.DateTimeField(blank=True, null=True)
     deleted_by = models.CharField(max_length=10, blank=True, null=True)
     deleted_reason = models.CharField(max_length=400, blank=True, null=True)
-    company_branch = models.CharField(max_length=10)
+    company_branch = models.ForeignKey('CompanyBranch', models.DO_NOTHING, db_column='company_branch', default='main')
     min_start_datetime = models.DateTimeField(blank=True, null=True)
 
     class Meta:
@@ -627,7 +627,7 @@ class WoAbility(models.Model):
     worker = models.ForeignKey('Worker', models.DO_NOTHING, db_column='worker')
     worker_ability = models.ForeignKey('WoAbilityDict', models.DO_NOTHING, db_column='worker_ability')
     notes = models.CharField(max_length=400, blank=True, null=True)
-    company_branch = models.ForeignKey(CompanyBranch, models.DO_NOTHING, db_column='company_branch')
+    company_branch = models.ForeignKey('CompanyBranch', models.DO_NOTHING, db_column='company_branch', default='main')
 
     class Meta:
         managed = False
@@ -679,7 +679,7 @@ class WoAbsence(models.Model):
     workdays = models.IntegerField(blank=True, null=True)
     hours = models.FloatField(blank=True, null=True)
     notes = models.CharField(max_length=400, blank=True, null=True)
-    company_branch = models.ForeignKey(CompanyBranch, models.DO_NOTHING, db_column='company_branch')
+    company_branch = models.ForeignKey('CompanyBranch', models.DO_NOTHING, db_column='company_branch', default='main')
 
     class Meta:
         managed = False
@@ -711,7 +711,7 @@ class WoGroup(models.Model):
     id_wo_group = models.AutoField(primary_key=True)
     worker = models.ForeignKey('Worker', models.DO_NOTHING, db_column='worker')
     worker_group = models.ForeignKey('WoGroupDict', models.DO_NOTHING, db_column='worker_group')
-    company_branch = models.ForeignKey(CompanyBranch, models.DO_NOTHING, db_column='company_branch')
+    company_branch = models.ForeignKey('CompanyBranch', models.DO_NOTHING, db_column='company_branch', default='main')
 
     class Meta:
         managed = False
@@ -766,7 +766,7 @@ class WoNotification(models.Model):
     notification_text = models.CharField(max_length=400, blank=True, null=True)
     severity = models.IntegerField(blank=True, null=True)
     marked_as_read = models.NullBooleanField()
-    company_branch = models.ForeignKey(CompanyBranch, models.DO_NOTHING, db_column='company_branch')
+    company_branch = models.ForeignKey('CompanyBranch', models.DO_NOTHING, db_column='company_branch', default='main')
 
     class Meta:
         managed = False
@@ -827,7 +827,7 @@ class WorkdayCalendar(models.Model):
     is_workday = models.BooleanField()
     work_start = models.TimeField(blank=True, null=True)
     work_end = models.TimeField(blank=True, null=True)
-    company_branch = models.ForeignKey(CompanyBranch, models.DO_NOTHING, db_column='company_branch')
+    company_branch = models.ForeignKey('CompanyBranch', models.DO_NOTHING, db_column='company_branch', default='main')
 
     class Meta:
         managed = False
@@ -864,7 +864,7 @@ class Worker(models.Model):
     active = models.NullBooleanField(default=True)
     contact = models.ForeignKey(Contact, models.DO_NOTHING, db_column='contact', blank=True, null=True)
     notes = models.CharField(max_length=400, blank=True, null=True)
-    company_branch = models.CharField(max_length=10, default='main')
+    company_branch = models.ForeignKey('CompanyBranch', models.DO_NOTHING, db_column='company_branch', default='main')
 
     class Meta:
         managed = False
