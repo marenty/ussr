@@ -83,6 +83,7 @@ class ClDiscount(models.Model):
 
 
 class ClParams(models.Model):
+    id_cl_params = models.AutoField(db_column='cl_params_id', primary_key=True)
     max_debt = models.FloatField()
     allow_new_no_contact = models.BooleanField()
     default_reminder_sms_minutes = models.IntegerField()
@@ -432,7 +433,7 @@ class ResourcesUsage(models.Model):
 
 
 class ResourcesUsageParams(models.Model):
-    id_resources_usage_params = models.AutoField(primary_key=True)
+    id_resources_usage_params = models.AutoField(db_column='resources_usage_params_id', primary_key=True)
     allow_using_machine_without_service_days_before_date = models.IntegerField(default=100)
 
     class Meta:
@@ -611,6 +612,7 @@ class TimeSlotList(models.Model):
 
 
 class TimeSlotParams(models.Model):
+    id_time_slot_params = models.AutoField(db_column='time_slot_params_id', primary_key=True)
     time_slot_minutes = models.IntegerField()
 
     class Meta:
