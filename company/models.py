@@ -843,6 +843,7 @@ class WorkdayCalendar(models.Model):
 
 
 class WorkdayCalendarParams(models.Model):
+    id_workday_calendar_params = models.AutoField(db_column='workday_calendar_params_id', primary_key=True)
     default_workday_start_time = models.DateField(blank=True, null=True)
     default_workday_end_time = models.DateField(blank=True, null=True)
     default_saturday_start_time = models.DateField(blank=True, null=True)
