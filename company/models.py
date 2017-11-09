@@ -110,7 +110,7 @@ class ClPayment(models.Model):
     payment_name = models.CharField(max_length=200, blank=True, null=True)
     client = models.ForeignKey('Client', models.DO_NOTHING, db_column='client')
     is_invoice = models.NullBooleanField()
-    contact = models.ForeignKey('Contact', models.DO_NOTHING, db_column='contact')
+    address = models.ForeignKey('Address', models.DO_NOTHING, db_column='address')
     invoice_voucher = models.CharField(unique=True, max_length=15, blank=True, null=True)
     payment_sum = models.FloatField(blank=True, null=True)
     paid_amount = models.FloatField(blank=True, null=True)
@@ -183,7 +183,7 @@ class Client(models.Model):
     is_company = models.NullBooleanField(default=False)
     client_name = models.CharField(max_length=200, blank=True, null=True)
     nip = models.CharField(max_length=11, blank=True, null=True)
-    contact = models.ForeignKey('Contact', models.DO_NOTHING, db_column='contact', blank=True, null=True)
+    address = models.ForeignKey('Address', models.DO_NOTHING, db_column='address', blank=True, null=True)
     is_blocked = models.NullBooleanField(default=False)
     # TODO schowac w adminie
     blocked_reason = models.ForeignKey(ClBlockedReasonDict, models.DO_NOTHING, blank=True, null=True)
@@ -225,7 +225,7 @@ class CompanyBranch(models.Model):
     is_main = models.NullBooleanField()
     company_name = models.CharField(max_length=200, blank=True, null=True)
     nip = models.CharField(max_length=11, blank=True, null=True)
-    contact = models.ForeignKey('Contact', models.DO_NOTHING, db_column='contact')
+    address = models.ForeignKey('Address', models.DO_NOTHING, db_column='address')
 
     class Meta:
         managed = False
@@ -237,10 +237,13 @@ class CompanyBranch(models.Model):
         return self.id_company_branch
 
 
-class Contact(models.Model):
-    id_contact = models.AutoField(primary_key=True)
+class Address(models.Model):
+    id_address = models.AutoField(primary_key=True)
+    # TODO do ukrycia w adminie
     prefered_contact_type = models.ForeignKey('ContactType', models.DO_NOTHING, db_column='prefered_contact_type', blank=True, null=True)
+    # TODO do ukrycia w adminie
     email = models.CharField(unique=True, max_length=50, blank=True, null=True)
+    # TODO do ukrycia w adminie
     phone = models.CharField(max_length=20, blank=True, null=True)
     street = models.CharField(max_length=100, blank=True, null=True)
     house_no = models.CharField(max_length=5, blank=True, null=True)
@@ -252,12 +255,20 @@ class Contact(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'contact'
-        verbose_name = 'Kontakt'
-        verbose_name_plural = 'Lista kontakow'
+        db_table = 'address'
+        verbose_name = 'Adres'
+        verbose_name_plural = 'Lista adresow'
 
     def __str__(self):
-        return str(self.id_contact)
+        def AddressString():
+            ret = str(self.id_address)
+            if (self.street): ret += ', ' + str(self.street)
+            if (self.city): ret += ', ' + str(self.city)
+            if (self.house_no): ret += ', ' + str(self.house_no)
+            if (self.apartment_no): ret += '/' + str(self.apartment_no)
+            return ret
+
+        return AddressString()
 
 
 class ContactType(models.Model):
@@ -503,38 +514,56 @@ class SeRequirement(models.Model):
 
 
 class Service(models.Model):
-    id_service = models.AutoField(primary_key=True)
-    is_confirmed = models.NullBooleanField()
-    service_code = models.ForeignKey(SeDict, models.DO_NOTHING, db_column='service_code')
-    client = models.ForeignKey(Client, models.DO_NOTHING, db_column='client')
-    location = models.ForeignKey(Location, models.DO_NOTHING, db_column='location', blank=True, null=True)
-    create_invoice = models.NullBooleanField()
-    service_discount_amount = models.TextField(blank=True, null=True)  # This field type is a guess.
-    service_discount_percent = models.FloatField(blank=True, null=True)
-    min_start_datetime = models.DateTimeField(blank=True, null=True)
-    planned_start = models.DateField(blank=True, null=True)
-    planned_end = models.DateField(blank=True, null=True)
-    real_start = models.DateField(blank=True, null=True)
-    real_end = models.DateField(blank=True, null=True)
-    reminder_sms_minutes = models.IntegerField(blank=True, null=True)
-    reminder_email_minutes = models.IntegerField(blank=True, null=True)
-    finished_info_sms = models.NullBooleanField()
-    finished_info_email = models.NullBooleanField()
-    notes = models.CharField(max_length=400, blank=True, null=True)
-    created_datetime = models.DateTimeField(blank=True, null=True)
-    created_by = models.CharField(max_length=10, blank=True, null=True)
-    confirmed_datetime = models.DateTimeField(blank=True, null=True)
-    confirmed_by = models.CharField(max_length=10, blank=True, null=True)
-    company_branch = models.ForeignKey('CompanyBranch', models.DO_NOTHING, db_column='company_branch', default='main')
+    id_service = models.AutoField(primary_key=True, editable=False, verbose_name='Id')
+    is_confirmed = models.NullBooleanField(default=False, verbose_name='Powierdzony')
+    service_code = models.ForeignKey(SeDict, models.DO_NOTHING, db_column='service_code', verbose_name='Typ uslugi')
+    client = models.ForeignKey(Client, models.DO_NOTHING, db_column='client', verbose_name='Klient')
+    location = models.ForeignKey(Location, models.DO_NOTHING, db_column='location', blank=True, null=True, verbose_name='Lokacja')
+    create_invoice = models.NullBooleanField(default=False, verbose_name='Utworzyc fakture VAT')
+    # TODO do ukrycia
+    service_discount_amount = models.DecimalField(blank=True, null=True, decimal_places=2, verbose_name='Kwota znizki')
+    # TODO do ukrycia
+    service_discount_percent = models.FloatField(blank=True, null=True, verbose_name='Procent znizki')
+    min_start_datetime = models.DateTimeField(blank=True, null=True, verbose_name='Szukanie czasu od')
+    planned_start = models.DateTimeField(blank=True, null=True, verbose_name='Planowany poczatek')
+    planned_end = models.DateTimeField(blank=True, null=True, verbose_name='Planowane zakonczenie')
+    # TODO do ukrycia
+    real_start = models.DateTimeField(blank=True, null=True, verbose_name='Rzeczywisty poczatek')
+    # TODO do ukrycia
+    real_end = models.DateTimeField(blank=True, null=True, verbose_name='Rzeczywiste zakonczenie')
+    # TODO do ukrycia
+    reminder_sms_minutes = models.IntegerField(blank=True, null=True, default=-1, verbose_name='Ilosc minut miedzy SMS a rozpoczeciem')
+    # TODO do ukrycia
+    reminder_email_minutes = models.IntegerField(blank=True, null=True, default=-1, verbose_name='Ilosc minut miedzy e-mail a rozpoczeciem')
+    # TODO do ukrycia
+    finished_info_sms = models.NullBooleanField(default=True, verbose_name='SMS o ukonczeniu')
+    # TODO do ukrycia
+    # test wykomnetowania pola
+    finished_info_email = models.NullBooleanField(default=True, verbose_name='E-mail o ukonczeniu')
+    notes = models.CharField(max_length=400, blank=True, null=True, verbose_name='Uwagi')
+    # TODO do ukrycia ??
+    created_datetime = models.DateTimeField(blank=True, null=True, verbose_name='Data utworzenia')
+    # TODO do ukrycia
+    created_by = models.CharField(max_length=10, blank=True, null=True, verbose_name='Utworzone przez')
+    # TODO do ukrycia
+    confirmed_datetime = models.DateTimeField(blank=True, null=True, verbose_name='Potwierdzony poczatek uslugi')
+    # TODO do ukrycia
+    confirmed_by = models.CharField(max_length=10, blank=True, null=True, verbose_name='Potwierdone przez')
+    # TODO do ukrycia
+    company_branch = models.ForeignKey('CompanyBranch', models.DO_NOTHING, db_column='company_branch', default='main', verbose_name='Oddzial')
 
     class Meta:
         managed = False
         db_table = 'service'
         verbose_name = 'Serwis'
         verbose_name_plural = 'Lista serwisow'
+        # app_label = 'Services group'
 
     def __str__(self):
-        return str(self.id_service)
+        return 'z __str__: ' + str(self.id_service)
+
+    def __unicode__(self):
+        return 'z __unicode__: ' + str(self.id_service)
 
 
 #nie korzystamy
@@ -839,7 +868,7 @@ class WorkdayCalendar(models.Model):
         verbose_name_plural = 'Kalendarze robocze'
 
     def __str__(self):
-        return str(self.company_branch)
+        return str(self.id_workday_calendar) + ', ' + str(self.company_branch)
 
 
 class WorkdayCalendarParams(models.Model):
@@ -857,7 +886,7 @@ class WorkdayCalendarParams(models.Model):
         verbose_name_plural = 'Parametry kalendarza'
 
     def __str__(self):
-        return 'nie wiem, costam'
+        return str(self.id_workday_calendar_params)
 
 
 class Worker(models.Model):
@@ -866,7 +895,7 @@ class Worker(models.Model):
     last_name = models.CharField(max_length=20, blank=True, null=True)
     worker_title = models.CharField(max_length=200, blank=True, null=True)
     active = models.NullBooleanField(default=True)
-    contact = models.ForeignKey(Contact, models.DO_NOTHING, db_column='contact', blank=True, null=True)
+    address = models.ForeignKey(Address, models.DO_NOTHING, db_column='address', blank=True, null=True)
     notes = models.CharField(max_length=400, blank=True, null=True)
     company_branch = models.ForeignKey('CompanyBranch', models.DO_NOTHING, db_column='company_branch', default='main')
 
