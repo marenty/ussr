@@ -33,7 +33,7 @@ admin.site.register(Client, ClientAdmin)
 # admin.site.register(Client, ClientAdmin)
 
 admin.site.register(CompanyBranch)
-admin.site.register(Contact)
+admin.site.register(Address)
 admin.site.register(ContactType)
 admin.site.register(CountryDict)
 admin.site.register(Currrency)
@@ -48,7 +48,18 @@ admin.site.register(ResourcesUsageParams)
 admin.site.register(SeDict)
 # admin.site.register(SeDiscount)
 admin.site.register(SeRequirement)
-admin.site.register(Service)
+class ServiceAdmin(admin.ModelAdmin):
+    # TODO w rzeczywistosci dobrze by pociagnac nazwe serwisu, nie kod i imie/nazwisko/nazwe klienta,
+    # a nie jego id
+    list_display = ('id_service', 'service_code', 'client')
+    search_fields = ('id_service', 'service_code', 'client')
+    list_filter = ('service_code',)
+    ordering = ('created_datetime',)
+    fields = ('is_confirmed', 'service_code', 'client', 'location', 'create_invoice', 'min_start_datetime', 'planned_start', 'planned_end', 'notes')
+
+admin.site.register(Service, ServiceAdmin)
+
+# admin.site.register(Service)
 # admin.site.register(ServiceArchived)
 admin.site.register(SexDict)
 """
