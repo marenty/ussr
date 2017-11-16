@@ -45,11 +45,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'company',
     'MainPage',
-    "machines",
+    'machines',
     'clients',
     'utilities',
     'workers',
     'services',
+    'users.apps.UsersConfig',
 ]
 
 MIDDLEWARE = [
@@ -67,7 +68,7 @@ ROOT_URLCONF = 'ussrBE.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -91,20 +92,11 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'ussr',
         'USER': 'ks',
-        'PASSWORD': 'procesory',
+        'PASSWORD': os.environ.get('AWS_DB_PASS'),
         'HOST': 'ussr.ckcaelqjxpvo.eu-west-1.rds.amazonaws.com',
     }
 }
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'ussr',
-#         'USER': 'postgres',
-#         'PASSWORD': 'mpqcesb8',
-#         'HOST': 'localhost',
-#     }
-# }
 
 db_from_env = dj_database_url.config(conn_max_age=500)
 DATABASES['default'].update(db_from_env)
@@ -158,3 +150,5 @@ STATICFILES_DIRS = (
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
 GRAPPELLI_ADMIN_TITLE = "USSR"
+
+LOGIN_URL = '/users/login'
