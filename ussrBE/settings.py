@@ -27,6 +27,7 @@ SECRET_KEY = 'hxh&9i&=l!4y=c8ravqpo(8l(b!2l@y^0c$iqu571hw*=1cyd-'
 DEBUG = True
 
 ALLOWED_HOSTS = ['0.0.0.0',
+                '127.0.0.1',
                  'ussr-ug.herokuapp.com']
 
 
@@ -43,6 +44,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'company',
+    'MainPage',
+    "machines",
+    'clients',
+    'utilities',
+    'workers',
+    'services',
 ]
 
 MIDDLEWARE = [
@@ -84,10 +91,20 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'ussr',
         'USER': 'ks',
-        'PASSWORD': os.environ.get('AWS_DB_PASS'),
+        'PASSWORD': 'procesory',
         'HOST': 'ussr.ckcaelqjxpvo.eu-west-1.rds.amazonaws.com',
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'ussr',
+#         'USER': 'postgres',
+#         'PASSWORD': 'mpqcesb8',
+#         'HOST': 'localhost',
+#     }
+# }
 
 db_from_env = dj_database_url.config(conn_max_age=500)
 DATABASES['default'].update(db_from_env)
