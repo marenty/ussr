@@ -5,4 +5,3 @@ app_name = 'MainPage'
 urlpatterns = [
     url(r'^$', views.index, name='index'),
     ]
-    

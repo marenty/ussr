@@ -92,7 +92,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'ussr',
         'USER': 'ks',
-        'PASSWORD': os.environ.get('AWS_DB_PASS'),
+        #'PASSWORD': os.environ.get('AWS_DB_PASS'),
+	'PASSWORD': 'procesory',
         'HOST': 'ussr.ckcaelqjxpvo.eu-west-1.rds.amazonaws.com',
     }
 }
@@ -152,3 +153,5 @@ STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 GRAPPELLI_ADMIN_TITLE = "USSR"
 
 LOGIN_URL = '/users/login'
+
+LOGOUT_REDIRECT_URL = '/'
