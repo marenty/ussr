@@ -61,7 +61,7 @@ class WoAbsence(models.Model):
     workdays = models.IntegerField(blank=True, null=True, verbose_name='Ilość dni roboczych')
     hours = models.FloatField(blank=True, null=True, verbose_name='Ilość godzin')
     notes = models.CharField(max_length=400, blank=True, null=True, verbose_name='Uwagi')
-    company_branch = models.ForeignKey('company.CompanyBranch', models.DO_NOTHING, db_column='company_branch', default='main', verbose_name='Oddział'')
+    company_branch = models.ForeignKey('company.CompanyBranch', models.DO_NOTHING, db_column='company_branch', default='main', verbose_name='Oddział')
 
     class Meta:
         managed = False
@@ -108,7 +108,7 @@ class WoGroup(models.Model):
 # TODO nie korzystamy
 class WoGroupDict(models.Model):
     id_wo_group_dict = models.CharField(primary_key=True, max_length=10, verbose_name='Id')
-    worker_group_name = models.CharField(max_length=200, blank=True, null=True, verbose_name='Nazwa)
+    worker_group_name = models.CharField(max_length=200, blank=True, null=True, verbose_name='Nazwa')
 
     class Meta:
         managed = False

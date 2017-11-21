@@ -29,7 +29,7 @@ class ClCommunicationLog(models.Model):
     service = models.ForeignKey('services.Service', models.DO_NOTHING, db_column='service', blank=True, null=True, related_name = '+', verbose_name='Serwis')
     contact_type = models.ForeignKey('utilities.ContactType', models.DO_NOTHING, db_column='contact_type', verbose_name='Medium')
     contact_address = models.CharField(max_length=100, blank=True, null=True, verbose_name='Docelowy numer/mail')
-    message_body = models.TextField(blank=True, null=True, , verbose_name='Treść')
+    message_body = models.TextField(blank=True, null=True, verbose_name='Treść')
     minutes_before_action = models.IntegerField(blank=True, null=True, verbose_name='Minut przed serwisem')
     notes = models.IntegerField(blank=True, null=True, verbose_name='Notatki')
     created_datetime = models.DateTimeField(blank=True, null=True, verbose_name='TS utworzenia')

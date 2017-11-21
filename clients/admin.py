@@ -15,7 +15,7 @@ admin.site.register(ClDiscount)
 admin.site.register(ClParams)
 admin.site.register(ClPayment)
 admin.site.register(ClPaymentLine)
-admin.site.register(ClUnconfirmed)
+# admin.site.register(ClUnconfirmed)
 # admin.site.register(Client)
 class ClientAdmin(admin.ModelAdmin):
     list_display = ('first_name', 'last_name')

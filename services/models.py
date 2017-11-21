@@ -13,7 +13,7 @@ class SeDict(models.Model):
     # TODO do ukrycia
     avg_time = models.IntegerField(blank=True, null=True, verbose_name='Przeciętny czas wykonania')
     # TODO do ukrycia
-    continous = models.BooleanField(default=True, , verbose_name='Czy musi być wykonywane bez przerw')
+    continous = models.BooleanField(default=True, verbose_name='Czy musi być wykonywane bez przerw')
     notes = models.CharField(max_length=400, blank=True, null=True, verbose_name='Uwagi')
 
     class Meta:
@@ -49,7 +49,7 @@ class SeRequirement(models.Model):
     machine_type = models.ForeignKey('machines.MachineType', models.DO_NOTHING, db_column='machine_type', blank=True, null=True, verbose_name='Typ maszyny')
     worker_ability = models.ForeignKey('workers.WoAbility', models.DO_NOTHING, db_column='worker_ability', blank=True, null=True, related_name = '+', verbose_name='Umiejętność pracownika')
     # TODO do ukrycia
-    qty = models.FloatField(blank=True, null=True, , verbose_name='Ilość')
+    qty = models.FloatField(blank=True, null=True, verbose_name='Ilość')
     # TODO do ukrycia
     activity_sort_order = models.IntegerField(blank=True, null=True, verbose_name='Numer porządkowy czynności')
     activity_name = models.CharField(max_length=200, blank=True, null=True, verbose_name='Nazwa czynności')

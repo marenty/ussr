@@ -132,7 +132,7 @@ class ResourcesUsageParams(models.Model):
 
 
 class SexDict(models.Model):
-    id_sex_dict = models.CharField(primary_key=True, max_length=, verbose_name='Id')
+    id_sex_dict = models.CharField(primary_key=True, max_length=1, verbose_name='Id')
     sex = models.CharField(max_length=10, blank=True, null=True, verbose_name='Nazwa')
 
     class Meta:
