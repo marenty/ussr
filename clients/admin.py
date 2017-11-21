@@ -20,6 +20,8 @@ admin.site.register(ClPaymentLine)
 class ClientAdmin(admin.ModelAdmin):
     list_display = ('first_name', 'last_name')
 admin.site.register(Client, ClientAdmin)
+admin.site.register(DiscountDict)
+admin.site.register(DiscountScope)
 #admin.site.register(Contact)
 
 # class ContactInline(admin.TabularInline):

@@ -16,7 +16,7 @@ class WoAbility(models.Model):
         verbose_name_plural = 'Umiejetności pracowników'
 
     def __str__(self):
-        return str(self.id_wo_ability)
+        return str(self.worker) + ' - ' + str(self.worker_ability)
 
 
 class WoAbilityDict(models.Model):

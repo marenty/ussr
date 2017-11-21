@@ -54,8 +54,8 @@ class ClCommunicationReason(models.Model):
     class Meta:
         managed = False
         db_table = 'cl_communication_reason'
-        verbose_name = "Powod komunikacji"
-        verbose_name_plural = "Slownik powodow komunikacji"
+        verbose_name = "Powód komunikacji"
+        verbose_name_plural = "Słownik powodow komunikacji"
 
     def __str__(self):
         return str(self.id_client_communication_reason)
@@ -88,8 +88,8 @@ class ClParams(models.Model):
     default_reminder_sms_minutes = models.IntegerField(verbose_name='Domyślna ilość minut między początkiem wykonania usługi a SMS-em informującym')
     default_reminder_email_minutes = models.IntegerField(verbose_name='Domyślna ilość minut między początkiem wykonania usługi a email-em informującym')
     default_finished_info_sms = models.BooleanField(verbose_name='Domyślnie wysyłaj SMS informujący o zakończeniu usługi')
-    default_finished_info_email = models.BooleanField()
-    max_worktime_wo_conf_minutes = models.IntegerField(verbose_name='Domyślnie wysyłaj email informujący o zakończeniu usługi')
+    default_finished_info_email = models.BooleanField(verbose_name='Domyślnie wysyłaj e-mail informujący o zakończeniu usługi')
+    max_worktime_wo_conf_minutes = models.IntegerField(verbose_name='Maksymalny czas pracy bez potwierdzenia')
     default_currency = models.ForeignKey('utilities.Currrency', models.DO_NOTHING, db_column='default_currency', related_name = '+', verbose_name='Domyślna waluta')
     company_branch = models.ForeignKey('company.CompanyBranch', models.DO_NOTHING, db_column='company_branch', default='main', related_name = '+', verbose_name='Oddział')
 
@@ -109,7 +109,7 @@ class ClPayment(models.Model):
     payment_name = models.CharField(max_length=200, blank=True, null=True, verbose_name='Tytuł płatności')
     client = models.ForeignKey('Client', models.DO_NOTHING, db_column='client', verbose_name='Klient')
     is_invoice = models.NullBooleanField(verbose_name='Jest fakturą')
-    address = models.ForeignKey('utilities.Address', models.DO_NOTHING, db_column='address', related_name = '+', verbose_name='Adres')
+    # address = models.ForeignKey('utilities.Address', models.DO_NOTHING, db_column='address', related_name = '+', verbose_name='Adres')
     # TODO pokombinować czy nie powinno być autofield
     invoice_voucher = models.CharField(unique=True, max_length=15, blank=True, null=True, verbose_name='Numer faktury')
     payment_sum = models.FloatField(blank=True, null=True, verbose_name='Kwota brutto do zapłaty')
@@ -129,8 +129,8 @@ class ClPayment(models.Model):
     class Meta:
         managed = False
         db_table = 'cl_payment'
-        verbose_name = 'Platnosc klienta'
-        verbose_name_plural = 'Platnosci klientow'
+        verbose_name = 'Płatność klienta'
+        verbose_name_plural = 'Platności klientów'
 
     def __str__(self):
         return str(self.id_cl_payment)
@@ -218,7 +218,7 @@ class Client(models.Model):
         managed = False
         db_table = 'client'
         verbose_name = 'Klinet'
-        verbose_name_plural = 'Lista klientow'
+        verbose_name_plural = 'Lista klientów'
 
     def __str__(self):
         return str("{0} {1} {2}".format(self.first_name, self.last_name, self.client_name))
@@ -255,3 +255,6 @@ class DiscountScope(models.Model):
         db_table = 'discount_scope'
         verbose_name = 'Zakres zniżki'
         verbose_name_plural = 'Słownik zakresów zniżek'
+
+    def __str__(self):
+        return self.id_discount_scope

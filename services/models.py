@@ -47,11 +47,11 @@ class SeRequirement(models.Model):
     id_se_requirement = models.AutoField(primary_key=True, verbose_name='Id')
     service_code = models.ForeignKey(SeDict, models.DO_NOTHING, db_column='service_code', verbose_name='Serwis')
     machine_type = models.ForeignKey('machines.MachineType', models.DO_NOTHING, db_column='machine_type', blank=True, null=True, verbose_name='Typ maszyny')
-    worker_ability = models.ForeignKey('workers.WoAbility', models.DO_NOTHING, db_column='worker_ability', blank=True, null=True, related_name = '+', verbose_name='Umiejętność pracownika')
+    worker_ability = models.ForeignKey('workers.WoAbilityDict', models.DO_NOTHING, db_column='worker_ability', blank=True, null=True, related_name = '+', verbose_name='Umiejętność pracownika')
     # TODO do ukrycia
-    qty = models.FloatField(blank=True, null=True, verbose_name='Ilość')
+    qty = models.FloatField(blank=True, null=True, default=1, verbose_name='Ilość')
     # TODO do ukrycia
-    activity_sort_order = models.IntegerField(blank=True, null=True, verbose_name='Numer porządkowy czynności')
+    activity_sort_order = models.IntegerField(blank=True, null=True, default=1, verbose_name='Numer porządkowy czynności')
     activity_name = models.CharField(max_length=200, blank=True, null=True, verbose_name='Nazwa czynności')
     time_minutes = models.IntegerField(blank=True, null=True, verbose_name='Czas trwania')
 

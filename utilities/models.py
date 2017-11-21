@@ -81,6 +81,9 @@ class Currrency(models.Model):
         verbose_name = 'Waluta'
         verbose_name_plural = 'Słownik walut'
 
+    def __str__(self):
+        return self.id_currency
+
 class DjangoMigrations(models.Model):
     app = models.CharField(max_length=255)
     name = models.CharField(max_length=255)
@@ -96,7 +99,7 @@ class ResourcesUsage(models.Model):
     machine = models.ForeignKey('machines.Machine', models.DO_NOTHING, db_column='machine', blank=True, null=True, verbose_name='Maszna')
     worker = models.ForeignKey('workers.Worker', models.DO_NOTHING, db_column='worker', blank=True, null=True, related_name = '+', verbose_name='Pracownik')
     # TODO do ukrycia
-    time_slot = models.ForeignKey('TimeSlotList', models.DO_NOTHING, db_column='time_slot', blank=True, null=True)
+    # time_slot = models.ForeignKey('TimeSlotList', models.DO_NOTHING, db_column='time_slot', blank=True, null=True)
     start_timestamp = models.DateTimeField(db_column='start_timestamp', verbose_name='TS początku')
     # TODO dodać sprawdznie finish - start > 0 i, że data start = data koniec
     finish_timestamp = models.DateTimeField(db_column='finish_timestamp', verbose_name='TS końca')
@@ -125,7 +128,7 @@ class ResourcesUsageParams(models.Model):
         managed = False
         db_table = 'resources_usage_params'
         verbose_name = 'Parametry modułu wykorzystania zasobów'
-        verbose_name_plural = 'Parametry modulu wykorzystania zasobow'
+        verbose_name_plural = 'Parametry modułu wykorzystania zasobów'
 
     def __str__(self):
         return 'Parametry modułu wykorzystania zasobów'
@@ -197,7 +200,7 @@ class WorkdayCalendarParams(models.Model):
     default_saturday_start_time = models.TimeField(blank=True, null=True, verbose_name='Domyślny początek czasu pracy w sobotę')
     default_saturday_end_time = models.TimeField(blank=True, null=True, verbose_name='Domyślny koniec czasu pracy w sobotę')
     # TODO do ukrycia
-    default_is_saturday_workday = models.BooleanField()
+    # default_is_saturday_workday = models.BooleanField()
 
     class Meta:
         managed = False
