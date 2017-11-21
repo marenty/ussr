@@ -19,7 +19,7 @@ class Machine(models.Model):
     last_service = models.DateField(blank=True, null=True, verbose_name='Data ostaniej kontroli')
     is_operational = models.NullBooleanField(verbose_name='Sprawne')
     notes = models.CharField(max_length=400, blank=True, null=True, verbose_name='Uwagi')
-    company_branch = models.ForeignKey('company.CompanyBranch',  models.DO_NOTHING, db_column='company_branch', default='main', related_name = '+', , verbose_name='Oddział')
+    company_branch = models.ForeignKey('company.CompanyBranch',  models.DO_NOTHING, db_column='company_branch', default='main', related_name = '+', verbose_name='Oddział')
 
     class Meta:
         managed = False
