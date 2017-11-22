@@ -99,7 +99,7 @@ class ResourcesUsage(models.Model):
     machine = models.ForeignKey('machines.Machine', models.DO_NOTHING, db_column='machine', blank=True, null=True, verbose_name='Maszna')
     worker = models.ForeignKey('workers.Worker', models.DO_NOTHING, db_column='worker', blank=True, null=True, related_name = '+', verbose_name='Pracownik')
     # TODO do ukrycia
-    # time_slot = models.ForeignKey('TimeSlotList', models.DO_NOTHING, db_column='time_slot', blank=True, null=True)
+    #time_slot = models.ForeignKey('TimeSlotList', models.DO_NOTHING, db_column='time_slot', blank=True, null=True)
     start_timestamp = models.DateTimeField(db_column='start_timestamp', verbose_name='TS początku')
     # TODO dodać sprawdznie finish - start > 0 i, że data start = data koniec
     finish_timestamp = models.DateTimeField(db_column='finish_timestamp', verbose_name='TS końca')
@@ -111,7 +111,7 @@ class ResourcesUsage(models.Model):
     class Meta:
         managed = False
         db_table = 'resources_usage'
-        unique_together = (('worker', 'time_slot', 'calendar_date'), ('machine', 'time_slot', 'calendar_date'),)
+        #unique_together = (('worker', 'time_slot', 'calendar_date'), ('machine', 'time_slot', 'calendar_date'),)
         verbose_name = 'Użycie zasobu'
         verbose_name_plural = 'Wykorzystanie zasobów'
 
