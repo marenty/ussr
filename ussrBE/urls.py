@@ -23,4 +23,5 @@ urlpatterns = [
     url(r'^', include('MainPage.urls')),
     url(r'^users/', include('users.urls', namespace='users')),
     url(r'^machines/', include('machines.urls', namespace='machines')),
+    url(r'^employee/', include('workers.urls'))
 ]

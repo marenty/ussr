@@ -92,8 +92,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'ussr',
         'USER': 'ks',
-        #'PASSWORD': os.environ.get('AWS_DB_PASS'),
-	'PASSWORD': 'procesory',
+        'PASSWORD': os.environ.get('AWS_DB_PASS'),
         'HOST': 'ussr.ckcaelqjxpvo.eu-west-1.rds.amazonaws.com',
     }
 }
