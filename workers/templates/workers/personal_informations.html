@@ -1,0 +1,6 @@
+<form method="post" action="{% url 'workers:personal_informations' %}">
+    {% csrf_token %}
+    {{ name_form.as_p }}
+    {{ address_form.as_p }}
+    <input type="submit" value="Submit" />
+</form>
