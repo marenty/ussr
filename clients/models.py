@@ -1,4 +1,6 @@
 from django.db import models
+from django.contrib.auth.models import User
+
 
 #from services.models import Service
 #from company.models import CompanyBranch
@@ -213,6 +215,8 @@ class Client(models.Model):
     client_discount_percent_sum = models.FloatField(blank=True, null=True, verbose_name='Sumaryczna procentowa zaniżka klienta')
     notes = models.CharField(max_length=400, blank=True, null=True, verbose_name='Uwagi')
     default_company_branch = models.ForeignKey('company.CompanyBranch', models.DO_NOTHING, db_column='default_company_branch', default='main', related_name = '+', verbose_name='Oddział')
+    client_user_login = models.OneToOneField('auth.User', models.DO_NOTHING, db_column = 'client_user_login', blank=True, null=True, verbose_name='Login')
+
 
     class Meta:
         managed = False

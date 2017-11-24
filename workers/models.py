@@ -1,4 +1,6 @@
 from django.db import models
+from django.contrib.auth.models import User
+
 
 # Create your models here.
 
@@ -215,6 +217,7 @@ class Worker(models.Model):
     address = models.ForeignKey('utilities.Address', models.DO_NOTHING, db_column='address', blank=True, null=True, verbose_name='Adres')
     notes = models.CharField(max_length=400, blank=True, null=True, verbose_name='Uwagi')
     company_branch = models.ForeignKey('company.CompanyBranch', models.DO_NOTHING, db_column='company_branch', default='main', verbose_name='Oddział')
+    user_login = models.OneToOneField('auth.User', models.DO_NOTHING, db_column = 'worker_user_login', blank=True, null=True, verbose_name='Login')
 
     class Meta:
         managed = False
@@ -223,4 +226,4 @@ class Worker(models.Model):
         verbose_name_plural = 'Lista pracowników'
 
     def __str__(self):
-        return self.last_name
+        return self.first_name + ' ' + self.last_name
