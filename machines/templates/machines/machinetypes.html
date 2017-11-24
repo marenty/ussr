@@ -7,7 +7,7 @@
   <ul>
     {% for machinetype in machinetypes %}
       <li>
-	 <a href="{% url 'machines:machinetype' machinetype.id %}">{{ machinetype }}</a>
+	 <a href="{% url 'machines:machinetype' machinetype.id_machine_type %}">{{ machinetype }}</a>
 	  </li>
     {% empty %}
       <li>Nie został jeszcze dodany żaden typ maszyn.</li>

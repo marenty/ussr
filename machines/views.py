@@ -19,7 +19,7 @@ def machinetypes(request):
 
 #@login_required
 def machinetype(request, machinetype_id):
-    machinetype = MachineType.objects.get(id=machinetype_id)
+    machinetype = MachineType.objects.get(id_machine_type=machinetype_id)
     machines = machinetype.machine_set.all()
     context = {'machinetype': machinetype, 'machines': machines}
     return render(request, 'machines/machinetype.html', context)
@@ -42,7 +42,7 @@ def new_machinetype(request):
 
 #@login_required
 def new_machine(request, machinetype_id):
-    machinetype = MachineType.objects.get(id=machinetype_id)
+    machinetype = MachineType.objects.get(id_machine_type=machinetype_id)
 
     if request.method != 'POST':
         form = MachineForm()
@@ -60,8 +60,8 @@ def new_machine(request, machinetype_id):
 
 #@login_required
 def edit_machine(request, machine_id):
-    machine = Machine.objects.get(id=machine_id)
-    machinetype = machine.machinetype
+    machine = Machine.objects.get(id_machine=machine_id)
+    machinetype = machine.machine_type
 
     if request.method != 'POST':
         form = MachineForm(instance=machine)
@@ -70,7 +70,7 @@ def edit_machine(request, machine_id):
         if form.is_valid():
             form.save()
             return HttpResponseRedirect(reverse('machines:machinetype',
-                                        args=[machinetype.id]))
+                                        args=[machinetype.id_machine_type]))
 
     context = {'machine': machine, 'machinetype': machinetype, 'form': form}
     return render(request, 'machines/edit_machine.html', context)
