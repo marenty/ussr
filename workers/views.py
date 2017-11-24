@@ -7,7 +7,9 @@ from django.contrib.auth.models import User, Group
 from django.contrib.auth.decorators import user_passes_test
 from .models import Worker
 from utilities.models import Address
-from .forms import WorkerNameForm, WorkerAddressForm, WorkerPersonalInformationsForm
+from .forms import WorkerAddressForm, WorkerPersonalInformationsForm
+from django.core.exceptions import ObjectDoesNotExist
+
 
 
 def is_logged_employee(user):
@@ -18,8 +20,15 @@ def is_logged_employee(user):
 @user_passes_test(is_logged_employee, login_url = '/employee/login', redirect_field_name = None)
 def change_personal_informations(request):
 
-    worker = get_object_or_404(Worker, user_login = request.user.id)
-    address = get_object_or_404(Address, id_address = worker.address.id_address)
+    try:
+        worker = Worker.objects.get(user_login = request.user.id)
+    except ObjectDoesNotExist:
+        return render(request, 'workers/personal_informations.html', {'not_registered_worker_in_worker_tab':True})
+
+    if (worker.address is not None):
+        address = Address.objects.get(id_address = worker.address.id_address)
+    else:
+        address = Address()
 
     name_data = {'first_name':worker.first_name,
                   'last_name':worker.last_name,}
@@ -31,7 +40,6 @@ def change_personal_informations(request):
                 'apartment_no':address.apartment_no,
                 'city':address.city,
                 'zip':address.zip}
-
 
     if request.method == 'POST':
         name_form = WorkerPersonalInformationsForm(request.POST, instance=worker)
