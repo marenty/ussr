@@ -11,20 +11,20 @@ def index(request):
     """Strona główna dla aplikacji ussr."""
     return render(request, 'machines/index.html')
 
-@login_required
+#@login_required
 def machinetypes(request):
     machinetypes = MachineType.objects.all()
     context = {'machinetypes': machinetypes}
-    return render(request, 'firma/machinetypes.html', context)
+    return render(request, 'machines/machinetypes.html', context)
 
-@login_required
+#@login_required
 def machinetype(request, machinetype_id):
     machinetype = MachineType.objects.get(id=machinetype_id)
     machines = machinetype.machine_set.all()
     context = {'machinetype': machinetype, 'machines': machines}
-    return render(request, 'firma/machinetype.html', context)
+    return render(request, 'machines/machinetype.html', context)
 
-@login_required
+#@login_required
 def new_machinetype(request):
     if request.method != 'POST':
         form = MachineTypeForm()
@@ -35,14 +35,13 @@ def new_machinetype(request):
             #new_topic.owner = request.user
             #new_topic.save()
             form.save()
-            return HttpResponseRedirect(reverse('firma:machinetypes'))
+            return HttpResponseRedirect(reverse('machines:machinetypes'))
 
     context = {'form': form}
-    return render(request, 'firma/new_machinetype.html', context)
+    return render(request, 'machines/new_machinetype.html', context)
 
-@login_required
+#@login_required
 def new_machine(request, machinetype_id):
-    """Dodanie nowego wpisu dla określonego tematu."""
     machinetype = MachineType.objects.get(id=machinetype_id)
 
     if request.method != 'POST':
@@ -53,15 +52,14 @@ def new_machine(request, machinetype_id):
             new_machine = form.save(commit=False)
             new_machine.machinetype = machinetype
             new_machine.save()
-            return HttpResponseRedirect(reverse('firma:machinetype',
+            return HttpResponseRedirect(reverse('machines:machinetype',
                                         args=[machinetype_id]))
 
     context = {'machinetype': machinetype, 'form': form}
-    return render(request, 'firma/new_machine.html', context)
+    return render(request, 'machines/new_machine.html', context)
 
-@login_required
+#@login_required
 def edit_machine(request, machine_id):
-    """Edycja istniejącego wpisu."""
     machine = Machine.objects.get(id=machine_id)
     machinetype = machine.machinetype
 
@@ -71,8 +69,8 @@ def edit_machine(request, machine_id):
         form = MachineForm(instance=machine, data=request.POST)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect(reverse('firma:machinetype',
+            return HttpResponseRedirect(reverse('machines:machinetype',
                                         args=[machinetype.id]))
 
     context = {'machine': machine, 'machinetype': machinetype, 'form': form}
-    return render(request, 'firma/edit_machine.html', context)
+    return render(request, 'machines/edit_machine.html', context)
