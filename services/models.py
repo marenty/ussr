@@ -48,6 +48,7 @@ class SeRequirement(models.Model):
     service_code = models.ForeignKey(SeDict, models.DO_NOTHING, db_column='service_code', verbose_name='Serwis')
     machine_type = models.ForeignKey('machines.MachineType', models.DO_NOTHING, db_column='machine_type', blank=True, null=True, verbose_name='Typ maszyny')
     worker_ability = models.ForeignKey('workers.WoAbilityDict', models.DO_NOTHING, db_column='worker_ability', blank=True, null=True, related_name = '+', verbose_name='Umiejętność pracownika')
+    location_type = models.ForeignKey('company.LocationType', models.DO_NOTHING, db_column='location_type', blank=True, null=True, verbose_name='Lokacja')
     # TODO do ukrycia
     qty = models.FloatField(blank=True, null=True, default=1, verbose_name='Ilość')
     # TODO do ukrycia
@@ -70,6 +71,7 @@ class Service(models.Model):
     is_confirmed = models.NullBooleanField(default=False, verbose_name='Powierdzony')
     service_code = models.ForeignKey(SeDict, models.DO_NOTHING, db_column='service_code', verbose_name='Typ uslugi')
     client = models.ForeignKey('clients.Client', models.DO_NOTHING, db_column='client', verbose_name='Klient')
+    # TODO do ukrycia
     location = models.ForeignKey('company.Location', models.DO_NOTHING, db_column='location', blank=True, null=True, verbose_name='Lokacja')
     create_invoice = models.NullBooleanField(default=False, verbose_name='Utworzyc fakture VAT')
     # TODO do ukrycia

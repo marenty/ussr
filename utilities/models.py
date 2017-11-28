@@ -98,6 +98,7 @@ class ResourcesUsage(models.Model):
     service = models.ForeignKey('services.Service', models.DO_NOTHING, db_column='service', blank=True, null=True, related_name = '+', verbose_name='Serwis')
     machine = models.ForeignKey('machines.Machine', models.DO_NOTHING, db_column='machine', blank=True, null=True, verbose_name='Maszna')
     worker = models.ForeignKey('workers.Worker', models.DO_NOTHING, db_column='worker', blank=True, null=True, related_name = '+', verbose_name='Pracownik')
+    location = models.ForeignKey('company.Location', models.DO_NOTHING, db_column='location', blank=True, null=True, related_name = '+', verbose_name='Lokacja')
     # TODO do ukrycia
     #time_slot = models.ForeignKey('TimeSlotList', models.DO_NOTHING, db_column='time_slot', blank=True, null=True)
     start_timestamp = models.DateTimeField(db_column='start_timestamp', verbose_name='TS początku')
