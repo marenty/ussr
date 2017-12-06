@@ -4,19 +4,31 @@
 
   <p>Temat: {{ machinetype }}</p>
   <a href="{% url 'machines:new_machine' machinetype.id_machine_type %}">Dodaj nową maszynę</a>
-
-  <p>Dostępne maszyny:</p>
-  <ul>
+<table class="table">
+<thead class="thead-dark">
+<tr>
+<th scope="col">machine_name</th>
+<th scope="col">machinetype</th>
+<th scope="col">service_interval</th>
+<th scope="col">last_service</th>
+<th scope="col">is_operational</th>
+<th scope="col">notes</th>
+<th scope="col">edit</th>
+</tr>
+</thead>
+  <tbody>
   {% for machine in machines %}
-    <li>
-      <p>{{ machine.machine_name }}</p>
-	  <a href="{% url 'machines:edit_machine' machine.id_machine %}">Edytuj maszynę</a>
-    </li>
-  {% empty %}
-    <li>
-      Nie ma jeszcze żadnego wpisu.
-    </li>
+    <tr>
+      <td>{{ machine.machine_name }}</td>
+	  <td>{{ machine.machinetype }}</td>
+	  <td>{{ machine.service_interval }}</td>
+	  <td>{{ machine.last_service }}</td>
+	  <td>{{ machine.is_operational }}</td>
+	  <td>{{ machine.notes }}</td>
+	  <td><a href="{% url 'machines:edit_machine' machine.id_machine %}">Edytuj maszyne</a></td>
+    </tr>
   {% endfor %}
-  </ul>
+</tbody>
+</table>
 
 {% endblock content %}
