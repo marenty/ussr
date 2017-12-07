@@ -1,0 +1,7 @@
+
+  <form  id="client-edit-form">
+    {% csrf_token %}
+    {{ name_form.as_p }}
+    {{ address_form.as_p }}
+    <button id = "client-edit-button" type="submit" value = "{{ client.id_client}}">Zapisz zmiany</button>
+  </form>

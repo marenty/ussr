@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'workers',
     'services',
     'users.apps.UsersConfig',
+    'django_tables2',
 ]
 
 MIDDLEWARE = [

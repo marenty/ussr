@@ -40,9 +40,8 @@ def contact(request):
     context = {'branches_list': branches_list,
                 'contact_form': contact_form}
 
-
-
     return render(request, 'MainPage/contact.html', context)
+
 
 def about(request):
 
