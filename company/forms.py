@@ -1,5 +1,15 @@
 from django import forms
+from .models import CompanyDescription
 
+
+class CompanyDescriptionForm(forms.ModelForm):
+    class Meta:
+        model = CompanyDescription
+        fields = { 'id_company_description', 'description_short', 'description_long'} 
+        widgets = {
+            'description_short': forms.Textarea(attrs={'cols': 80, 'rows': 20}),
+            'description_long': forms.Textarea(attrs={'cols': 80, 'rows': 20}),
+        }
 # from .models import MachineType, Machine, Worker, Client
 
 # class MachineTypeForm(forms.ModelForm):

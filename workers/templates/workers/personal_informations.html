@@ -1,3 +1,7 @@
+{% extends "workers/base.html" %}
+
+{% block content %}
+
 {% if not_registered_worker_in_worker_tab %}
 <p> Nie jesteś zarejestrowany w tabeli Pracownicy</p>
 
@@ -9,3 +13,5 @@
       <input type="submit" value="Submit" />
   </form>
 {% endif %}
+
+{% endblock content %}

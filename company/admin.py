@@ -1,13 +1,19 @@
 from django.contrib import admin
+from .forms import CompanyDescriptionForm
 
 from .models import *
 
 # Register your models here.
 
+class CompanyDescriptionAdmin(admin.ModelAdmin):
+    form = CompanyDescriptionForm
+
+admin.site.register(CompanyDescription, CompanyDescriptionAdmin)
+
 # class ClBlockedReasonDictAdmin(admin.ModelAdmin):
 #     fields = ['id_cl_blocked_reason_dict', 'blocked_reason_name']
 # admin.site.register(ClBlockedReasonDict, ClBlockedReasonDictAdmin)
-#
+# 
 #
 # admin.site.register(ClBlockedReasonDict)
 # admin.site.register(ClCommunicationLog)
@@ -33,7 +39,6 @@ from .models import *
 # admin.site.register(Client, ClientAdmin)
 
 admin.site.register(CompanyBranch)
-admin.site.register(CompanyDescription)
 # admin.site.register(Address)
 # admin.site.register(ContactType)
 # admin.site.register(CountryDict)

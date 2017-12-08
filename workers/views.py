@@ -17,7 +17,7 @@ def is_logged_employee(user):
         return user.groups.filter(name='workers').exists()
 
 
-@user_passes_test(is_logged_employee, login_url = '/employee/login', redirect_field_name = None)
+@user_passes_test(is_logged_employee, login_url = 'users/login/', redirect_field_name = None)
 def change_personal_informations(request):
 
     try:
@@ -68,23 +68,6 @@ def logout_view(request):
     return HttpResponseRedirect(reverse('MainPage:index'))
 
 
-@user_passes_test(is_logged_employee, login_url = '/employee/login', redirect_field_name = None)
+@user_passes_test(is_logged_employee, login_url = '/users/login', redirect_field_name = None)
 def employee_main(request):
     return  render(request, 'workers/index.html')
-
-
-def employee_login(request):
-    form = AuthenticationForm(data = request.POST)
-    if form.is_valid():
-        username = form.data['username']
-        password = form.data['password']
-        user = authenticate(request, username=username, password=password)
-        if user is not None:
-            if user.groups.filter(name='workers').exists():
-                login(request, user)
-                return HttpResponseRedirect(reverse('workers:employee_main'))
-            else:
-                return render(request, 'workers/login.html', {'form': form,
-                                                            'invalid': True})
-
-    return render(request, 'workers/login.html', {'form': form})
