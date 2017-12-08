@@ -7,6 +7,8 @@ from clients.forms import ClientAddressForm, ClientPersonalInformationsForm
 from utilities.models import Address
 from clients.models import Client
 from django.db import transaction
+from django.contrib.auth.forms import AuthenticationForm
+
 
 
 def logout_view(request):
@@ -35,7 +37,7 @@ def register(request):
                         'address_form' : address_form}
 
             return render(request, 'users/register.html', context)
-        
+
         if address_form.is_valid():
             address.save()
 
@@ -54,3 +56,23 @@ def register(request):
                 'address_form' : address_form}
 
     return render(request, 'users/register.html', context)
+
+def user_login(request):
+    form = AuthenticationForm(data = request.POST)
+    if form.is_valid():
+        username = form.data['username']
+        password = form.data['password']
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            if user.groups.filter(name='workers').exists():
+                login(request, user)
+                return HttpResponseRedirect(reverse('workers:employee_index'))
+            else:
+                login(request, user)
+                return HttpResponseRedirect(reverse('MainPage:index'))
+        else:
+            return render(request, 'users/login.html', {'form': form})
+
+    else:
+        form = AuthenticationForm()
+    return render(request, 'users/login.html', {'form': form})

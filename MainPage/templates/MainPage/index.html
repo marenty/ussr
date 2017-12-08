@@ -1,16 +1,13 @@
 {% extends "MainPage/base.html" %}
+{% load staticfiles %}
 
 {% block content %}
 
-    <h1 id = "title_box">
-      <p id = "title_text">
-      {{ maincompany.company_name }}
-      <p>
-    </h1>
+    <div id = "logo-box">
+      <img id = "logo" src = "{% static "MainPage/images/logo.png" %}">
+    </div>
 
-    <h2 style = "width: 70%; margin-left: 15%; margin-bottom: 30px; text-align: center; margin-top: 0px;">
-      {{ shortdescription.description_short }}
-    </h2>
+    <h2 id = "description-short">{{ shortdescription.description_short }}</h2>
 
     <h2 class = "text-centered text-big">Zarezerwuj nasze usługi już teraz!</h2>
 

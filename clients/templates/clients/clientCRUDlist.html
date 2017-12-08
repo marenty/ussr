@@ -1,5 +1,9 @@
+{% extends "workers/base.html" %}
+
+
 {% load staticfiles %}
 {% load render_table from django_tables2 %}
+{% block content %}
 
 <!doctype html>
 <head>
@@ -64,3 +68,5 @@
 </div>
 
 </body id = "body">
+
+{% endblock content %}

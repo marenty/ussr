@@ -1,4 +1,5 @@
 {% extends "MainPage/base.html" %}
+{% load staticfiles %}
 
 {% block content %}
 
@@ -6,10 +7,12 @@
   <h2> O nas: </h2>
 </div>
 
-  <div style="margin: 200px; margin-top: 60px; margin-bottom: 40px">
-    <p>
-      {{ description.description_long}}
-    </p>
+<div id = "about-image-box">
+  <image id = "about-image" src = "{% static "MainPage/images/warsztat1.jpeg" %}">
+</div>
+
+  <div id = "description-long">
+    <p>{{description.description_long}}</p>
   </div>
 
 

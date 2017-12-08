@@ -1,4 +1,19 @@
+{% extends "workers/base.html" %}
+
+{% block content %}
+
+
+
+
 <p> Jesteś poprwanie zalogowanym pracownikiem </p>
-<a href="{% url 'workers:personal_informations' %}"> Zmień swoje dane </a>
-<p></p>
-<a href="{% url 'workers:client_list' %})"> Klienci </a>
+<div id = "navigation-panel">
+  <div class = "worker-navigation-element">
+    <a class = "worker-navigation-link" href="{% url 'workers:personal_informations' %}"> Zmień swoje dane </a>
+  </div>
+
+  <div class = "worker-navigation-element">
+    <a class = "worker-navigation-link" href="{% url 'workers:client_list' %})"> Klienci </a>
+  </div>
+</div>
+
+{% endblock content %}

@@ -1,0 +1,26 @@
+.worker-navigation-element{
+  height: 100%;
+  width: 100%;
+  justify-self: center;
+  align-self:center;
+  background-color: rgba(134, 142, 150, 0.6);
+  text-align: center;
+}
+
+#navigation-panel{
+  margin-top: 150px;
+  display: grid;
+  width:450px;
+  margin-left: 5%;
+  grid-template-rows: 50px 50px;
+  grid-row-gap: 15px;
+
+
+}
+
+.worker-navigation-link{
+  font-size: 20px;
+  font-weight: bold;
+  height: 1.5em;
+  margin: auto;
+}
