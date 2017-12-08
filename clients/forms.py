@@ -15,3 +15,7 @@ class ClientPersonalInformationsForm(ModelForm):
     class Meta:
         model = Client
         fields = [ 'first_name', 'last_name', 'sex' ]
+
+class EmailForm(forms.Form):
+    subject = forms.CharField(max_length=100, label='Temat')
+    message = forms.CharField(widget=forms.Textarea, label='Wiadomośc')

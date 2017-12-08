@@ -7,39 +7,60 @@
   <script src="{% static "clients/scripts/script.js" %}"></script>
   <script src="{% static "clients/scripts/main.js" %}"></script>
   <link rel="stylesheet" type="text/css" href="{% static "clients/style.css" %}" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+
 
   {% csrf_token %}
   <script type="text/javascript">
-  // using jQuery
   var csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
   </script>
-
 </head>
+
 <body id = "body">
-<button onclick="OnOffClientForm()">Dodaj klienta</button>
 
-<form id = "client-table-form">
-  {% csrf_token %}
-  {% render_table client_table %}
-  <input type = "submit" value = "Usuń">
-</form>
-
-<div id = "edit-client-box">
-  <div id = "edit-client-form-box">
-    <p> Edytujesz klienta</p>
-    <button onclick="OnOffEditClientForm()">Zakończ</button>
-  </div>
-</div>
-
-<div id = "new-client-box">
-  <div id = "client-form-box">
-    <button onclick="OnOffClientForm()">Zamknij</button>
-    <form  id="client-form">
+  <div id = "table-box">
+    <button onclick="OnOffClientForm()">Dodaj klienta</button>
+    <form id = "client-table-form">
       {% csrf_token %}
-      {{ name_form.as_p }}
-      {{ address_form.as_p }}
+      {% render_table client_table %}
+      <input type = "submit" value = "Usuń">
+    </form>
+  </div>
+
+  <div id = "edit-client-box">
+    <div id = "edit-client-form-box">
+      <p> Edytujesz klienta</p>
+      <button onclick="OnOffEditClientForm()">Zakończ</button>
+    </div>
+  </div>
+
+  <div id = "new-client-box">
+    <div id = "client-form-box">
+      <button onclick="OnOffClientForm()">Zamknij</button>
+      <form  id="client-form">
+        {% csrf_token %}
+        {{ name_form.as_p }}
+        {{ address_form.as_p }}
+        <input type="submit">
+      </form>
+    </div>
+  </div>
+
+<div id = "email-box">
+  <div id = "email-form-box">
+    <p>Wyślij maila</p>
+    <button onclick="OnOffEmailForm()">Zamknij</button>
+    <form id = "email-form">
+      {% csrf_token %}
+      {% for field in email_form %}
+      <div class="form-group">
+        <p>{{field.label}}:</p>
+        {{field}}
+      </div>
+      {% endfor %}
       <input type="submit">
     </form>
   </div>
 </div>
+
 </body id = "body">
