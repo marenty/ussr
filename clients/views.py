@@ -4,10 +4,14 @@ from utilities.models import Address, SexDict
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.decorators import login_required
 from .models import Client
-from .forms import ClientAddressForm, ClientPersonalInformationsForm
+from .forms import ClientAddressForm, ClientPersonalInformationsForm, EmailForm
 from django.http import JsonResponse
 from django.core import serializers
 from .tables import ClientTable
+from django_tables2 import RequestConfig
+from django.core.mail import send_mail
+
+
 
 
 
@@ -62,13 +66,16 @@ def clientCRUDlist(request):
 
     clients = Client.objects.all()
     client_table = ClientTable(clients)
+    RequestConfig(request).configure(client_table)
     name_form = ClientPersonalInformationsForm()
     address_form = ClientAddressForm()
+    email_form = EmailForm()
 
 
     context = {'client_table' : client_table,
                 'name_form' : name_form,
-                'address_form': address_form}
+                'address_form': address_form,
+                'email_form' : email_form}
 
     return render(request, 'clients/clientCRUDlist.html', context)
 
@@ -186,3 +193,30 @@ def EditClient(request):
             client.save()
 
         return clientCRUDlist(request)
+
+def EmailCheck(request):
+
+    if request.method == 'POST':
+        client = Client.objects.get(id_client = request.POST.get("id"))
+        if (client.address is None):
+            return JsonResponse({'email' : False})
+        elif (client.address.email is None):
+            return JsonResponse({'email' : False})
+        else:
+            return JsonResponse({'email' : True})
+
+def SendEmail(request):
+
+    if request.method == 'POST':
+        client = Client.objects.get(id_client = request.POST.get("id"))
+        email_form = EmailForm(request.POST)
+        if email_form.is_valid():
+            send_mail(
+            email_form.cleaned_data['subject'],
+            'Otrzymales nowa wiadomosc z systemu ussr\n'+
+            'Temat: ' + email_form.cleaned_data['subject'] +
+            '\nTreśc: ' + email_form.cleaned_data['message'],
+            'System USSR',
+            [client.address.email],
+            fail_silently=False)
+            return JsonResponse({'success' : "success"})

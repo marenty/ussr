@@ -18,7 +18,6 @@
   margin-left: -15em;
   border: 1px solid #ccc;
   background-color: white;
-
 }
 
 #client-form{
@@ -44,5 +43,39 @@
   margin-left: -15em;
   border: 1px solid #ccc;
   background-color: white;
+}
 
+#email-box{
+  position: fixed;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+  display: none;
+  background-color: rgba(117, 20, 110, 0.8);
+}
+
+#email-form-box{
+  position:fixed;
+  top: 50%;
+  left: 50%;
+  width:30em;
+  height:30em;
+  margin-top: -15em;
+  margin-left: -15em;
+  border: 1px solid #ccc;
+  background-color: white;
+}
+#table-box{
+  margin: 5%;
+}
+
+.email-button{
+  width:30px;
+  height:30px;
+}
+
+.email-icon{
+  max-width: 100%;
+  max-height: 100%;
 }

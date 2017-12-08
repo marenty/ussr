@@ -9,6 +9,17 @@ function OnOffEditClientForm()
   }
 }
 
+function OnOffEmailForm()
+{
+  if (document.getElementById('email-box').style.display == "block") {
+      document.getElementById('email-box').style.display = "none";
+  }
+  else {
+    document.getElementById('email-box').style.display = "block";
+  }
+}
+
+
 $(document).ready(function() {
 
 
@@ -90,7 +101,49 @@ $( '.edit-button' ).click(function( event ){
     edit_client_form_genertion($(this));
 });
 
+$( '.email-button' ).click(function( event ){
+    event.preventDefault();
+    let id = $(this).val();
+    email_check(id);
+    $( '#email-form' ).submit(function( event ){
+      event.preventDefault();
+      send_mail(id)
+      $( '#email-form' ).off("submit");
+    });
 
+});
+
+function email_check(id) {
+    $.ajax({
+      url : "/clients/email_check/", // the endpoint
+      type : "POST", // http method
+      data : {'id' : id }, // data sent with the post request
+      success : function(response) {
+          console.log(response.email);
+          if ( response.email == true ){
+            OnOffEmailForm();
+          }
+          else{
+            alert("Klient nie podal adresu e-mail!");
+          }
+      },
+  });
+};
+
+function send_mail(id) {
+  $.ajax({
+    url : "/clients/send_email/", // the endpoint
+    type : "POST", // http method
+    data : $('#email-form').serialize() + "&id=" + id,
+
+    success : function(response) {
+        console.log(response);
+        $('#email-form').trigger("reset");
+        OnOffEmailForm();
+
+    },
+});
+};
 
 function delete_client() {
     console.log("Delete") // sanity check

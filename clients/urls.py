@@ -8,4 +8,6 @@ urlpatterns = [
     url(r'^delete_clients/', views.DeleteClient, name='delete_clients'),
     url(r'^edit_client_form/', views.EditClientFormFill, name='edit_client_form_fill'),
     url(r'^edit_client/', views.EditClient, name='edit_client'),
+    url(r'^email_check/', views.EmailCheck, name = 'email_check'),
+    url(r'^send_email/', views.SendEmail, name = 'send_email'),
 ]
