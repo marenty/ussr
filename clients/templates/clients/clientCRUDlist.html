@@ -1,0 +1,45 @@
+{% load staticfiles %}
+{% load render_table from django_tables2 %}
+
+<!doctype html>
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="{% static "clients/scripts/script.js" %}"></script>
+  <script src="{% static "clients/scripts/main.js" %}"></script>
+  <link rel="stylesheet" type="text/css" href="{% static "clients/style.css" %}" />
+
+  {% csrf_token %}
+  <script type="text/javascript">
+  // using jQuery
+  var csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
+  </script>
+
+</head>
+<body id = "body">
+<button onclick="OnOffClientForm()">Dodaj klienta</button>
+
+<form id = "client-table-form">
+  {% csrf_token %}
+  {% render_table client_table %}
+  <input type = "submit" value = "Usuń">
+</form>
+
+<div id = "edit-client-box">
+  <div id = "edit-client-form-box">
+    <p> Edytujesz klienta</p>
+    <button onclick="OnOffEditClientForm()">Zakończ</button>
+  </div>
+</div>
+
+<div id = "new-client-box">
+  <div id = "client-form-box">
+    <button onclick="OnOffClientForm()">Zamknij</button>
+    <form  id="client-form">
+      {% csrf_token %}
+      {{ name_form.as_p }}
+      {{ address_form.as_p }}
+      <input type="submit">
+    </form>
+  </div>
+</div>
+</body id = "body">
