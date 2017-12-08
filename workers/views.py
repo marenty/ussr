@@ -17,7 +17,7 @@ def is_logged_employee(user):
         return user.groups.filter(name='workers').exists()
 
 
-@user_passes_test(is_logged_employee, login_url = '/employee/login', redirect_field_name = None)
+@user_passes_test(is_logged_employee, login_url = 'users/login/', redirect_field_name = None)
 def change_personal_informations(request):
 
     try:
@@ -68,6 +68,6 @@ def logout_view(request):
     return HttpResponseRedirect(reverse('MainPage:index'))
 
 
-@user_passes_test(is_logged_employee, login_url = '/employee/login', redirect_field_name = None)
+@user_passes_test(is_logged_employee, login_url = '/users/login', redirect_field_name = None)
 def employee_main(request):
     return  render(request, 'workers/index.html')
