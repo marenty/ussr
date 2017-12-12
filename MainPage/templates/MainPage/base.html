@@ -28,16 +28,9 @@
           <li class="nav-item">
             <a class="nav-link" href="{% url 'MainPage:about' %}">O nas</a>
           </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Uslugi
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="#">Strzyżenie koni</a>
-              <a class="dropdown-item" href="#">Zakręcanie ogonów</a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">Trzepanie hajsu</a>
-            </div>
+          <li class="nav-item">
+              <a class="nav-link" href="{% url 'services:services' %}">Usługi</a>
+
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{% url 'MainPage:contact' %}">Kontakt</a>
