@@ -8,7 +8,8 @@ from django.db import models
 class SeDict(models.Model):
     id_se_dict = models.CharField(primary_key=True, max_length=10, verbose_name='Id')
     se_dict_name = models.CharField(unique=True, max_length=200, verbose_name='Nazwa')
-    base_price = models.FloatField(blank=True, null=True, verbose_name='Cena bazowa')
+    se_group = models.ForeignKey('SeGroupDict', blank=True, null=True, db_column='se_group', verbose_name='Grupa serwisów')
+    base_price = models.DecimalField(blank=True, null=True, decimal_places=2, verbose_name='Cena bazowa')
     location_type = models.ForeignKey('company.LocationType', models.DO_NOTHING, db_column='location_type', blank=True, null=True, verbose_name='Wymagany typ lokacji')
     # TODO do ukrycia
     avg_time = models.IntegerField(blank=True, null=True, verbose_name='Przeciętny czas wykonania')
@@ -25,6 +26,18 @@ class SeDict(models.Model):
     def __str__(self):
         return str(self.id_se_dict)
 
+class SeGroupDict(models.Model):
+    id_se_group_dict = models.CharField(primary_key=True, max_length=10, verbose_name='Id')
+    se_group_dict_name = models.CharField(unique=True, db_column='se_group_dict_name', max_length=200, verbose_name='Nazwa')
+
+    class Meta:
+        managed = False
+        db_table = 'se_group_dict'
+        verbose_name = 'Grupa serwisów'
+        verbose_name_plural = 'Słownik grup serwisów'
+
+    def __str__(self):
+        return str(self.id_se_group_dict)
 
 #nie korzystamy
 class SeDiscount(models.Model):

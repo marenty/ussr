@@ -16,3 +16,4 @@ class ServiceAdmin(admin.ModelAdmin):
     fields = ('is_confirmed', 'service_code', 'client', 'location', 'create_invoice', 'min_start_datetime', 'planned_start', 'planned_end', 'notes')
 
 admin.site.register(Service, ServiceAdmin)
+admin.site.register(SeGroupDict)
