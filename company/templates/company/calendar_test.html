@@ -1,1 +1,77 @@
-<p>ass</p>
+
+{% load staticfiles %}
+
+
+<!doctype html>
+
+<head>
+  <script type="text/javascript" src="http://momentjs.com/downloads/moment.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.7.0/fullcalendar.min.js"></script>
+  <script type="text/javascript" src='{% static 'company/scripts/locale-all.js' %}'></script>
+  <script type="text/javascript" src='{% static 'company/scripts/main.js' %}'></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.7.0/fullcalendar.min.css" />
+  <link rel="stylesheet" media="print" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.7.0/fullcalendar.print.css" />
+  <link rel="stylesheet" href="{% static 'company/style.css' %}" />
+
+  <script type="text/javascript">
+  $(document).ready(function() {
+
+    $("#calendar").fullCalendar({
+      locale: 'pl',
+  		defaultView: 'agendaWeek',
+
+  		views:{
+  		agenda:{
+  	 	    allDaySlot: false,
+  				minTime: "{{workday_start|date:"H:i:s"}}",
+  		    maxTime: "{{workday_end|date:"H:i:s"}}",
+  		    slotDuration: "00:15:00"
+  			}
+  		},
+
+    eventSources: [
+    {
+      events: [
+        {% for n in result %}
+        {
+          start: '{{n.from_time|date:"M. d Y H:i:s"}}',
+          end: '{{n.to_time|date:"M. d Y H:i:s"}}',
+        },
+        {% endfor %}
+        ],
+    }
+  ],
+
+  eventClick: function(event) {
+    if (event.start) {
+      let date = event.start;
+      let text = ("Czy chcesz zarezerwowac uslugę dnia " + date.format("D - M - Y") + " o godzinie " + date.format("H : mm?"));
+      $('#reservation-confirm-box').append('<div id = "reservation-text-box"><p id = "reservation-confirm-text">' + text + '</p><div><button id = "reservation-confirm-yes-button">Tak</button><button id = "reservation-confirm-no-button">Nie</button></div></div>');
+      $('#reservation-confirm-window').show();
+      $('#reservation-confirm-no-button').click(function(e){
+        e.preventDefault();
+        $('#reservation-confirm-window').hide();
+        $('#reservation-text-box').remove();
+      });
+    }
+  }
+
+
+
+  });
+});
+  </script>
+
+</head>
+
+
+
+
+<div id = 'calendar'>
+</div>
+
+<div id = "reservation-confirm-window">
+  <div id = "reservation-confirm-box">
+  </div>
+</div>
