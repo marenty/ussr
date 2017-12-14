@@ -9,7 +9,8 @@ import json
 from .models import *
 from django.views.generic.list import ListView
 from utilities.models import WorkdayCalendarParams
-
+import datetime
+import time
 
 def index(request):
     """Strona główna dla aplikacji ussr."""
@@ -17,12 +18,18 @@ def index(request):
 
 # def calGenListView(ListView):
 
+def calculate_date_to_display():
+
+    workday_calendar_params = WorkdayCalendarParams.objects.get( id_workday_calendar_params = 1 )
+    days_to_display = workday_calendar_params.days_to_display
+
+    start = datetime.datetime.now()
+    finish = datetime.date.today() + datetime.timedelta(days = days_to_display)
+
+    return start, finish
 
 def generate_calendar(request):
 
-    #service = SeDict.objects.get(id_se_dict = "WOPO")
-    #date_start = datetime.now()
-    #date_finish = date_start + datetime.timedelta(days = 7)
     workday_calendar = WorkdayCalendarParams.objects.get(id_workday_calendar_params = 1)
 
     week_workday_start = workday_calendar.default_workday_start_time
@@ -45,14 +52,15 @@ def generate_calendar(request):
         workday_start = week_workday_start
         workday_end = week_workday_end
 
+    start, finish = calculate_date_to_display()
 
-
-
-    result = gen_calendar()
+    result = gen_calendar(start, finish)
 
     context = {'result' : result,
                 'workday_start' : workday_start,
                 'workday_end' : workday_end,
+                'display_start' : start,
+                'display_end' : finish
                 }
     # listResult = gen_calendar()
     # result = json.dumps(listResult)

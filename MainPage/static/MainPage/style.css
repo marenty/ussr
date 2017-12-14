@@ -110,3 +110,8 @@ footer {
 #footer-powered p{
   margin-bottom: 0;
 }
+
+#map-1{
+  width: 400px;
+  height: 400px;
+}

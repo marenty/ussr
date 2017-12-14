@@ -20,6 +20,7 @@
     $("#calendar").fullCalendar({
       locale: 'pl',
   		defaultView: 'agendaWeek',
+      hiddenDays: [ 0 ],
 
   		views:{
   		agenda:{
@@ -29,6 +30,11 @@
   		    slotDuration: "00:15:00"
   			}
   		},
+
+      validRange: {
+          start: '{{display_start|date:"Y-m-d"}}',
+          end: '{{display_end|date:"Y-m-d"}}',
+      },
 
     eventSources: [
     {
@@ -61,7 +67,7 @@
 
   });
 });
-  </script>
+</script>
 
 </head>
 

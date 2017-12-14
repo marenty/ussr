@@ -10,7 +10,7 @@
 {% for branch in branches_list %}
   <div style="margin: 200px; margin-top: 60px; margin-bottom: 40px">
         <h3>
-           {{ branch.address.street }} {{ branch.address.house_no }}/{{branch.address.apartment_no}}
+           {{ branch.address.street }} {{ branch.address.house_no }}{% if branch.address.apartment_no %}/{{branch.address.apartment_no}}{% endif %}
         </h3>
 
         <h3>
@@ -26,6 +26,9 @@
         </h3>
   </div>
   {% endfor %}
+
+  {% include "MainPage/google-maps.html" %}
+
 
   <div id = 'contact-form-box'>
     <form method="post" action="{% url 'MainPage:contact' %}">
