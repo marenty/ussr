@@ -3,6 +3,7 @@
 
 {% block content %}
 
+
     <div id = "logo-box">
       <img id = "logo" src = "{% static "MainPage/images/logo.png" %}">
     </div>
@@ -12,7 +13,7 @@
     <h2 class = "text-centered text-big">Zarezerwuj nasze usługi już teraz!</h2>
 
     <div id = "reservation-box">
-      <button type="button" class = "btn btn-primary" id = "reservation-button">Zarezerwuj</button>
+      <button type="button" class = "btn btn-primary" id = "reservation-button" onclick = "goToReservation()">Zarezerwuj</button>
     </div>
 
 {% endblock content %}

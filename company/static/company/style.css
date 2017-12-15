@@ -20,3 +20,8 @@
   border: 1px solid #ccc;
   background-color: white;
 }
+
+#calendar{
+  margin-left: 2%;
+  margin-right: 2%;
+}
