@@ -7,27 +7,34 @@
 </div>
 
 
-{% for branch in branches_list %}
-  <div style="margin: 200px; margin-top: 60px; margin-bottom: 40px">
-        <h3>
-           {{ branch.address.street }} {{ branch.address.house_no }}{% if branch.address.apartment_no %}/{{branch.address.apartment_no}}{% endif %}
-        </h3>
+<div class = "branch-box">
+  <div id = "map-div">
+  {% include "MainPage/google-maps.html" %}
+  </div>
+  {% for branch in branches_list %}
 
-        <h3>
-            {{ branch.address.zip }}  {{ branch.address.city }}
-        </h3>
+    <div class = "address-box">
+          <h3>
+             {{ branch.address.street }} {{ branch.address.house_no }}{% if branch.address.apartment_no %}/{{branch.address.apartment_no}}{% endif %}
+          </h3>
 
-        <h3>
-            tel. {{ branch.address.phone }}
-        </h3>
+          <h3>
+              {{ branch.address.zip }}  {{ branch.address.city }}
+          </h3>
 
-        <h3>
-            e-mail: {{ branch.address.email }}
-        </h3>
+          <h3>
+              tel. {{ branch.address.phone }}
+          </h3>
+
+          <h3>
+              e-mail: {{ branch.address.email }}
+          </h3>
   </div>
   {% endfor %}
 
-  {% include "MainPage/google-maps.html" %}
+</div>
+
+
 
 
   <div id = 'contact-form-box'>
