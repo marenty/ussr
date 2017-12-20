@@ -9,7 +9,7 @@
 		navigator.geolocation.getCurrentPosition(setCor);
 	}
 	
-	function setCor(cord) {
+	function setCor(position) {
 		user_lat = (position.coords.latitude);
 		user_lng = (position.coords.longitude);
 		console.log(user_lat);
