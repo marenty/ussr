@@ -1,0 +1,51 @@
+
+  <div id="map" class = "map-box"></div>
+
+    <script>
+	var cor;
+	var szara;
+function setCor(cord) {
+		cor = cord;
+}
+
+      function initMap() {
+	var dirServ = new google.maps.DirectionsService;
+	var dirDisp = new google.maps.DirectionsRenderer;
+	
+        szara = {"lat" : 50.021624,
+                 "lng" : 19.985222};
+
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 16,
+          center: szara
+        });
+        
+	dirDisp.setMap(map);
+	
+	
+        var marker = new google.maps.Marker({
+          position: szara,
+          map: map,
+        });
+
+	calcAndDispRt(dirServ, dirDisp);
+      }
+	
+	function calcAndDispRt(dirServ, dirDisp) {
+		dirServ.route({
+			origin: navigator.geolocation.getCurrentPosition(setCor),
+			destination: szara,
+			travelMode: 'DRIVING'
+		}, function(response, status) {
+			if (status === 'OK') {
+				dirDisp.setDirections(response);
+			} else {
+				window.alert('dupa ' + status);
+			}
+		});
+	}
+    </script>
+
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA435D5JC2tSOJlByaAc26JIRhP-woZMTo&callback=initMap">
+    </script>
