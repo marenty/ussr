@@ -5,6 +5,7 @@
 	var user_lat, user_lng;
 	var szara;
 	function getLocation() {
+		console.log("in");
 		navigator.geolocation.getCurrentPosition(setCor);
 	}
 	
@@ -17,6 +18,7 @@
 
 
       function initMap() {
+	      getLocation();
 	var dirServ = new google.maps.DirectionsService;
 	var dirDisp = new google.maps.DirectionsRenderer;
 	
