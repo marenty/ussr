@@ -2,11 +2,19 @@
   <div id="map" class = "map-box"></div>
 
     <script>
-	var cor;
+	var user_lat, user_lng;
 	var szara;
-function setCor(cord) {
-		cor = cord;
-}
+	function getLocation() {
+		navigator.geolocation.getCurrentPosition(setCor);
+	}
+	
+	function setCor(cord) {
+		user_lat = (position.coords.latitude);
+		user_lng = (position.coords.longitude);
+		console.log(user_lat);
+		initMap();
+	}
+
 
       function initMap() {
 	var dirServ = new google.maps.DirectionsService;
@@ -14,7 +22,7 @@ function setCor(cord) {
 	
         szara = {"lat" : 50.021624,
                  "lng" : 19.985222};
-
+	
         var map = new google.maps.Map(document.getElementById('map'), {
           zoom: 16,
           center: szara
@@ -33,7 +41,8 @@ function setCor(cord) {
 	
 	function calcAndDispRt(dirServ, dirDisp) {
 		dirServ.route({
-			origin: navigator.geolocation.getCurrentPosition(setCor),
+			origin: {"lat" : user_lat,
+				"lng" : user_lng},
 			destination: szara,
 			travelMode: 'DRIVING'
 		}, function(response, status) {
