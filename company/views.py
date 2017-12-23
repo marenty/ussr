@@ -45,7 +45,7 @@ def generate_calendar(request):
 
     if request.method == 'POST' and request.is_ajax():
 
-        service = request.POST.get('service_code')
+        service = SeDict.objects.get(id_se_dict = request.POST.get('service_code'))
 
         workday_calendar = WorkdayCalendarParams.objects.get(id_workday_calendar_params = 1)
 
@@ -71,9 +71,10 @@ def generate_calendar(request):
 
         start, finish = calculate_date_to_display()
 
-        result = gen_calendar(service, start, finish)
+        result = gen_calendar(service.id_se_dict, start, finish)
 
         context = {'result' : result,
+                    'service' : service,
                     'workday_start' : workday_start,
                     'workday_end' : workday_end,
                     'display_start' : start,

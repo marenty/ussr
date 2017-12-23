@@ -1,0 +1,59 @@
+#reservation-confirm-window{
+  position: fixed;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+  display: none;
+  background-color: rgba(117, 20, 110, 0.8);
+  z-index: 100;
+}
+
+#reservation-confirm-box{
+  position:fixed;
+  top: 50%;
+  left: 50%;
+  width:600px;
+  height:100px;
+  margin-top: -15em;
+  margin-left: -15em;
+  border: 1px solid #ccc;
+  background-color: white;
+}
+
+#calendar{
+  margin-left: 2%;
+  margin-right: 2%;
+}
+
+.select-service{
+  margin-left: 40%;
+  width: 300px;
+}
+
+.disactive-select-service{
+  display: none;
+}
+
+.active-select-service{
+  display: block;
+}
+
+#select-service-group-box{
+  text-align: center;
+}
+#select-service-group-box h3{
+  text-align: center;
+}
+
+#select-service-box{
+  text-align: center;
+}
+
+#select-service-message{
+  display:none;
+}
+
+#select-service-message h3{
+  text-align: center;
+}
