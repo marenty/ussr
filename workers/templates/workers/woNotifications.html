@@ -1,0 +1,20 @@
+{% extends "workers/base.html" %}
+
+{% block header %}
+  <h1>Tematy</h1>
+{% endblock %}
+
+{% block content %}
+
+  <ul>
+    {% for woNotification in woNotifications %}
+      <li>
+          <p>{{ woNotification }}</p>
+          <p>{{ woNotification.notification_text }}</p>
+      </li>
+    {% empty %}
+      <li>Obecnie brak notatek.</li>
+    {% endfor %}
+  </ul>
+
+{% endblock content %}
