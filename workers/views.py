@@ -7,9 +7,9 @@ from django.contrib.auth.models import User, Group
 from django.contrib.auth.decorators import user_passes_test
 from .models import Worker
 from utilities.models import Address
-from .forms import WorkerAddressForm, WorkerPersonalInformationsForm
+from .forms import WorkerAddressForm, WorkerPersonalInformationsForm, WoNotificationForm
 from django.core.exceptions import ObjectDoesNotExist
-
+from .models import WoNotification
 
 
 def is_logged_employee(user):
@@ -71,3 +71,10 @@ def logout_view(request):
 @user_passes_test(is_logged_employee, login_url = '/users/login', redirect_field_name = None)
 def employee_main(request):
     return  render(request, 'workers/index.html')
+
+
+@user_passes_test(is_logged_employee, login_url = 'users/login/', redirect_field_name = None)
+def woNotifications(request):
+    woNotifications = WoNotification.objects.all()
+    context = {'woNotifications': woNotifications}
+    return render(request, 'workers/woNotifications.html', context)

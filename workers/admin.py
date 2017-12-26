@@ -6,6 +6,7 @@ from .models import *
 
 admin.site.register(WoAbility)
 admin.site.register(WoAbilityDict)
+admin.site.register(WoNotification)
 # admin.site.register(WoAbilityGroupDict)
 # admin.site.register(WoAbsence)
 # admin.site.register(WoAbsenceType)
