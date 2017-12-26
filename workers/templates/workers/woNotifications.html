@@ -9,7 +9,8 @@
   <ul>
     {% for woNotification in woNotifications %}
       <li>
-          <li>{{ woNotification }}</li>
+          <p>{{ woNotification }}</p>
+          <p>{{ woNotification.notification_text }}</p>
       </li>
     {% empty %}
       <li>Obecnie brak notatek.</li>

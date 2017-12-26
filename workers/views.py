@@ -78,3 +78,9 @@ def woNotifications(request):
     woNotifications = WoNotification.objects.all()
     context = {'woNotifications': woNotifications}
     return render(request, 'workers/woNotifications.html', context)
+
+#@user_passes_test(is_logged_employee, login_url = 'users/login/', redirect_field_name = None)
+#def woNotification(request, woNotification_id):
+    #woNotification = get_object_or_404(id_wo_notification, id=woNotification_id)
+    #context = {'woNotifications': woNotifications}
+    #return render(request, 'workers/woNotification.html', context)
