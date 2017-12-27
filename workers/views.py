@@ -100,3 +100,22 @@ def new_woNotification(request):
 
     context = {'form': form}
     return render(request, 'workers/new_woNotification.html', context)
+
+
+@user_passes_test(is_logged_employee, login_url = 'users/login/', redirect_field_name = None)
+def edit_woNotification(request, woNotification_id):
+    woNotification = WoNotification.objects.get(id_wo_notification=woNotification_id)
+    #if topic.owner != request.user:
+        #raise Http404
+    if request.method != 'POST':
+        # Żądanie początkowe, wypełnienie formularza aktualną treścią wpisu.
+        form = WoNotificationForm(instance=woNotification)
+    else:
+        form = WoNotificationForm(instance=woNotification, data=request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse('workers:woNotification',
+                                        args=[woNotification.id_wo_notification]))
+
+    context = {'woNotification': woNotification, 'form': form}
+    return render(request, 'workers/edit_woNotification.html', context)

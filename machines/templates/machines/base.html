@@ -11,6 +11,7 @@
   </head>
 <p>
   <a href="{% url 'MainPage:index' %}">Strona główna</a> -
+  <a href="{% url 'workers:employee_index' %}">Strona pracownika</a> -
   <a href="{% url 'machines:machinetypes' %}">Typy maszyn</a> -
 
   {% if user.is_authenticated %}
