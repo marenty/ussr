@@ -75,12 +75,28 @@ def employee_main(request):
 
 @user_passes_test(is_logged_employee, login_url = 'users/login/', redirect_field_name = None)
 def woNotifications(request):
-    woNotifications = WoNotification.objects.all()
+    woNotifications = WoNotification.objects.order_by('-id_wo_notification')
     context = {'woNotifications': woNotifications}
     return render(request, 'workers/woNotifications.html', context)
 
-#@user_passes_test(is_logged_employee, login_url = 'users/login/', redirect_field_name = None)
-#def woNotification(request, woNotification_id):
-    #woNotification = get_object_or_404(id_wo_notification, id=woNotification_id)
-    #context = {'woNotifications': woNotifications}
-    #return render(request, 'workers/woNotification.html', context)
+@user_passes_test(is_logged_employee, login_url = 'users/login/', redirect_field_name = None)
+def woNotification(request, woNotification_id):
+    woNotification = WoNotification.objects.get(id_wo_notification=woNotification_id)
+    context = {'woNotification': woNotification}
+    return render(request, 'workers/woNotification.html', context)
+
+@user_passes_test(is_logged_employee, login_url = 'users/login/', redirect_field_name = None)
+def new_woNotification(request):
+    if request.method != 'POST':
+        form = WoNotificationForm()
+    else:
+        form = WoNotificationForm(request.POST)
+        if form.is_valid():
+            #new_topic = form.save(commit=False)
+            #new_topic.owner = request.user
+            #new_topic.save()
+            form.save()
+            return HttpResponseRedirect(reverse('workers:woNotifications'))
+
+    context = {'form': form}
+    return render(request, 'workers/new_woNotification.html', context)
