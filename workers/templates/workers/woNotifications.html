@@ -5,12 +5,13 @@
 {% endblock %}
 
 {% block content %}
-
+<a href="{% url 'workers:new_woNotification' %}">Dodaj nowy alert</a>
   <ul>
     {% for woNotification in woNotifications %}
       <li>
-          <p>{{ woNotification }}</p>
-          <p>{{ woNotification.notification_text }}</p>
+        <p><a href="{% url 'workers:woNotification' woNotification.id_wo_notification %}">{{ woNotification }}</a> - Pracownik: {{ woNotification.worker }}</p>
+          <p>Temat: {{ woNotification.notification_subject }}</p>
+          <p>Tekst: {{ woNotification.notification_text }}</p>
       </li>
     {% empty %}
       <li>Obecnie brak notatek.</li>

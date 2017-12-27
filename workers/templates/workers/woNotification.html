@@ -1,0 +1,19 @@
+{% extends "workers/base.html" %}
+
+{% block content %}
+  <a href="{% url 'workers:woNotifications' %}">Powrót-notatki</a>
+  <p>Temat: {{ woNotification.notification_subject }}</p>
+
+    <p>Id:{{ woNotification.id_wo_notification }}</p>
+	  <p>Pracownik: {{ woNotification.worker }}</p>
+	  <p>Grupa pracowników: {{ woNotification.worker_group }}</p>
+	  <p>Temat przypomnienia: {{ woNotification.notification_subject }}</p>
+    <p>Tekst przypomnienia: {{ woNotification.notification_text }}</p>
+	  <p>Ważność: {{ woNotification.severity }}</p>
+	  <p>Oznaczone jako przeczytane: {{ woNotification.marked_as_read }}</p>
+	  <p>Oddział: {{ woNotification.company_branch }}</p>
+
+    <a href="{% url 'workers:edit_woNotification' woNotification.id_wo_notification %}">Edycja alertu</a>
+
+
+{% endblock content %}

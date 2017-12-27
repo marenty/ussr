@@ -1,0 +1,12 @@
+{% extends "workers/base.html" %}
+
+{% block content %}
+  <p>Dodaj nowy alert:</p>
+
+  <form action="{% url 'workers:new_woNotification' %}" method='post'>
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button name="submit">Dodaj alert</button>
+  </form>
+
+{% endblock content %}
