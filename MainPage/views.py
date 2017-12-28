@@ -54,7 +54,7 @@ def about(request):
     return render(request, 'MainPage/about.html', context)
 
 def directions(request):
-    return render(request, 'MainPage/gmaps2.html')
+    return render(request, 'MainPage/gmaps.html')
 
 """
 class LookupView(FormView):
