@@ -2,6 +2,8 @@
 
 {% block content %}
 
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static "workers/style.css" %}" />
 
 
 
@@ -21,5 +23,7 @@
   <a class = "worker-navigation-link" href="{% url 'machines:machinetypes' %})"> Maszyny </a>
 </div>
 </div>
+
+
 
 {% endblock content %}

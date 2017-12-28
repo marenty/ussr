@@ -219,6 +219,11 @@ class Worker(models.Model):
     company_branch = models.ForeignKey('company.CompanyBranch', models.DO_NOTHING, db_column='company_branch', default='main', verbose_name='Oddział')
     user_login = models.OneToOneField('auth.User', models.DO_NOTHING, db_column = 'worker_user_login', blank=True, null=True, verbose_name='Login')
 
+
+    def get_employee_name(self):
+        name = self.first_name + ' ' + self.last_name
+        return name
+
     class Meta:
         managed = False
         db_table = 'worker'

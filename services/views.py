@@ -17,18 +17,39 @@ from utilities.models import WorkdayCalendarParams, ResourcesUsage, WorkdayCalen
 from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
 from .forms import ReservationForm
+from .tables import ClientServicesTable, WorkerServicesTable
+from django_tables2 import RequestConfig
+
 
 def services(request):
     services = SeDict.objects.all()
     context = {'services': services}
     return render(request, 'services/services.html', context)
 
+def client_services(request):
+    request_client = Client.objects.get(client_user_login = request.user.id)
+    client_services = Service.objects.filter(client = request_client)
+    client_resource_usage = ResourcesUsage.objects.filter(service__in = client_services)
 
-def index(request):
-    """Strona główna dla aplikacji ussr."""
-    return render(request, 'company/index.html')
+    client_services_table = ClientServicesTable(client_resource_usage)
+    RequestConfig(request).configure(client_services_table)
 
-# def calGenListView(ListView):
+    context = {'client_services_table' : client_services_table}
+
+    return render(request, 'services/client_services.html', context)
+
+def worker_services(request):
+    request_worker = Worker.objects.get(user_login = request.user.id)
+    worker_resource_usage = ResourcesUsage.objects.filter(worker = request_worker)
+
+    worker_services_table = WorkerServicesTable(worker_resource_usage)
+    RequestConfig(request).configure(worker_services_table)
+
+    context = {'worker_services_table' : worker_services_table}
+
+    return render(request, 'services/worker_services.html', context)
+
+
 
 def generate_summary(request):
     if request.method == 'POST':
