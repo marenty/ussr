@@ -4,15 +4,15 @@
 
   <p>Typy maszyn:</p>
 
-  <ul>
+
     {% for machinetype in machinetypes %}
-      <li>
-	 <a href="{% url 'machines:machinetype' machinetype.id_machine_type %}">{{ machinetype }}</a>
-	  </li>
+
+	 <p><a href="{% url 'machines:machinetype' machinetype.id_machine_type %}"><button type="button" class="btn btn-default">{{ machinetype }}</button></a> - {{ machinetype.machine_type_name }}</p>
+
     {% empty %}
-      <li>Nie został jeszcze dodany żaden typ maszyn.</li>
+      Nie został jeszcze dodany żaden typ maszyn.
     {% endfor %}
-  </ul>
-  <a href="{% url 'machines:new_machinetype' %}">Dodaj nowy typ</a>
+  
+  <a href="{% url 'machines:new_machinetype' %}"><button type="button" class="btn btn-default">Dodaj nowy typ</button></a>
 
 {% endblock content %}
