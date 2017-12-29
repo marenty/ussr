@@ -1,14 +1,23 @@
 {% extends "machines/base.html" %}
+{% load bootstrap4 %}
 
 {% block content %}
 
   <p><a href="{% url 'machines:machinetype' machinetype.id_machine_type %}"><button type="button" class="btn btn-default">{{ machinetype }}</button></a></p>
 
   <p>Dodaj nową maszynę:</p>
-  <form action="{% url 'machines:new_machine' machinetype.id_machine_type %}" method='post'>
+  <form action="{% url 'machines:new_machine' machinetype.id_machine_type %}" method='post' class="form-horizontal">
     {% csrf_token %}
-    {{ form.as_p }}
-    <button name='submit'>Dodaj maszynę</button>
+    {% for field in form %}
+        <div class="form-group">
+            {{ field.errors }}
+            <label class="col-sm-3" control-label>{{ field.label_tag }}</label> {{ field }}
+          </div>
+    
+    {% endfor %}
+    {% buttons %}
+    <button name="submit" class="btn btn-primary">Dodaj maszynę</button>
+    {% endbuttons %}
   </form>
 
 {% endblock content %}

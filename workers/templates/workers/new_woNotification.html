@@ -1,12 +1,21 @@
 {% extends "workers/base.html" %}
+{% load bootstrap4 %}
 
 {% block content %}
   <p>Dodaj nowy alert:</p>
 
-  <form action="{% url 'workers:new_woNotification' %}" method='post'>
+  <form action="{% url 'workers:new_woNotification' %}" method='post' class="form-horizontal">
     {% csrf_token %}
-    {{ form.as_p }}
-    <button name="submit">Dodaj alert</button>
+    {% for field in form %}
+        <div class="form-group">
+            {{ field.errors }}
+            <label class="col-sm-3" control-label>{{ field.label_tag }}</label> {{ field }}
+          </div>
+    {% endfor %}
+    {% buttons %}
+    <button name="submit" class="btn btn-primary">Dodaj alert</button>
+    {% endbuttons %}
+
   </form>
 
 {% endblock content %}

@@ -6,6 +6,8 @@
 
 {% block content %}
 <a href="{% url 'workers:new_woNotification' %}"><button type="button" class="btn btn-default">Dodaj nowy alert</button></a>
+<br>
+<br>
   <ul>
     {% for woNotification in woNotifications %}
       <li>
