@@ -217,7 +217,7 @@ class Worker(models.Model):
     address = models.ForeignKey('utilities.Address', models.DO_NOTHING, db_column='address', blank=True, null=True, verbose_name='Adres')
     notes = models.CharField(max_length=400, blank=True, null=True, verbose_name='Uwagi')
     company_branch = models.ForeignKey('company.CompanyBranch', models.DO_NOTHING, db_column='company_branch', default='main', verbose_name='Oddział')
-    user_login = models.OneToOneField('auth.User', models.DO_NOTHING, db_column = 'worker_user_login', blank=True, null=True, verbose_name='Login')
+    user_login = models.OneToOneField('auth.User', models.DO_NOTHING, db_column = 'worker_user_login', blank=True, null=True, verbose_name='Login', unique = True)
 
 
     def get_employee_name(self):

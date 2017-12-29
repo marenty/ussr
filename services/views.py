@@ -186,3 +186,46 @@ def generate_calendar(request):
 # def add(request):
 #     sqlResult = sqlSelect()
 #     return render(request, 'company/sql.html', {'queryResult': sqlResult})
+
+def generate_worker_calendar(request):
+
+    if request.method == 'GET' and request.is_ajax():
+
+        request_worker = Worker.objects.get(user_login = request.user.id)
+
+        start, finish = calculate_date_to_display()
+
+        worker_resource_usage = ResourcesUsage.objects.filter(worker = request_worker, start_timestamp__gt = start, finish_timestamp__lt = finish)
+
+        workday_calendar = WorkdayCalendarParams.objects.get(id_workday_calendar_params = 1)
+
+        week_workday_start = workday_calendar.default_workday_start_time
+        week_workday_end = workday_calendar.default_workday_end_time
+
+        saturday_workday_start = workday_calendar.default_saturday_start_time
+        saturday_workday_end = workday_calendar.default_saturday_end_time
+
+        if ( saturday_workday_start != None and saturday_workday_end != None):
+            if (week_workday_start < saturday_workday_start):
+                workday_start = week_workday_start
+            else:
+                workday_start = saturday_workday_start
+
+            if (week_workday_end > saturday_workday_end):
+                workday_end = week_workday_end
+            else:
+                workday_end = saturday_workday_end
+        else:
+            workday_start = week_workday_start
+            workday_end = week_workday_end
+
+        context = {'worker_resource_usage' : worker_resource_usage,
+                    'workday_start' : workday_start,
+                    'workday_end' : workday_end,
+                    'display_start' : start,
+                    'display_end' : finish
+                    }
+        # listResult = gen_calendar()
+        # result = json.dumps(listResult)
+        # result = '/n'.join(record in listResults)
+        return render(request, 'workers/worker_calendar.html', context)

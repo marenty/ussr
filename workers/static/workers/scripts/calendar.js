@@ -1,10 +1,10 @@
 function get_worker_calendar() {
     $.ajax({
-        url : "/services/worker_services/", // the endpoint
+        url : "/services/get_worker_calendar/", // the endpoint
         type : "GET", // http method
 
           success : function(response) {
-            $('#worker-table').html(response);
+            $('#worker-calendar').html(response);
         },
     });
 };
