@@ -1,7 +1,7 @@
 {% extends "workers/base.html" %}
 
 {% block content %}
-  <a href="{% url 'workers:woNotifications' %}">Powrót-notatki</a>
+  <a href="{% url 'workers:woNotifications' %}"><button type="button" class="btn btn-default">Powrót-notatki</button></a>
   <p>Temat: {{ woNotification.notification_subject }}</p>
 
     <p>Id:{{ woNotification.id_wo_notification }}</p>
@@ -13,7 +13,7 @@
 	  <p>Oznaczone jako przeczytane: {{ woNotification.marked_as_read }}</p>
 	  <p>Oddział: {{ woNotification.company_branch }}</p>
 
-    <a href="{% url 'workers:edit_woNotification' woNotification.id_wo_notification %}">Edycja alertu</a>
+    <a href="{% url 'workers:edit_woNotification' woNotification.id_wo_notification %}"><button type="button" class="btn btn-default">Edycja alertu</button></a>
 
 
 {% endblock content %}

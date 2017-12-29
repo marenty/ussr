@@ -53,6 +53,8 @@ INSTALLED_APPS = [
     'services',
     'users.apps.UsersConfig',
     'django_tables2',
+    #aplikacje innych firm
+    'bootstrap3'
 ]
 
 MIDDLEWARE = [
@@ -165,3 +167,8 @@ EMAIL_HOST_USER = os.environ.get('GMAIL_ADDRESS')
 EMAIL_HOST_PASSWORD = os.environ.get('GMAIL_PASS')
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
+
+# Settings for django-bootstrap3
+BOOTSTRAP3 = {
+    'include_jquery': True,
+    }
