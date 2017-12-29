@@ -3,7 +3,7 @@
 {% block content %}
 
   <p>Temat: {{ machinetype }} - {{ machinetype.machine_type_name }}</p>
-  <a href="{% url 'machines:new_machine' machinetype.id_machine_type %}"><button type="button" class="btn btn-default">Dodaj nową maszynę</button></a>
+  <a href="{% url 'machines:new_machine' machinetype.id_machine_type %}"><button type="button" class="btn btn-primary">Dodaj nową maszynę</button></a>
 <table class="table">
 <thead class="thead-dark">
 <tr>
@@ -25,7 +25,7 @@
 	  <td>{{ machine.last_service }}</td>
 	  <td>{{ machine.is_operational }}</td>
 	  <td>{{ machine.notes }}</td>
-	  <td><a href="{% url 'machines:edit_machine' machine.id_machine %}"><button type="button" class="btn btn-default">Edytuj maszyne</button></a></td>
+	  <td><a href="{% url 'machines:edit_machine' machine.id_machine %}"><button type="button" class="btn btn-primary">Edytuj maszyne</button></a></td>
     </tr>
   {% endfor %}
 </tbody>

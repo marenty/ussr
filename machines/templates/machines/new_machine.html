@@ -3,7 +3,7 @@
 
 {% block content %}
 
-  <p><a href="{% url 'machines:machinetype' machinetype.id_machine_type %}"><button type="button" class="btn btn-default">{{ machinetype }}</button></a></p>
+  <p><a href="{% url 'machines:machinetype' machinetype.id_machine_type %}"><button type="button" class="btn btn-primary">{{ machinetype }}</button></a></p>
 
   <p>Dodaj nową maszynę:</p>
   <form action="{% url 'machines:new_machine' machinetype.id_machine_type %}" method='post' class="form-horizontal">
