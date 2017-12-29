@@ -7,10 +7,15 @@
   <p>Nazwa użytkownika i hasło są nieprawidłowe. Proszę spróbować ponownie.</p>
   {% endif %}
 
-  <form method="post" action="{% url 'users:login' %}">
+  <form method="post" action="{% url 'users:login' %}" class="form-horizontal">
   {% csrf_token %}
-  {% bootstrap_form form %}
-
+  {% for field in form %}
+      <div class="form-group">
+          {{ field.errors }}
+          <label class="col-sm-3" control-label>{{ field.label_tag }}</label><div class="col-sm-9" > {{ field }}</div>
+        </div>
+      </div>
+  {% endfor %}
   {% buttons %}
   <button name="submit" class="btn btn-primary">Zaloguj</button>
   {% endbuttons %}

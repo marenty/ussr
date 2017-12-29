@@ -7,12 +7,17 @@
 
   <p>Edycja wpisu:</p>
 
-  <form action="{% url 'workers:edit_woNotification' woNotification.id_wo_notification %}" method='post'>
+  <form action="{% url 'workers:edit_woNotification' woNotification.id_wo_notification %}" method='post' class="form-horizontal">
     {% csrf_token %}
-    {% bootstrap_form form %}
-
+    {% for field in form %}
+        <div class="form-group">
+            {{ field.errors }}
+            <label class="col-sm-3" control-label>{{ field.label_tag }}</label><div class="col-sm-9" > {{ field }}</div>
+          </div>
+        </div>
+    {% endfor %}
     {% buttons %}
-    <button name="submit" class="btn btn-primary">Zapisz zmiany</button>
+      <button name="submit" class="btn btn-primary">Zapisz zmiany</button>
     {% endbuttons %}
 
 

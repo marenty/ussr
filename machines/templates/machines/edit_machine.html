@@ -1,16 +1,24 @@
 {% extends "machines/base.html" %}
 {% load bootstrap3 %}
-
 {% block content %}
 
   <p><a href="{% url 'machines:machinetype' machinetype.id_machine_type %}"><button type="button" class="btn btn-default">{{ machinetype }}</button></a></p>
 
   <p>Edycja wpisu:</p>
 
-  <form action="{% url 'machines:edit_machine' machine.id_machine %}" method='post'>
+  <form action="{% url 'machines:edit_machine' machine.id_machine %}" method='post' class="form-horizontal">
     {% csrf_token %}
-    {% bootstrap_form form %}
-    <button name="submit">Zapisz zmiany</button>
+    {% for field in form %}
+        <div class="form-group">
+            {{ field.errors }}
+            <label class="col-sm-3" control-label>{{ field.label_tag }}</label><div class="col-sm-9" > {{ field }}</div>
+         </div>
+        </div>
+    {% endfor %}
+    {% buttons %}
+      <button name="submit" class="btn btn-primary">Zapisz zmiany</button>
+    {% endbuttons %}
+
   </form>
 
 {% endblock content %}
