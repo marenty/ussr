@@ -1,4 +1,5 @@
-{% extends "base.html" %}
+{% extends "MainPage/base.html" %}
+{% load bootstrap3 %}
 
 {% block content %}
 
@@ -8,9 +9,11 @@
 
   <form method="post" action="{% url 'users:login' %}">
   {% csrf_token %}
-  {{ form.as_p }}
+  {% bootstrap_form form %}
 
-  <button name="submit">Zaloguj</button>
+  {% buttons %}
+  <button name="submit" class="btn btn-primary">Zaloguj</button>
+  {% endbuttons %}
   <input type="hidden" name="next" value="{% url 'MainPage:index' %}" />
   </form>
 

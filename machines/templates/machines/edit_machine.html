@@ -1,4 +1,5 @@
 {% extends "machines/base.html" %}
+{% load bootstrap3 %}
 
 {% block content %}
 
@@ -8,7 +9,7 @@
 
   <form action="{% url 'machines:edit_machine' machine.id_machine %}" method='post'>
     {% csrf_token %}
-    {{ form.as_p }}
+    {% bootstrap_form form %}
     <button name="submit">Zapisz zmiany</button>
   </form>
 
