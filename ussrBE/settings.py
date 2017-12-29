@@ -168,7 +168,7 @@ EMAIL_HOST_PASSWORD = os.environ.get('GMAIL_PASS')
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
-# Settings for django-bootstrap3
-BOOTSTRAP3 = {
+# Settings for django-bootstrap4
+BOOTSTRAP4 = {
     'include_jquery': True,
     }

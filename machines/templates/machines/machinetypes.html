@@ -7,12 +7,12 @@
 
     {% for machinetype in machinetypes %}
 
-	 <p><a href="{% url 'machines:machinetype' machinetype.id_machine_type %}"><button type="button" class="btn btn-default">{{ machinetype }}</button></a> - {{ machinetype.machine_type_name }}</p>
+	 <p><a href="{% url 'machines:machinetype' machinetype.id_machine_type %}"><button type="button" class="btn btn-primary">{{ machinetype }}</button></a> - {{ machinetype.machine_type_name }}</p>
 
     {% empty %}
       Nie został jeszcze dodany żaden typ maszyn.
     {% endfor %}
-  
-  <a href="{% url 'machines:new_machinetype' %}"><button type="button" class="btn btn-default">Dodaj nowy typ</button></a>
+
+  <a href="{% url 'machines:new_machinetype' %}"><button type="button" class="btn btn-primary">Dodaj nowy typ</button></a>
 
 {% endblock content %}
