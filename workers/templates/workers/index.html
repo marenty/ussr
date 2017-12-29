@@ -2,24 +2,42 @@
 
 {% block content %}
 
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static "workers/style.css" %}" />
+<script src="{% static "workers/scripts/calendar.js" %}"></script>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.7.0/fullcalendar.min.js"></script>
+<script type="text/javascript" src='{% static 'services/scripts/locale-all.js' %}'></script>
+<script type="text/javascript" src='{% static 'services/scripts/ajax_setup.js' %}'></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.7.0/fullcalendar.min.css" />
+<link rel="stylesheet" media="print" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.7.0/fullcalendar.print.css" />
 
+<script type="text/javascript">
+var csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
+</script>
 
 <p> Jesteś poprwanie zalogowanym pracownikiem </p>
-<div id = "navigation-panel">
-  <div class = "worker-navigation-element">
-    <a class = "worker-navigation-link" href="{% url 'workers:personal_informations' %}"> Zmień swoje dane </a>
-  </div>
+<div id = "worker-panel-grid">
+  <div id = "navigation-panel">
+    <div class = "worker-navigation-element">
+      <a class = "worker-navigation-link" href="{% url 'workers:personal_informations' %}"> Zmień swoje dane </a>
+    </div>
 
-  <div class = "worker-navigation-element">
-    <a class = "worker-navigation-link" href="{% url 'workers:client_list' %})"> Klienci </a>
+    <div class = "worker-navigation-element">
+      <a class = "worker-navigation-link" href="{% url 'workers:client_list' %})"> Klienci </a>
+    </div>
+    <div class = "worker-navigation-element">
+      <a class = "worker-navigation-link" href="{% url 'workers:woNotifications' %})"> Notatki </a>
+    </div>
+    <div class = "worker-navigation-element">
+      <a class = "worker-navigation-link" href="{% url 'machines:machinetypes' %})"> Maszyny </a>
+    </div>
   </div>
-<div class = "worker-navigation-element">
-  <a class = "worker-navigation-link" href="{% url 'workers:woNotifications' %})"> Notatki </a>
+  <div id = "worker-calendar">
+  </div>
 </div>
-<div class = "worker-navigation-element">
-  <a class = "worker-navigation-link" href="{% url 'machines:machinetypes' %})"> Maszyny </a>
-</div>
-</div>
+
 
 {% endblock content %}

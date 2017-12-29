@@ -17,18 +17,39 @@ from utilities.models import WorkdayCalendarParams, ResourcesUsage, WorkdayCalen
 from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
 from .forms import ReservationForm
+from .tables import ClientServicesTable, WorkerServicesTable
+from django_tables2 import RequestConfig
+
 
 def services(request):
     services = SeDict.objects.all()
     context = {'services': services}
     return render(request, 'services/services.html', context)
 
+def client_services(request):
+    request_client = Client.objects.get(client_user_login = request.user.id)
+    client_services = Service.objects.filter(client = request_client)
+    client_resource_usage = ResourcesUsage.objects.filter(service__in = client_services)
 
-def index(request):
-    """Strona główna dla aplikacji ussr."""
-    return render(request, 'company/index.html')
+    client_services_table = ClientServicesTable(client_resource_usage)
+    RequestConfig(request).configure(client_services_table)
 
-# def calGenListView(ListView):
+    context = {'client_services_table' : client_services_table}
+
+    return render(request, 'services/client_services.html', context)
+
+def worker_services(request):
+    request_worker = Worker.objects.get(user_login = request.user.id)
+    worker_resource_usage = ResourcesUsage.objects.filter(worker = request_worker)
+
+    worker_services_table = WorkerServicesTable(worker_resource_usage)
+    RequestConfig(request).configure(worker_services_table)
+
+    context = {'worker_services_table' : worker_services_table}
+
+    return render(request, 'services/worker_services.html', context)
+
+
 
 def generate_summary(request):
     if request.method == 'POST':
@@ -165,3 +186,46 @@ def generate_calendar(request):
 # def add(request):
 #     sqlResult = sqlSelect()
 #     return render(request, 'company/sql.html', {'queryResult': sqlResult})
+
+def generate_worker_calendar(request):
+
+    if request.method == 'GET' and request.is_ajax():
+
+        request_worker = Worker.objects.get(user_login = request.user.id)
+
+        start, finish = calculate_date_to_display()
+
+        worker_resource_usage = ResourcesUsage.objects.filter(worker = request_worker, start_timestamp__gt = start, finish_timestamp__lt = finish)
+
+        workday_calendar = WorkdayCalendarParams.objects.get(id_workday_calendar_params = 1)
+
+        week_workday_start = workday_calendar.default_workday_start_time
+        week_workday_end = workday_calendar.default_workday_end_time
+
+        saturday_workday_start = workday_calendar.default_saturday_start_time
+        saturday_workday_end = workday_calendar.default_saturday_end_time
+
+        if ( saturday_workday_start != None and saturday_workday_end != None):
+            if (week_workday_start < saturday_workday_start):
+                workday_start = week_workday_start
+            else:
+                workday_start = saturday_workday_start
+
+            if (week_workday_end > saturday_workday_end):
+                workday_end = week_workday_end
+            else:
+                workday_end = saturday_workday_end
+        else:
+            workday_start = week_workday_start
+            workday_end = week_workday_end
+
+        context = {'worker_resource_usage' : worker_resource_usage,
+                    'workday_start' : workday_start,
+                    'workday_end' : workday_end,
+                    'display_start' : start,
+                    'display_end' : finish
+                    }
+        # listResult = gen_calendar()
+        # result = json.dumps(listResult)
+        # result = '/n'.join(record in listResults)
+        return render(request, 'workers/worker_calendar.html', context)

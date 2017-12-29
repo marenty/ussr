@@ -5,11 +5,11 @@
 {% endblock %}
 
 {% block content %}
-<a href="{% url 'workers:new_woNotification' %}">Dodaj nowy alert</a>
+<a href="{% url 'workers:new_woNotification' %}"><button type="button" class="btn btn-default">Dodaj nowy alert</button></a>
   <ul>
     {% for woNotification in woNotifications %}
       <li>
-        <p><a href="{% url 'workers:woNotification' woNotification.id_wo_notification %}">{{ woNotification }}</a> - Pracownik: {{ woNotification.worker }}</p>
+        <p><a href="{% url 'workers:woNotification' woNotification.id_wo_notification %}"><button type="button" class="btn btn-default">{{ woNotification }}</button></a> - Pracownik: {{ woNotification.worker }}</p>
           <p>Temat: {{ woNotification.notification_subject }}</p>
           <p>Tekst: {{ woNotification.notification_text }}</p>
       </li>

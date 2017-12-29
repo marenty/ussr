@@ -1,3 +1,3 @@
 function goToReservation(){
-  location.href = "/company/test/";
+  location.href = "/services/reservation/";
 }

@@ -1,5 +1,6 @@
 
 {% load staticfiles %}
+{% load bootstrap3 %}
 
 <!doctype html>
 <html lang="en">
@@ -14,6 +15,9 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="{% static "MainPage/style.css" %}" />
     <script src="{% static 'MainPage/scripts/main.js' %}"></script>
+
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
 
 
   </head>
@@ -34,8 +38,14 @@
               <a class="nav-link" href="{% url 'services:services' %}">Usługi</a>
 
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'MainPage:contact' %}">Kontakt</a>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Kontakt
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="{% url 'MainPage:branches' %}">Nasze oddziały</a>
+              <a class="dropdown-item" href="{% url 'MainPage:contact_form' %}">Formularz kontaktowy</a>
+            </div>
           </li>
         </ul>
         {% if user.is_authenticated %}
@@ -53,6 +63,7 @@
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item" href="{% url 'clients:personal_informations' %}">Moje dane</a>
+                <a class="dropdown-item" href="{% url 'services:client_reservations' %}">Rezerwacje</a>
               </div>
             </li>
 

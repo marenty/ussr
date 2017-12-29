@@ -19,8 +19,10 @@ def index(request):
 
     return render(request, 'MainPage/index.html', context)
 
+def contact_form(request):
 
-def contact(request):
+    success = False
+
     if request.method != 'POST':
         contact_form = ContactForm()
     else:
@@ -35,15 +37,24 @@ def contact(request):
             'System USSR',
             ['USSRUG@gmail.com'],
             fail_silently=False)
-    
+
+            success = True
+
     contact_form = ContactForm()
+
+    context = {'contact_form' : contact_form,
+                'success' : success}
+
+    return render(request, 'MainPage/contact_form.html', context)
+
+def branches(request):
+
     branches_list = get_list_or_404(CompanyBranch)
     branch_id_list = CompanyBranch.objects.values_list('id_company_branch', flat=True)
     context = {'branches_list': branches_list,
-                'contact_form': contact_form,
                 'branch_id_list': branch_id_list}
 
-    return render(request, 'MainPage/contact.html', context)
+    return render(request, 'MainPage/branches.html', context)
 
 
 def about(request):
