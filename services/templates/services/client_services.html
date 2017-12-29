@@ -1,3 +1,8 @@
-{% load render_table from django_tables2 %}
+{% extends "MainPage/base.html" %}
 
+{% block content %}
+
+{% load render_table from django_tables2 %}
 {% render_table client_services_table %}
+
+{% endblock content %}
