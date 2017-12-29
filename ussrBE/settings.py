@@ -54,7 +54,7 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'django_tables2',
     #aplikacje innych firm
-    'bootstrap3'
+    'bootstrap4'
 ]
 
 MIDDLEWARE = [
