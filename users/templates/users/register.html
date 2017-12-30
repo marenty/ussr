@@ -2,13 +2,15 @@
 
 {% block content %}
 
-  <form method="post" action="{% url 'users:register' %}">
+  <form method="post" action="{% url 'users:register' %}" class="form-horizontal">
     {% csrf_token %}
     {{ user_form.as_p }}
     {{ name_form.as_p }}
     {{ address_form.as_p }}
 
-    <button name="submit">Rejestruj</button>
+    {% buttons %}
+    <button name="submit" class="btn btn-primary">Rejestruj</button>
+    {% endbuttons %}
     <input type="hidden" name="next" value="{% url 'MainPage:index' %}" />
   </form>
 

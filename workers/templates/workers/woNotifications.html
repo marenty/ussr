@@ -5,7 +5,10 @@
 {% endblock %}
 
 {% block content %}
+<br>
 <a href="{% url 'workers:new_woNotification' %}"><button type="button" class="btn btn-primary">Dodaj nowy alert</button></a>
+<br>
+<br>
   <ul>
     {% for woNotification in woNotifications %}
       <li>
