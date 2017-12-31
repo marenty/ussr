@@ -58,21 +58,23 @@ def register(request):
     return render(request, 'users/register.html', context)
 
 def user_login(request):
-    form = AuthenticationForm(data = request.POST)
-    if form.is_valid():
-        username = form.data['username']
-        password = form.data['password']
-        user = authenticate(request, username=username, password=password)
-        if user is not None:
-            if user.groups.filter(name='workers').exists():
-                login(request, user)
-                return HttpResponseRedirect(reverse('workers:employee_index'))
+    if request.method == 'POST':
+        form = AuthenticationForm(data = request.POST)
+        if form.is_valid():
+            username = form.data['username']
+            password = form.data['password']
+            user = authenticate(request, username=username, password=password)
+            if user is not None:
+                if user.groups.filter(name='workers').exists():
+                    login(request, user)
+                    return HttpResponseRedirect(reverse('workers:employee_index'))
+                else:
+                    login(request, user)
+                    return HttpResponseRedirect(reverse('MainPage:index'))
             else:
-                login(request, user)
-                return HttpResponseRedirect(reverse('MainPage:index'))
+                return render(request, 'users/login.html', {'form': form})
         else:
             return render(request, 'users/login.html', {'form': form})
-
     else:
         form = AuthenticationForm()
-    return render(request, 'users/login.html', {'form': form})
+        return render(request, 'users/login.html', {'form': form})

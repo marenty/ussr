@@ -13,7 +13,9 @@ from django.core.mail import send_mail
 
 
 
-
+def is_logged_client(user):
+    if user is not None:
+        return Client.objects.get(client_user_login = user.id).exists()
 
 @login_required
 def change_personal_informations(request):

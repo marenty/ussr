@@ -11,4 +11,5 @@ urlpatterns = [
     url(r'^client_reservations/', views.client_services, name = 'client_reservations'),
     url(r'^worker_services/', views.worker_services, name = 'worker_services'),
     url(r'^get_worker_calendar/', views.generate_worker_calendar, name = 'get_worker_calendar'),
+    url(r'^service_resignation/', views.client_service_resignation, name = 'service_resignation'),
 ]

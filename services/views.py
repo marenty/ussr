@@ -38,6 +38,23 @@ def client_services(request):
 
     return render(request, 'services/client_services.html', context)
 
+def client_service_resignation(request):
+    if request.method == 'POST' and request.is_ajax():
+        service_resources_usage = get_object_or_404(ResourcesUsage, id_resources_usage = request.POST.get("id_resources_usage"))
+        if (service_resources_usage != None):
+            service = service_resources_usage.service
+            service.delete()
+            service_resources_usage.delete()
+            html = '<p>Rezygnacja powiodla się</p>'
+            return HttpResponse(html)
+        else:
+            html = '<p>Rezygnacja nie powiodla się. Spróbuj później lub skontaktuj się z nami</p>'
+            return HttpResponse(html)
+    else:
+        html = '<p>Rezygnacja nie powiodla się. Spróbuj później lub skontaktuj się z nami</p>'
+        return HttpResponse(html)
+
+
 def worker_services(request):
     request_worker = Worker.objects.get(user_login = request.user.id)
     worker_resource_usage = ResourcesUsage.objects.filter(worker = request_worker)
