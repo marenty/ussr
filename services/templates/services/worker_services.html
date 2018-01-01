@@ -6,16 +6,28 @@
 {% load staticfiles %}
 <script type="text/javascript" src='{% static "services/scripts/ajax_setup.js" %}'></script>
 <script type="text/javascript" src='{% static "services/scripts/worker_services.js" %}'></script>
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+<script>
+$(function() {
+   $( "#id_start_timestamp" ).datepicker();
+   $( "#id_finish_timestamp" ).datepicker();
+});
+</script>
+
 
 {% csrf_token %}
 <script type="text/javascript">
 var csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
 </script>
 
-<div id = "service-table">
-  <p>Twoje przyszle uslugi</p>
-{% render_table worker_services_table %}
-</div>
+<form action="" method="get">
+    {{ filter.form.as_p }}
+    <input type="submit" />
+</form>
+
+{% render_table table %}
 
 <div id = "buttons">
   <input type = "button" onclick="get_all_reservations();" value = "Zobacz wszystkie przyszle rezerwacje">

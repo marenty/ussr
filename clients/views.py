@@ -68,7 +68,7 @@ def clientCRUDlist(request):
 
     clients = Client.objects.all()
     client_table = ClientTable(clients)
-    RequestConfig(request).configure(client_table)
+    RequestConfig(request, paginate={"per_page": 20, "page": 1}).configure(client_table)
     name_form = ClientPersonalInformationsForm()
     address_form = ClientAddressForm()
     email_form = EmailForm()

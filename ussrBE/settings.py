@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     'django_tables2',
     #aplikacje innych firm
     'bootstrap4',
+    'django_filters',
 ]
 
 MIDDLEWARE = [

@@ -1,4 +1,5 @@
 {% extends "MainPage/base.html" %}
+{% load bootstrap4 %}
 
 {% block content %}
 
@@ -9,12 +10,7 @@
   <div id = 'contact-form-box'>
     <form method="post" action="{% url 'MainPage:contact_form' %}">
         {% csrf_token %}
-        {% for field in contact_form %}
-        <div class="form-group">
-          <h3>{{field.label}}:</h3>
-          {{field}}
-        </div>
-        {% endfor %}
+        {% bootstrap_form contact_form %}
         <input type="submit" value="Wyślij" />
     </form>
   </div>

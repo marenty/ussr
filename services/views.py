@@ -19,6 +19,7 @@ from django.contrib.auth.decorators import login_required
 from .forms import ReservationForm
 from .tables import AllServicesTable, ClientServicesTable, ClientFinishedServicesTable, WorkerServicesTable
 from django_tables2 import RequestConfig
+from .filters import FilteredResourceUsageListView, ResourcesUsageFilter
 
 
 def services(request):
@@ -66,18 +67,25 @@ def client_service_resignation(request):
         html = '<p>Rezygnacja nie powiodla się. Spróbuj później lub skontaktuj się z nami</p>'
         return HttpResponse(html)
 
+#
+# def worker_services_table(request):
+#     request_worker = Worker.objects.get(user_login = request.user.id)
+#     worker_resource_usage = ResourcesUsage.objects.filter(worker = request_worker, start_timestamp__gte = datetime.datetime.now())
+#
+#     worker_services_table = WorkerServicesTable(worker_resource_usage)
+#     RequestConfig(request).configure(worker_services_table)
+#
+#     context = {'worker_services_table' : worker_services_table}
+#
+#     return render(request, 'services/worker_services.html', context)
+
 
 def worker_services_table(request):
-    request_worker = Worker.objects.get(user_login = request.user.id)
-    worker_resource_usage = ResourcesUsage.objects.filter(worker = request_worker, start_timestamp__gte = datetime.datetime.now())
-
-    worker_services_table = WorkerServicesTable(worker_resource_usage)
-    RequestConfig(request).configure(worker_services_table)
-
-    context = {'worker_services_table' : worker_services_table}
-
-    return render(request, 'services/worker_services.html', context)
-
+    queryset = ResourcesUsage.objects.select_related().all()
+    f = ResourcesUsageFilter(request.GET, queryset=queryset)
+    table = AllServicesTable(f.qs)
+    RequestConfig(request, paginate={"per_page": 20, "page": 1}).configure(table)
+    return render(request, 'services/worker_services.html', {'table': table, 'filter': f})
 
 def get_all_future_reservations(request):
     worker_resource_usage = ResourcesUsage.objects.filter(start_timestamp__gte = datetime.datetime.now())

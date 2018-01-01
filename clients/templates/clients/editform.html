@@ -1,3 +1,6 @@
+{% extends "MainPage/base.html" %}
+
+{% block content %}
 
   <form  id="client-edit-form">
     {% csrf_token %}
@@ -5,3 +8,5 @@
     {{ address_form.as_p }}
     <button id = "client-edit-button" type="submit" value = "{{ client.id_client}}">Zapisz zmiany</button>
   </form>
+
+{% endblock content %}
