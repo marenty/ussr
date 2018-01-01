@@ -1,3 +1,25 @@
+{% extends "workers/base.html" %}
+{% block content %}
+
 {% load render_table from django_tables2 %}
 
+{% load staticfiles %}
+<script type="text/javascript" src='{% static "services/scripts/ajax_setup.js" %}'></script>
+<script type="text/javascript" src='{% static "services/scripts/worker_services.js" %}'></script>
+
+{% csrf_token %}
+<script type="text/javascript">
+var csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
+</script>
+
+<div id = "service-table">
+  <p>Twoje przyszle uslugi</p>
 {% render_table worker_services_table %}
+</div>
+
+<div id = "buttons">
+  <input type = "button" onclick="get_all_reservations();" value = "Zobacz wszystkie przyszle rezerwacje">
+  <input type = "button" onclick="get_all_past_reservations();" value = "Zobacz zakonczone uslugi">
+  <input type = "button" onclick="" value = "Pobierz raport">
+</div>
+{% endblock content %}

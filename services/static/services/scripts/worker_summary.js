@@ -1,6 +1,6 @@
 function submitreservation(){
   $.ajax({
-      url : "/services/save_reservation/", // the endpoint
+      url : "/services/save_worker_reservation/", // the endpoint
       type : "POST", // http method
       data : $('#reservation-form').serialize(), // data sent with the post request
 
@@ -55,7 +55,7 @@ $(document).ready(function() {
   });
 
   $('#resignation').click(function(){
-    window.location.replace("/services/reservation/");
+    window.location.replace("/services/worker_reservation/");
   });
 
   $('#reservation-form').on('submit', function(e){

@@ -17,7 +17,7 @@ from utilities.models import WorkdayCalendarParams, ResourcesUsage, WorkdayCalen
 from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
 from .forms import ReservationForm
-from .tables import ClientServicesTable, WorkerServicesTable
+from .tables import AllServicesTable, ClientServicesTable, ClientFinishedServicesTable, WorkerServicesTable
 from django_tables2 import RequestConfig
 
 
@@ -26,15 +26,27 @@ def services(request):
     context = {'services': services}
     return render(request, 'services/services.html', context)
 
+# Displaying Services
+
 def client_services(request):
     request_client = Client.objects.get(client_user_login = request.user.id)
     client_services = Service.objects.filter(client = request_client)
-    client_resource_usage = ResourcesUsage.objects.filter(service__in = client_services)
+    client_resource_usage = ResourcesUsage.objects.filter(service__in = client_services, start_timestamp__gte = datetime.datetime.now())
+    client_resource_usage_finished = ResourcesUsage.objects.filter(service__in = client_services, start_timestamp__lt = datetime.datetime.now())
 
-    client_services_table = ClientServicesTable(client_resource_usage)
-    RequestConfig(request).configure(client_services_table)
+    context = {}
 
-    context = {'client_services_table' : client_services_table}
+    if client_resource_usage.exists():
+        client_services_table = ClientServicesTable(client_resource_usage, order_by = 'service_detetime_start')
+        RequestConfig(request).configure(client_services_table)
+        context.update({'client_services_table' : client_services_table})
+
+    if client_resource_usage_finished.exists():
+        client_finished_services_table = ClientFinishedServicesTable(client_resource_usage_finished, order_by = '-service_detetime_start')
+        context.update({'client_finished_services_table' : client_finished_services_table})
+
+    if context == {}:
+        return render(request, 'services/client_empty_services.html')
 
     return render(request, 'services/client_services.html', context)
 
@@ -55,9 +67,9 @@ def client_service_resignation(request):
         return HttpResponse(html)
 
 
-def worker_services(request):
+def worker_services_table(request):
     request_worker = Worker.objects.get(user_login = request.user.id)
-    worker_resource_usage = ResourcesUsage.objects.filter(worker = request_worker)
+    worker_resource_usage = ResourcesUsage.objects.filter(worker = request_worker, start_timestamp__gte = datetime.datetime.now())
 
     worker_services_table = WorkerServicesTable(worker_resource_usage)
     RequestConfig(request).configure(worker_services_table)
@@ -67,6 +79,39 @@ def worker_services(request):
     return render(request, 'services/worker_services.html', context)
 
 
+def get_all_future_reservations(request):
+    worker_resource_usage = ResourcesUsage.objects.filter(start_timestamp__gte = datetime.datetime.now())
+
+    all_services_table = AllServicesTable(worker_resource_usage)
+    RequestConfig(request).configure(all_services_table)
+
+    context = {'all_services_table' : all_services_table}
+
+    return render(request, 'services/all_future_services_table.html', context)
+
+def get_all_past_reservations(request):
+    worker_resource_usage = ResourcesUsage.objects.filter(finish_timestamp__lt = datetime.datetime.now())
+
+    all_services_table = AllServicesTable(worker_resource_usage)
+    RequestConfig(request).configure(all_services_table)
+
+    context = {'all_services_table' : all_services_table}
+
+    return render(request, 'services/all_past_services_table.html', context)
+
+
+# Client Service reservation
+
+def reservation(request):
+
+    services_groups = SeGroupDict.objects.all()
+    services = SeDict.objects.all()
+
+
+    context = {'services_groups' : services_groups,
+                'services' : services}
+
+    return render(request, 'services/calendar_for_reservation.html', context)
 
 def generate_summary(request):
     if request.method == 'POST':
@@ -133,17 +178,78 @@ def save_reservation(request):
                             'facture' : new_resources_usage.machine}
                 return HttpResponse('success')
 
+# Worker Service reservation
 
-def reservation(request):
-
+def worker_reservation(request, id_client):
     services_groups = SeGroupDict.objects.all()
     services = SeDict.objects.all()
 
 
-    context = {'services_groups' : services_groups,
+    context = { 'id_client' : id_client,
+                'services_groups' : services_groups,
                 'services' : services}
 
-    return render(request, 'services/calendar_test.html', context)
+    return render(request, 'services/calendar_for_worker_reservation.html', context)
+
+
+def generate_worker_reservation_summary(request):
+    if request.method == 'POST':
+        reservation_form = ReservationForm(request.POST)
+        if reservation_form.is_valid():
+            service = SeDict.objects.get(id_se_dict = reservation_form.cleaned_data['service'])
+            datetime = reservation_form.cleaned_data['date']
+            client = Client.objects.get(id_client = reservation_form.cleaned_data['id_client'])
+
+        context = { 'client' : client,
+                    'service' : service,
+                    'datetime' : datetime}
+
+        return render(request, 'services/reservation_worker_summary.html', context)
+
+def save_worker_reservation(request):
+    if request.method == 'POST':
+        reservation_form = ReservationForm(request.POST)
+        if reservation_form.is_valid():
+            client = Client.objects.get(id_client = reservation_form.cleaned_data['id_client'])
+            service_id = SeDict.objects.get(id_se_dict = reservation_form.cleaned_data['service'])
+            date_time = reservation_form.cleaned_data['date']
+            facture = reservation_form.cleaned_data['facture']
+
+            service_date = date_time.isoformat(sep=' ')
+
+            result = gen_calendar(service_id.id_se_dict, service_date, service_date)
+
+            if result is not None:
+                result = result[0]
+
+                new_service = Service()
+                new_service.service_code = service_id
+                new_service.client = client
+                new_service.create_invoice = facture
+                new_service.planned_start = date_time
+                if service_id.avg_time is not None:
+                    new_service.planned_end = date_time + datetime.timedelta(minutes = service_id.avg_time)
+                new_service.save()
+
+                resources_to_reservation = get_resources_to_reservation(result)
+                new_resources_usage = ResourcesUsage()
+                new_resources_usage.service = new_service
+                new_resources_usage.machine = Machine.objects.get(id_machine = resources_to_reservation['free_machine'])
+                new_resources_usage.worker = Worker.objects.get(id_worker = resources_to_reservation['free_worker'])
+                new_resources_usage.location = Location.objects.get(id_location = resources_to_reservation['free_location'])
+                new_resources_usage.start_timestamp = date_time
+                if service_id.avg_time is not None:
+                    new_resources_usage.finish_timestamp = date_time + datetime.timedelta(minutes = service_id.avg_time)
+                new_resources_usage.calendar_date = WorkdayCalendar(id_workday_calendar = date_time)
+                new_resources_usage.save()
+
+
+                context = {'date' : service_date,
+                            'result' : result,
+                            'facture' : new_resources_usage.machine}
+                return HttpResponse('success')
+
+# Calendar generators
 
 def calculate_date_to_display():
 
@@ -154,6 +260,7 @@ def calculate_date_to_display():
     finish = datetime.date.today() + datetime.timedelta(days = days_to_display)
 
     return start, finish
+
 
 def generate_calendar(request):
 
@@ -203,6 +310,7 @@ def generate_calendar(request):
 # def add(request):
 #     sqlResult = sqlSelect()
 #     return render(request, 'company/sql.html', {'queryResult': sqlResult})
+
 
 def generate_worker_calendar(request):
 

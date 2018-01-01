@@ -13,7 +13,20 @@ var csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
 <div id = "resignation-message"></div>
 
 {% load render_table from django_tables2 %}
-{% render_table client_services_table %}
+
+{% if client_services_table %}
+  {% render_table client_services_table %}
+{% endif %}
+
+<div>
+  <input type="button" onclick="location.href = '/services/reservation/';" value="Zarezerwuj uslugę" />
+</div>
+
+{% if client_finished_services_table %}
+  <div>
+    <p>Zakonczone ulsugi</p>
+    {% render_table client_finished_services_table %}
+{% endif %}
 
 <div id = "reservation-resignation-box">
   <div id = "confirm-window">
@@ -22,4 +35,5 @@ var csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
     <button id = "decline-button">Nie</button>
   </div>
 </div>
+
 {% endblock content %}

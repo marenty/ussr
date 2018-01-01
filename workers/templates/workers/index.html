@@ -21,6 +21,11 @@ var csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
 <p> Jesteś poprwanie zalogowanym pracownikiem </p>
 <div id = "worker-panel-grid">
   <div id = "navigation-panel">
+
+    <div class = "worker-navigation-element">
+      <a class = "worker-navigation-link" href="{% url 'services:worker_services' %}"> Szczegoly rezerwacji</a>
+    </div>
+
     <div class = "worker-navigation-element">
       <a class = "worker-navigation-link" href="{% url 'workers:personal_informations' %}"> Zmień swoje dane </a>
     </div>
