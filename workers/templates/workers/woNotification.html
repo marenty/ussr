@@ -2,7 +2,7 @@
 
 {% block content %}
   <a href="{% url 'workers:woNotifications' %}"><button type="button" class="btn btn-primary">Powrót-notatki</button></a>
-  <p>Temat: {{ woNotification.notification_subject }}</p>
+  <p><b>Temat:</b> {{ woNotification.notification_subject }}</p>
 
     <p><b>Id:</b>{{ woNotification.id_wo_notification }}</p>
 	  <p><b>Pracownik:</b> {{ woNotification.worker }}</p>

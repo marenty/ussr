@@ -126,7 +126,12 @@ def wRaports(request):
 
 @user_passes_test(is_logged_employee, login_url = 'users/login/', redirect_field_name = None)
 def wRaport1(request):
-    #woNotifications = WoNotification.objects.order_by('-id_wo_notification')
     machines = Machine.objects.all()
+    context = {'machines': machines}
+    return render(request, 'workers/wRaport1.html', context)
+
+@user_passes_test(is_logged_employee, login_url = 'users/login/', redirect_field_name = None)
+def wRaport2(request):
+    machines = Machine.objects.filter(is_operational=True)
     context = {'machines': machines}
     return render(request, 'workers/wRaport1.html', context)
