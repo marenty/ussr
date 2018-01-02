@@ -16,7 +16,7 @@ from django.views.generic.list import ListView
 from utilities.models import WorkdayCalendarParams, ResourcesUsage, WorkdayCalendar
 from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
-from .forms import ReservationForm
+from .forms import ReservationForm, ReservationFormForClient
 from .tables import AllServicesTable, ClientServicesTable, ClientFinishedServicesTable, WorkerServicesTable
 from django_tables2 import RequestConfig
 from .filters import ResourcesUsageFilter
@@ -112,15 +112,15 @@ def reservation(request):
 
 def generate_summary(request):
     if request.method == 'POST':
-        reservation_form = ReservationForm(request.POST)
+        reservation_form = ReservationFormForClient(request.POST)
         if reservation_form.is_valid():
             service = SeDict.objects.get(id_se_dict = reservation_form.cleaned_data['service'])
             datetime = reservation_form.cleaned_data['date']
 
-        context = {'service' : service,
-                   'datetime' : datetime}
+            context = {'service' : service,
+                       'datetime' : datetime}
 
-    return render(request, 'services/reservation_summary.html', context)
+            return render(request, 'services/reservation_summary.html', context)
 
 def get_resources_to_reservation(result):
     free_worker = result.free_workers[0]
@@ -134,7 +134,7 @@ def get_resources_to_reservation(result):
 
 def save_reservation(request):
     if request.method == 'POST':
-        reservation_form = ReservationForm(request.POST)
+        reservation_form = ReservationFormForClient(request.POST)
         if reservation_form.is_valid():
             service_id = SeDict.objects.get(id_se_dict = reservation_form.cleaned_data['service'])
             date_time = reservation_form.cleaned_data['date']

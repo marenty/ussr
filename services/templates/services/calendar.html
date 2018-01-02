@@ -8,7 +8,6 @@
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.7.0/fullcalendar.min.js"></script>
-  <script type="text/javascript" src='{% static 'services/scripts/locale-all.js' %}'></script>
   <script type="text/javascript" src='{% static 'services/scripts/main.js' %}'></script>
   <script type="text/javascript" src='{% static 'services/scripts/getcalendar.js' %}'></script>
   <script type="text/javascript" src='{% static 'services/scripts/ajax_setup.js' %}'></script>
@@ -24,7 +23,6 @@
   $(document).ready(function() {
 
     $("#calendar").fullCalendar({
-      locale: 'pl',
   		defaultView: 'agendaWeek',
       hiddenDays: [ 0 ],
 
@@ -47,8 +45,8 @@
       events: [
         {% for n in result %}
         {
-          start: '{{n.from_time|date:"M. d Y H:i:s"}}',
-          end: '{{n.to_time|date:"M. d Y H:i:s"}}',
+          start: '{{n.from_time|date:"Y-m-d H:i:s"}}',
+          end: '{{n.to_time|date:"Y-m-d H:i:s"}}',
         },
         {% endfor %}
         ],
