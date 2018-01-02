@@ -2,8 +2,10 @@
 {% load bootstrap4 %}
 
 {% block content %}
+  <a href="{% url 'workers:woNotifications' %}"><button type="button" class="btn btn-primary">Powrót-notatki</button></a>
+  <br>
+  <br>
   <p>Dodaj nowy alert:</p>
-
   <form action="{% url 'workers:new_woNotification' %}" method='post' class="form-horizontal">
     {% csrf_token %}
     {% for field in form %}

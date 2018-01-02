@@ -10,8 +10,8 @@ from utilities.models import Address
 from .forms import WorkerAddressForm, WorkerPersonalInformationsForm, WoNotificationForm
 from django.core.exceptions import ObjectDoesNotExist
 from .models import WoNotification
+from machines.models import Machine, MachineType
 import datetime
-
 
 def is_logged_employee(user):
     if user is not None:
@@ -110,7 +110,6 @@ def edit_woNotification(request, woNotification_id):
     #if topic.owner != request.user:
         #raise Http404
     if request.method != 'POST':
-        # Żądanie początkowe, wypełnienie formularza aktualną treścią wpisu.
         form = WoNotificationForm(instance=woNotification)
     else:
         form = WoNotificationForm(instance=woNotification, data=request.POST)
@@ -121,3 +120,20 @@ def edit_woNotification(request, woNotification_id):
 
     context = {'woNotification': woNotification, 'form': form}
     return render(request, 'workers/edit_woNotification.html', context)
+
+@user_passes_test(is_logged_employee, login_url = 'users/login/', redirect_field_name = None)
+def wRaports(request):
+    #woNotifications = WoNotification.objects.order_by('-id_wo_notification')
+    return render(request, 'workers/wRaports.html')
+
+@user_passes_test(is_logged_employee, login_url = 'users/login/', redirect_field_name = None)
+def wRaport1(request):
+    machines = Machine.objects.all()
+    context = {'machines': machines}
+    return render(request, 'workers/wRaport1.html', context)
+
+@user_passes_test(is_logged_employee, login_url = 'users/login/', redirect_field_name = None)
+def wRaport2(request):
+    machines = Machine.objects.filter(is_operational=True)
+    context = {'machines': machines}
+    return render(request, 'workers/wRaport1.html', context)
