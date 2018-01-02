@@ -22,11 +22,6 @@ var worker_first_name = '{{worker.first_name}}';
 var worker_last_name = '{{worker.last_name}}';
 </script>
 
-{% if message %}
-<div>
-  <p>{{message}}</p>
-</div>
-{% endif %}
 
 <form action="" method="get" id = "filter-form">
     {% bootstrap_form filter.form %}

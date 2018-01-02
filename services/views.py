@@ -74,11 +74,6 @@ def worker_services_table(request):
     context = {}
     user_worker = Worker.objects.get(user_login = request.user.id)
 
-    if request.method == 'GET' and 'start_timestamp' not in request.GET and 'finish_timestamp' not in request.GET:
-        message = 'Wszystkie twoje przyszle rezerwacje'
-        context.update({'message' : message})
-        worker_resource_usage = ResourcesUsage.objects.filter(worker = user_worker, start_timestamp__gte = datetime.datetime.now())
-        table = AllServicesTable(worker_resource_usage)
     RequestConfig(request, paginate={"per_page": 20, "page": 1}).configure(table)
 
     context.update({'filter' : f, 'table' : table, 'worker' : user_worker})
@@ -94,8 +89,6 @@ def generate_service_report(request):
         queryset = ResourcesUsage.objects.select_related().all()
         f = ResourcesUsageFilter(request.GET, queryset=queryset)
         table = AllServicesTable(f.qs)
-
-        context = {'table' : table}
 
         export_format = request.GET.get('_export', None)
         if TableExport.is_valid_format(export_format):

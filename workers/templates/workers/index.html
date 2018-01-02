@@ -23,7 +23,7 @@ var csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
   <div id = "navigation-panel">
 
     <div class = "worker-navigation-element">
-      <a class = "worker-navigation-link" href="{% url 'services:worker_services' %}"> Szczegoly rezerwacji</a>
+      <a class = "worker-navigation-link" href="/services/worker_services/?start_timestamp={{date}}"> Szczegoly rezerwacji</a>
     </div>
 
     <div class = "worker-navigation-element">
