@@ -2,9 +2,9 @@
 {% block content %}
 
 {% load render_table from django_tables2 %}
+{% load bootstrap4 %}
 
 {% load staticfiles %}
-<script type="text/javascript" src='{% static "services/scripts/ajax_setup.js" %}'></script>
 <script type="text/javascript" src='{% static "services/scripts/worker_services.js" %}'></script>
 <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
@@ -17,21 +17,29 @@ $(function() {
 </script>
 
 
-{% csrf_token %}
 <script type="text/javascript">
-var csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
+var worker_first_name = '{{worker.first_name}}';
+var worker_last_name = '{{worker.last_name}}';
 </script>
 
-<form action="" method="get">
-    {{ filter.form.as_p }}
+{% if message %}
+<div>
+  <p>{{message}}</p>
+</div>
+{% endif %}
+
+<form action="" method="get" id = "filter-form">
+    {% bootstrap_form filter.form %}
     <input type="submit" />
 </form>
 
 {% render_table table %}
 
 <div id = "buttons">
+  <input type = "button" onclick="get_all_my_future_reservations();" value = "Zobacz swoje przyszle rezerwacje">
+  <input type = "button" onclick="get_all_my_past_reservations();" value = "Zobacz swoje przyszle rezerwacje">
   <input type = "button" onclick="get_all_reservations();" value = "Zobacz wszystkie przyszle rezerwacje">
   <input type = "button" onclick="get_all_past_reservations();" value = "Zobacz zakonczone uslugi">
-  <input type = "button" onclick="" value = "Pobierz raport">
+  <input type = "button" onclick="get_report(old_form_data);" value = "Pobierz raport">
 </div>
 {% endblock content %}

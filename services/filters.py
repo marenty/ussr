@@ -1,21 +1,18 @@
-from django_filters.views import FilterView
-from django_tables2.views import SingleTableMixin
 from .tables import AllServicesTable
 from utilities.models import ResourcesUsage
 
 import django_filters
 
 class ResourcesUsageFilter(django_filters.FilterSet):
-    start_timestamp = django_filters.DateFilter(lookup_expr='gte')
-    finish_timestamp = django_filters.DateFilter(lookup_expr='lte')
+    service__service_code__se_dict_name =  django_filters.CharFilter(label = "Nazwa usługi:")
+    start_timestamp = django_filters.DateFilter(lookup_expr='gte', label = 'Data od:')
+    finish_timestamp = django_filters.DateFilter(lookup_expr='lte', label = 'Data do:')
+    service__client__first_name = django_filters.CharFilter(label = "Imię klienta:")
+    service__client__last_name = django_filters.CharFilter(label = "Nazwisko klienta:")
+    worker__first_name = django_filters.CharFilter(label = "Imię pracownika:")
+    worker__last_name = django_filters.CharFilter(label = "Nazwisko pracownika:")
 
     class Meta:
         model = ResourcesUsage
-        fields = [ 'service__client__first_name' , 'start_timestamp', 'finish_timestamp']
-
-class FilteredResourceUsageListView(SingleTableMixin, FilterView):
-    table_class = AllServicesTable
-    model = ResourcesUsage
-    template_name = 'worker_services.html'
-
-    filterset_class = ResourcesUsageFilter
+        fields = [ 'service__service_code__se_dict_name','start_timestamp', 'finish_timestamp', 'service__client__first_name' , 'service__client__last_name' ,
+                     'worker__first_name', 'worker__last_name']

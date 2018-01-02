@@ -42,6 +42,7 @@ class WorkerServicesTable(tables.Table):
     client_first_name = tables.Column(accessor = 'service.client.first_name')
     client_last_name = tables.Column(accessor = 'service.client.last_name')
 
+
     class Meta:
         model = ResourcesUsage
         fields = {}
@@ -49,12 +50,20 @@ class WorkerServicesTable(tables.Table):
 
 class AllServicesTable(tables.Table):
 
-    service_name = tables.Column(accessor = 'service.service_code.se_dict_name')
+    service_name = tables.Column(verbose_name = 'Nazwa usługi', accessor = 'service.service_code.se_dict_name')
     service_detetime_start = tables.DateTimeColumn(accessor = 'service.planned_start')
     service_detetime_end = tables.DateTimeColumn(accessor = 'service.planned_end')
-    service_price = tables.Column(accessor = 'service.service_code.base_price')
-    client_first_name = tables.Column(accessor = 'service.client.first_name')
-    client_last_name = tables.Column(accessor = 'service.client.last_name')
+    service_price = tables.Column(verbose_name = 'Bazowa cena [zł]', accessor = 'service.service_code.base_price')
+    client_first_name = tables.Column(accessor = 'service.client.first_name', visible = False)
+    client_last_name = tables.Column(accessor = 'service.client.last_name', visible = False)
+    client_name = tables.Column(accessor = 'service.client.get_client_full_name', orderable = False)
+    worker_first_name = tables.Column(accessor = 'worker.first_name', visible = False)
+    worker_last_name = tables.Column(accessor = 'worker.last_name', visible = False)
+    employee_name = tables.Column(accessor = 'worker.get_employee_name', orderable = False)
+    location_name = tables.Column(verbose_name = 'Nazwa lokalizacji', accessor = 'location.location_name')
+    location_type = tables.Column(verbose_name = 'Typ lokalizacji', accessor = 'location.location_type')
+    machine_name = tables.Column(verbose_name = 'Nazwa maszyny', accessor = 'machine.machine_name')
+    machine_type = tables.Column(verbose_name = 'Typ maszyny', accessor = 'machine.machine_type')
 
     class Meta:
         model = ResourcesUsage

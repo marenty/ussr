@@ -19,8 +19,8 @@ from django.contrib.auth.decorators import login_required
 from .forms import ReservationForm
 from .tables import AllServicesTable, ClientServicesTable, ClientFinishedServicesTable, WorkerServicesTable
 from django_tables2 import RequestConfig
-from .filters import FilteredResourceUsageListView, ResourcesUsageFilter
-
+from .filters import ResourcesUsageFilter
+from django_tables2.export.export import TableExport
 
 def services(request):
     services = SeDict.objects.all()
@@ -67,45 +67,41 @@ def client_service_resignation(request):
         html = '<p>Rezygnacja nie powiodla się. Spróbuj później lub skontaktuj się z nami</p>'
         return HttpResponse(html)
 
-#
-# def worker_services_table(request):
-#     request_worker = Worker.objects.get(user_login = request.user.id)
-#     worker_resource_usage = ResourcesUsage.objects.filter(worker = request_worker, start_timestamp__gte = datetime.datetime.now())
-#
-#     worker_services_table = WorkerServicesTable(worker_resource_usage)
-#     RequestConfig(request).configure(worker_services_table)
-#
-#     context = {'worker_services_table' : worker_services_table}
-#
-#     return render(request, 'services/worker_services.html', context)
-
-
 def worker_services_table(request):
     queryset = ResourcesUsage.objects.select_related().all()
     f = ResourcesUsageFilter(request.GET, queryset=queryset)
     table = AllServicesTable(f.qs)
+    context = {}
+    user_worker = Worker.objects.get(user_login = request.user.id)
+
+    if request.method == 'GET' and 'start_timestamp' not in request.GET and 'finish_timestamp' not in request.GET:
+        message = 'Wszystkie twoje przyszle rezerwacje'
+        context.update({'message' : message})
+        worker_resource_usage = ResourcesUsage.objects.filter(worker = user_worker, start_timestamp__gte = datetime.datetime.now())
+        table = AllServicesTable(worker_resource_usage)
     RequestConfig(request, paginate={"per_page": 20, "page": 1}).configure(table)
-    return render(request, 'services/worker_services.html', {'table': table, 'filter': f})
 
-def get_all_future_reservations(request):
-    worker_resource_usage = ResourcesUsage.objects.filter(start_timestamp__gte = datetime.datetime.now())
+    context.update({'filter' : f, 'table' : table, 'worker' : user_worker})
 
-    all_services_table = AllServicesTable(worker_resource_usage)
-    RequestConfig(request).configure(all_services_table)
+    return render(request, 'services/worker_services.html', context)
 
-    context = {'all_services_table' : all_services_table}
+# Generate Service reports
 
-    return render(request, 'services/all_future_services_table.html', context)
+def generate_service_report(request):
 
-def get_all_past_reservations(request):
-    worker_resource_usage = ResourcesUsage.objects.filter(finish_timestamp__lt = datetime.datetime.now())
+    if request.method == 'GET':
 
-    all_services_table = AllServicesTable(worker_resource_usage)
-    RequestConfig(request).configure(all_services_table)
+        queryset = ResourcesUsage.objects.select_related().all()
+        f = ResourcesUsageFilter(request.GET, queryset=queryset)
+        table = AllServicesTable(f.qs)
 
-    context = {'all_services_table' : all_services_table}
+        context = {'table' : table}
 
-    return render(request, 'services/all_past_services_table.html', context)
+        export_format = request.GET.get('_export', None)
+        if TableExport.is_valid_format(export_format):
+            exporter = TableExport(export_format, table)
+            return exporter.response('report.{}'.format(export_format))
+
 
 
 # Client Service reservation

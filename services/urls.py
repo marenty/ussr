@@ -14,7 +14,6 @@ urlpatterns = [
     url(r'^worker_reservation/(?P<id_client>\d+)/$', views.worker_reservation, name='worker_reservation'),
     url(r'^worker_services/', views.worker_services_table, name = 'worker_services'),
     url(r'^get_worker_calendar/', views.generate_worker_calendar, name = 'get_worker_calendar'),
-    url(r'^get_all_future_reservations/', views.get_all_future_reservations, name = 'get_all_future_reservations'),
-    url(r'^get_all_past_reservations/', views.get_all_past_reservations, name = 'get_all_past_reservations'),
     url(r'^service_resignation/', views.client_service_resignation, name = 'service_resignation'),
+    url(r'^generate_service_report/', views.generate_service_report, name = 'generate_service_report'),
 ]

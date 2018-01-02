@@ -10,6 +10,7 @@ from django.core import serializers
 from .tables import ClientTable
 from django_tables2 import RequestConfig
 from django.core.mail import send_mail
+from .filters import ClientTableFilter
 
 
 
@@ -67,14 +68,16 @@ def change_personal_informations(request):
 def clientCRUDlist(request):
 
     clients = Client.objects.all()
-    client_table = ClientTable(clients)
+    f = ClientTableFilter(request.GET, queryset=clients)
+    client_table = ClientTable(f.qs)
     RequestConfig(request, paginate={"per_page": 20, "page": 1}).configure(client_table)
     name_form = ClientPersonalInformationsForm()
     address_form = ClientAddressForm()
     email_form = EmailForm()
 
 
-    context = {'client_table' : client_table,
+    context = { 'filter' : f,
+                'client_table' : client_table,
                 'name_form' : name_form,
                 'address_form': address_form,
                 'email_form' : email_form}
