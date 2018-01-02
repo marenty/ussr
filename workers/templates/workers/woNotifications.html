@@ -5,13 +5,16 @@
 {% endblock %}
 
 {% block content %}
+<br>
 <a href="{% url 'workers:new_woNotification' %}"><button type="button" class="btn btn-primary">Dodaj nowy alert</button></a>
+<br>
+<br>
   <ul>
     {% for woNotification in woNotifications %}
       <li>
-        <p><a href="{% url 'workers:woNotification' woNotification.id_wo_notification %}"><button type="button" class="btn btn-primary">{{ woNotification }}</button></a> - Pracownik: {{ woNotification.worker }}</p>
-          <p>Temat: {{ woNotification.notification_subject }}</p>
-          <p>Tekst: {{ woNotification.notification_text }}</p>
+        <p><a href="{% url 'workers:woNotification' woNotification.id_wo_notification %}"><button type="button" class="btn btn-primary">{{ woNotification }}</button></a> - <b>Pracownik:</b> {{ woNotification.worker }}</p>
+          <p><b>Temat:</b> {{ woNotification.notification_subject }}</p>
+          <p><b>Tekst:</b> {{ woNotification.notification_text }}</p>
       </li>
     {% empty %}
       <li>Obecnie brak notatek.</li>
