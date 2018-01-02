@@ -1,0 +1,12 @@
+{% extends "MainPage/base.html" %}
+
+{% block content %}
+{% load staticfiles %}
+
+<div>
+  <p>Nie masz jeszcze zarezerwowanych zadnych uslug.</p>
+  <p>Zarezerwuj je juz teraz!</p>
+<div>
+  <input type="button" onclick="location.href = '/services/reservation/';" value="Zarezerwuj uslugę" />
+</div>
+{% endblock content %}

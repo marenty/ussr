@@ -11,6 +11,7 @@ from .forms import WorkerAddressForm, WorkerPersonalInformationsForm, WoNotifica
 from django.core.exceptions import ObjectDoesNotExist
 from .models import WoNotification
 from machines.models import Machine, MachineType
+import datetime
 
 def is_logged_employee(user):
     if user is not None:
@@ -70,7 +71,8 @@ def logout_view(request):
 
 @user_passes_test(is_logged_employee, login_url = '/users/login', redirect_field_name = None)
 def employee_main(request):
-    return  render(request, 'workers/index.html')
+    date = datetime.date.today().strftime('%m/%d/%y')
+    return  render(request, 'workers/index.html', {'date' : date})
 
 
 @user_passes_test(is_logged_employee, login_url = 'users/login/', redirect_field_name = None)

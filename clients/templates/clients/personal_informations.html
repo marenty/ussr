@@ -1,3 +1,7 @@
+{% extends "MainPage/base.html" %}
+
+{% block content %}
+
 {% if not_registered_client_in_client_tab %}
 <p> Nie jesteś zarejestrowany w tabeli Klienci</p>
 
@@ -9,3 +13,5 @@
       <input type="submit" value="Submit" />
   </form>
 {% endif %}
+
+{% endblock content %}

@@ -1,3 +1,40 @@
-{% load render_table from django_tables2 %}
+{% extends "workers/base.html" %}
+{% block content %}
 
-{% render_table worker_services_table %}
+{% load render_table from django_tables2 %}
+{% load bootstrap4 %}
+
+{% load staticfiles %}
+<script type="text/javascript" src='{% static "services/scripts/worker_services.js" %}'></script>
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+<script>
+$(function() {
+   $( "#id_start_timestamp" ).datepicker();
+   $( "#id_finish_timestamp" ).datepicker();
+});
+</script>
+
+
+<script type="text/javascript">
+var worker_first_name = '{{worker.first_name}}';
+var worker_last_name = '{{worker.last_name}}';
+</script>
+
+
+<form action="" method="get" id = "filter-form">
+    {% bootstrap_form filter.form %}
+    <input type="submit" />
+</form>
+
+{% render_table table %}
+
+<div id = "buttons">
+  <input type = "button" onclick="get_all_my_future_reservations();" value = "Zobacz swoje przyszle rezerwacje">
+  <input type = "button" onclick="get_all_my_past_reservations();" value = "Zobacz swoje przyszle rezerwacje">
+  <input type = "button" onclick="get_all_reservations();" value = "Zobacz wszystkie przyszle rezerwacje">
+  <input type = "button" onclick="get_all_past_reservations();" value = "Zobacz zakonczone uslugi">
+  <input type = "button" onclick="get_report(old_form_data);" value = "Pobierz raport">
+</div>
+{% endblock content %}

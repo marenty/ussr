@@ -38,6 +38,11 @@ $(document).ready(function() {
       edit_client($('#client-edit-button').val());
   });
 
+  $( '.client-reservation-button' ).click(function( event ){
+      event.preventDefault();
+      location.href = "/services/worker_reservation/" + this.value;
+  });
+
 
   function edit_client(id) {
     console.log("edit post is working!") // sanity check

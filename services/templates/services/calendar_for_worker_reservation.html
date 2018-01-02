@@ -1,4 +1,6 @@
+{% extends "MainPage/base.html" %}
 
+{% block content %}
 {% load staticfiles %}
 
 
@@ -59,10 +61,12 @@
     </div>
   </div>
 
-<form action="/services/summary/" method = "POST" id = "reservation-form">
+<form action="/services/worker_summary/" method = "POST" id = "reservation-form">
   {% csrf_token %}
+  <input type="hidden" name="id_client" id = "id_client" value = '{{id_client}}'>
   <input type="hidden" name="service" id = "service">
   <input type="hidden" name="date" id = "date">
 </form>
 
 </body>
+{% endblock content %}
