@@ -2,6 +2,7 @@
 {% load bootstrap4 %}
 
 {% block content %}
+
   <p>Dodaj nowy typ maszyn:</p>
 
   <form action="{% url 'machines:new_machinetype' %}" method='post' class="form-horizontal">
@@ -11,7 +12,7 @@
             {{ field.errors }}
             <label class="col-sm-3" control-label>{{ field.label_tag }} </label>{{ field }}
           </div>
-      
+
     {% endfor %}
     {% buttons %}
     <button name="submit" class="btn btn-primary">Dodaj nowy typ</button>
