@@ -7,7 +7,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.7.0/fullcalendar.min.js"></script>
-  <script type="text/javascript" src='{% static 'services/scripts/locale-all.js' %}'></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.7.0/locale/pl.js"></script>
   <script type="text/javascript" src='{% static 'services/scripts/main.js' %}'></script>
   <script type="text/javascript" src='{% static 'services/scripts/getcalendar.js' %}'></script>
   <script type="text/javascript" src='{% static 'services/scripts/ajax_setup.js' %}'></script>
@@ -44,8 +44,8 @@
       events: [
         {% for n in worker_resource_usage %}
         {
-          start: '{{n.start_timestamp|date:"M. d Y H:i:s"}}',
-          end: '{{n.finish_timestamp|date:"M. d Y H:i:s"}}',
+          start: '{{n.start_timestamp|date:"Y-m-d H:i:s"}}',
+          end: '{{n.finish_timestamp|date:"Y-m-d H:i:s"}}',
           title: '{{n.service.service_code.se_dict_name}} - {{n.service.client.get_client_full_name}}',
         },
         {% endfor %}
