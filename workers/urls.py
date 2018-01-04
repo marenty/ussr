@@ -9,6 +9,7 @@ urlpatterns = [
     url(r'^wRaports/', views.wRaports, name='wRaports'),
     url(r'^wRaport1/', views.wRaport1, name='wRaport1'),
     url(r'^wRaport2/', views.wRaport2, name='wRaport2'),
+    url(r'^wRaport3/', views.wRaport3, name='wRaport3'),
     url(r'^woNotification/(?P<woNotification_id>\w+)/', views.woNotification, name='woNotification'),
     url(r'^edit_woNotification/(?P<woNotification_id>\w+)/$', views.edit_woNotification, name='edit_woNotification'),
     url(r'^new_woNotification/', views.new_woNotification, name='new_woNotification'),

@@ -3,6 +3,7 @@
 {% block content %}
 <a href="{% url 'workers:wRaports' %}"><button type="button" class="btn btn-primary">Raporty</button></a>
 <a href="{% url 'workers:wRaport2' %}"><button type="button" class="btn btn-primary">Sprawne Maszyny</button></a>
+<a href="{% url 'workers:wRaport3' %}"><button type="button" class="btn btn-primary">Pracownicy</button></a>
 <br>
 <br>
 
@@ -11,10 +12,10 @@
 <tr>
 <th scope="col">Nazwa</th>
 <th scope="col">Typ maszyny</th>
-<th scope="col">Servis</th>
-<th scope="col">Ostatni servis</th>
-<th scope="col">is</th>
-<th scope="col">notes</th>
+<th scope="col">Serwis</th>
+<th scope="col">Ostatni serwis</th>
+<th scope="col">Sprawna</th>
+<th scope="col">Notes</th>
 </tr>
 </thead>
 <tbody>
