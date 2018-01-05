@@ -234,9 +234,9 @@ def SendEmail(request):
         if email_form.is_valid():
             send_mail(
             email_form.cleaned_data['subject'],
-            'Otrzymales nowa wiadomosc z systemu ussr\n'+
+            'Otrzymałeś nową wiadomość z systemu ussr\n'+
             'Temat: ' + email_form.cleaned_data['subject'] +
-            '\nTreśc: ' + email_form.cleaned_data['message'],
+            '\nTreść: ' + email_form.cleaned_data['message'],
             'System USSR',
             [client.address.email],
             fail_silently=False)

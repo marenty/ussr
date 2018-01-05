@@ -19,4 +19,4 @@ class ClientPersonalInformationsForm(ModelForm):
 
 class EmailForm(forms.Form):
     subject = forms.CharField(max_length=100, label='Temat')
-    message = forms.CharField(widget=forms.Textarea, label='Wiadomośc')
+    message = forms.CharField(widget=forms.Textarea, label='Wiadomość')

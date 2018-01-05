@@ -10,8 +10,8 @@
 	  <p><b>Temat przypomnienia:</b> {{ woNotification.notification_subject }}</p>
     <p><b>Tekst przypomnienia:</b> {{ woNotification.notification_text }}</p>
 	  <p><b>Ważność:</b> {{ woNotification.severity }}</p>
-	  <p><b>Oznaczone jako przeczytane:</b> {{ woNotification.marked_as_read }}</p>
-	  <p><b>Oddział:</b> {{ woNotification.company_branch }}</p>
+	  <!-- <p><b>Oznaczone jako przeczytane:</b> {{ woNotification.marked_as_read }}</p> -->
+	  <!-- <p><b>Oddział:</b> {{ woNotification.company_branch }}</p> -->
 
     <a href="{% url 'workers:edit_woNotification' woNotification.id_wo_notification %}"><button type="button" class="btn btn-primary">Edycja alertu</button></a>
 
