@@ -51,8 +51,10 @@ footer {
 }
 
 #contact-form-box{
+  margin-top: 10vh;
   margin-left:30%;
   margin-right: 30%;
+  margin-bottom: 18vh;
 }
 
 #description-long{
@@ -174,6 +176,11 @@ footer {
 }
 
 #edit-client-information-text{
+  font-size: 30px;
+  margin-bottom: 4vh;
+}
+
+#contact-form-text{
   font-size: 30px;
   margin-bottom: 4vh;
 }
