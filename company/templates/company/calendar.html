@@ -57,7 +57,7 @@
   eventClick: function(event) {
     if (event.start) {
       let date = event.start;
-      let text = ("Czy chcesz zarezerwowac uslugę {{service.se_dict_name}} dnia " + date.format("D-M-Y") + " o godzinie " + date.format("H:mm?"));
+      let text = ("Czy chcesz zarezerwowac usługę {{service.se_dict_name}} dnia " + date.format("D-M-Y") + " o godzinie " + date.format("H:mm?"));
       $('#reservation-confirm-box').append('<div id = "reservation-text-box"><p id = "reservation-confirm-text">' + text + '</p><div><button id = "reservation-confirm-yes-button">Tak</button><button id = "reservation-confirm-no-button">Nie</button></div></div>');
       $('#reservation-confirm-window').show();
 

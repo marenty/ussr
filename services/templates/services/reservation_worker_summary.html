@@ -18,7 +18,7 @@
 <div>
   <h1>Podsumowanie rezerwacji</h1>
   <h2>Klient: {{client.first_name}} {{client.last_name}}</h2>
-  <h2>Nazwa uslugi: {{service.se_dict_name}}</h2>
+  <h2>Nazwa usługi: {{service.se_dict_name}}</h2>
   <h2>Data: {{datetime|date:"Y-m-d"}}</h2>
   <h2>Godzina: {{datetime|date:"H:i"}}</h2>
   <h2>Przewidywany czas trwania: {{service.avg_time}} min</h2>
@@ -30,8 +30,8 @@
   <input type="hidden" name="service" id = "service" value = "{{service.id_se_dict}}">
   <input type="hidden" name="date" id = "date" value = "{{datetime|date:"Y-m-d H:i"}}">
   <input type="checkbox" id="facture" name="facture">
-  <label for="facture">Czy utworzyc fakture vat?</label>
-  <button id = "submit">Potwierdz</button>
+  <label for="facture">Czy utworzyć fakturę vat?</label>
+  <button id = "submit">Potwierdź</button>
 </form>
 <button id = "resignation">Zrezygnuj</button>
 

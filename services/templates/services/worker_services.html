@@ -50,10 +50,10 @@ var worker_last_name = '{{worker.last_name}}';
 {% render_table table %}
 
 <div id = "buttons">
-  <input type = "button" onclick="get_all_my_future_reservations();" class="btn btn-secondary" value = "Zobacz swoje przyszle rezerwacje">
+  <input type = "button" onclick="get_all_my_future_reservations();" class="btn btn-secondary" value = "Zobacz swoje przyszłe rezerwacje">
   <input type = "button" onclick="get_all_my_past_reservations();" class="btn btn-secondary" value = "Zobacz swoje zakończone rezerwacje">
-  <input type = "button" onclick="get_all_reservations();" class="btn btn-secondary" value = "Zobacz wszystkie przyszle rezerwacje">
-  <input type = "button" onclick="get_all_past_reservations();" class="btn btn-secondary" value = "Zobacz zakonczone uslugi">
+  <input type = "button" onclick="get_all_reservations();" class="btn btn-secondary" value = "Zobacz wszystkie przyszłe rezerwacje">
+  <input type = "button" onclick="get_all_past_reservations();" class="btn btn-secondary" value = "Zobacz zakończone usługi">
   <span class="btn btn-secondary">
     {% for field in format_form%}
     <form id = "format-form">{{field}}</form><input type = "button" onclick="get_report(old_form_data);" class="btn btn-primary" value = "Pobierz raport">
