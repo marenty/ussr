@@ -2,13 +2,12 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.contrib.auth import login, logout, authenticate
-from django.contrib.auth.forms import UserCreationForm
 from clients.forms import ClientAddressForm, ClientPersonalInformationsForm
 from utilities.models import Address
 from clients.models import Client
 from django.db import transaction
 from django.contrib.auth.forms import AuthenticationForm
-
+from .forms import UserCreateForm
 
 
 def logout_view(request):
@@ -18,14 +17,14 @@ def logout_view(request):
 @transaction.atomic()
 def register(request):
     if request.method != 'POST':
-        user_form = UserCreationForm()
+        user_form = UserCreateForm()
         name_form = ClientPersonalInformationsForm()
         address_form = ClientAddressForm()
     else:
         address = Address()
         client = Client()
 
-        user_form = UserCreationForm(data=request.POST)
+        user_form = UserCreateForm(data=request.POST)
         name_form = ClientPersonalInformationsForm(request.POST, instance = client)
         address_form = ClientAddressForm(request.POST, instance = address)
 
