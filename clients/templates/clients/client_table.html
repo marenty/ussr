@@ -1,6 +1,7 @@
-{% load bootstrap4 %}
+{% load render_table from django_tables2 %}
 
-<form action="" method="get" id = "filter-form">
-    {% bootstrap_form filter.form %}
-    <input type="submit" />
-</form>
+  <form id = "client-table-form">
+    {% csrf_token %}
+    {% render_table client_table %}
+    <input type = "submit" value = "Usuń">
+  </form>

@@ -11,6 +11,8 @@ from .tables import ClientTable
 from django_tables2 import RequestConfig
 from django.core.mail import send_mail
 from .filters import ClientTableFilter
+from services.forms import ReportFormatForm
+from django_tables2.export.export import TableExport
 
 
 
@@ -63,24 +65,37 @@ def change_personal_informations(request):
 
     return render(request, 'clients/personal_informations.html', context)
 
+def Client_table(request):
+    if request.method == 'GET':
+        clients = Client.objects.all()
+        f = ClientTableFilter(request.GET, queryset=clients)
+        client_table = ClientTable(f.qs, order_by="last_name")
+        RequestConfig(request, paginate={"per_page": 20, "page": 1}).configure(client_table)
+
+
+        context = { 'client_table' : client_table,}
+
+        return render(request, 'clients/client_table.html', context)
 
 @login_required
 def clientCRUDlist(request):
 
     clients = Client.objects.all()
     f = ClientTableFilter(request.GET, queryset=clients)
-    client_table = ClientTable(f.qs)
+    client_table = ClientTable(f.qs, order_by="last_name")
     RequestConfig(request, paginate={"per_page": 20, "page": 1}).configure(client_table)
     name_form = ClientPersonalInformationsForm()
     address_form = ClientAddressForm()
     email_form = EmailForm()
+    format_form = ReportFormatForm()
 
 
     context = { 'filter' : f,
                 'client_table' : client_table,
                 'name_form' : name_form,
                 'address_form': address_form,
-                'email_form' : email_form}
+                'email_form' : email_form,
+                'format_form' : format_form,}
 
     return render(request, 'clients/clientCRUDlist.html', context)
 
@@ -95,26 +110,24 @@ def CreateClient(request):
 
             if address_form.is_valid():
                 address = address_form.save()
+            else:
+                context = {'name_form' : name_form,
+                            'address_form' : address_form}
+                return render(request, 'clients/new_client_form.html', context)
 
             if name_form.is_valid():
                 client.address = address
                 client = name_form.save()
                 client.save()
 
-        clients = Client.objects.all()
-        client_table = ClientTable(clients)
-        name_form = ClientPersonalInformationsForm()
-        address_form = ClientAddressForm()
+        context = {'name_form' : name_form,
+                    'address_form' : address_form}
 
-        context = {'client_table' : client_table,
-                    'name_form' : name_form,
-                    'address_form': address_form}
-
-        return clientCRUDlist(request)
+        return render(request, 'clients/new_client_form.html', context)
 
 def GenerateTable(request):
     clients = Client.objects.all()
-    client_table = ClientTable(clients)
+    client_table = ClientTable(clients).order_by = 'last_name'
     name_form = ClientPersonalInformationsForm()
     address_form = ClientAddressForm()
     context = {'client_table' : client_table,
@@ -141,7 +154,7 @@ def DeleteClient(request):
                     'name_form' : name_form,
                     'address_form': address_form}
 
-        return clientCRUDlist(request)
+        return JsonResponse({'success' : 'success'})
 
 def EditClientFormFill(request):
     if request.method == 'POST' and request.is_ajax():
@@ -197,7 +210,10 @@ def EditClient(request):
             client = name_form.save()
             client.save()
 
-        return clientCRUDlist(request)
+        context = {'name_form' : name_form,
+                    'address_form' : address_form,}
+
+        return render(request, 'clients/editform.html', context)
 
 def EmailCheck(request):
 
@@ -225,3 +241,17 @@ def SendEmail(request):
             [client.address.email],
             fail_silently=False)
             return JsonResponse({'success' : "success"})
+
+
+def generate_clients_report(request):
+
+    if request.method == 'GET':
+
+        queryset = Client.objects.select_related().all()
+        f =  ClientTableFilter(request.GET, queryset=queryset)
+        table = ClientTable(f.qs, order_by="last_name")
+
+        export_format = request.GET.get('_export', None)
+        if TableExport.is_valid_format(export_format):
+            exporter = TableExport(export_format, table)
+            return exporter.response('report.{}'.format(export_format))

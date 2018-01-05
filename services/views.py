@@ -16,7 +16,7 @@ from django.views.generic.list import ListView
 from utilities.models import WorkdayCalendarParams, ResourcesUsage, WorkdayCalendar
 from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
-from .forms import ReservationForm, ReservationFormForClient
+from .forms import ReservationForm, ReservationFormForClient, ReportFormatForm
 from .tables import AllServicesTable, ClientServicesTable, ClientFinishedServicesTable, WorkerServicesTable
 from django_tables2 import RequestConfig
 from .filters import ResourcesUsageFilter
@@ -39,11 +39,12 @@ def client_services(request):
 
     if client_resource_usage.exists():
         client_services_table = ClientServicesTable(client_resource_usage, order_by = 'service_detetime_start')
-        RequestConfig(request).configure(client_services_table)
+        RequestConfig(request, paginate={"per_page": 10, "page": 1}).configure(client_services_table)
         context.update({'client_services_table' : client_services_table})
 
     if client_resource_usage_finished.exists():
-        client_finished_services_table = ClientFinishedServicesTable(client_resource_usage_finished, order_by = '-service_detetime_start')
+        client_finished_services_table = ClientFinishedServicesTable(client_resource_usage_finished, order_by = '-service_detetime_start', prefix="2-")
+        RequestConfig(request, paginate={"per_page": 10, "page": 1}).configure(client_finished_services_table)
         context.update({'client_finished_services_table' : client_finished_services_table})
 
     if context == {}:
@@ -74,9 +75,11 @@ def worker_services_table(request):
     context = {}
     user_worker = Worker.objects.get(user_login = request.user.id)
 
+    format_form = ReportFormatForm()
+
     RequestConfig(request, paginate={"per_page": 20, "page": 1}).configure(table)
 
-    context.update({'filter' : f, 'table' : table, 'worker' : user_worker})
+    context.update({'filter' : f, 'table' : table, 'worker' : user_worker, 'format_form' : format_form})
 
     return render(request, 'services/worker_services.html', context)
 
@@ -95,7 +98,19 @@ def generate_service_report(request):
             exporter = TableExport(export_format, table)
             return exporter.response('report.{}'.format(export_format))
 
+def generate_weakly_worker_services_report(request):
 
+    if request.method == 'GET':
+
+        request_worker = Worker.objects.get(user_login = request.user.id)
+        resources_usage = ResourcesUsage.objects.filter(worker = request_worker, start_timestamp__gte = datetime.date.today(), finish_timestamp__lte = datetime.date.today() + datetime.timedelta(days = 7))
+
+        table = AllServicesTable(resources_usage)
+
+        export_format = request.GET.get('_export', None)
+        if TableExport.is_valid_format(export_format):
+            exporter = TableExport(export_format, table)
+            return exporter.response('weekly_report.{}'.format(export_format))
 
 # Client Service reservation
 
