@@ -45,6 +45,8 @@ def change_personal_informations(request):
                 'city':address.city,
                 'zip':address.zip}
 
+    success = False
+
     if request.method == 'POST':
         name_form = ClientPersonalInformationsForm(request.POST, instance=client)
         address_form = ClientAddressForm(request.POST, instance = address)
@@ -56,11 +58,15 @@ def change_personal_informations(request):
             client.address = address
             client = name_form.save()
             client.save()
+
+        success = True
+
     else:
         name_form = ClientPersonalInformationsForm(name_data, instance=client)
         address_form = ClientAddressForm(address_data, instance = address)
 
-    context = {'name_form' : name_form,
+    context = {'success' : success,
+                'name_form' : name_form,
                 'address_form': address_form}
 
     return render(request, 'clients/personal_informations.html', context)
