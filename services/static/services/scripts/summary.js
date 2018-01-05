@@ -8,11 +8,11 @@ function submitreservation(){
       success : function(response) {
           if (response == 'success'){
             $('#reservation-confirm-window').show();
-            $('#ok-button').before('<p>Rezerwacja sie udala</p>');
+            $('#ok-button').before('<p>Rezerwacja się udała</p>');
           }
           else{
             $('#reservation-confirm-window').show();
-            $('#ok-button').before('<p>Rezerwacja sie nie udala</p>');
+            $('#ok-button').before('<p>Rezerwacja się nie udała</p>');
           }
       },
 
@@ -30,11 +30,11 @@ function submitWorkerReservation(){
       success : function(response) {
           if (response == 'success'){
             $('#reservation-confirm-window').show();
-            $('#ok-button').before('<p>Rezerwacja sie udala</p>');
+            $('#ok-button').before('<p>Rezerwacja się udała</p>');
           }
           else{
             $('#reservation-confirm-window').show();
-            $('#ok-button').before('<p>Rezerwacja sie nie udala</p>');
+            $('#ok-button').before('<p>Rezerwacja się nie udała</p>');
           }
       },
 

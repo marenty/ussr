@@ -25,9 +25,9 @@
 <body>
 
   <div id = "select-service-group-box">
-    <h3>Wybierz grupę uslug</h3>
+    <h3>Wybierz grupę usług</h3>
     <select id = "select-service-group">
-      <option value="" selected disabled hidden>Wybierz grupe usluge</option>
+      <option value="" selected disabled hidden>Wybierz grupę usług</option>
       {% for group in services_groups %}
       <option value="{{group.id_se_group_dict}}">{{group.se_group_dict_name}}</option>
       {% endfor %}
@@ -35,13 +35,13 @@
   </div>
 
   <div id = "select-service-message">
-    <h3>Wybierz uslugę</h3>
+    <h3>Wybierz usługę</h3>
   </div>
 
 <div id = "select-service-box">
 {% for group in services_groups %}
     <select id = "{{group.id_se_group_dict}}"  class = "select-service disactive-select-service">
-      <option value="" selected disabled hidden>Wybierz usluge</option>
+      <option value="" selected disabled hidden>Wybierz usługę</option>
       {% for service in group.services_in_group.all %}
       <option value="{{service.id_se_dict}}">{{service.se_dict_name}}</option>
       {% endfor %}
