@@ -19,4 +19,4 @@ class WorkerPersonalInformationsForm(ModelForm):
 class WoNotificationForm(ModelForm):
     class Meta:
         model = WoNotification
-        fields = ['id_wo_notification', 'worker', 'worker_group', 'notification_subject', 'notification_text', 'severity', 'marked_as_read', 'company_branch' ]
+        fields = ['id_wo_notification', 'worker', 'worker_group', 'notification_subject', 'notification_text', 'severity' ]
