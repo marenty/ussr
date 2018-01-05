@@ -41,7 +41,7 @@ function get_all_my_past_reservations(){
 var old_form_data;
 
 function get_report(form_data){
-    window.location.href = '/services/generate_service_report/?' + form_data + '&_export=xls';
+    window.location.href = '/services/generate_service_report/?' + $( '#format-form' ).serialize() + '&' + old_form_data;
 }
 
 

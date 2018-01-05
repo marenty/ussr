@@ -4,7 +4,7 @@ function get_worker_calendar() {
         type : "GET", // http method
 
           success : function(response) {
-            $('#worker-calendar').html(response);
+            $('#worker-calendar').append(response);
         },
     });
 };
@@ -26,5 +26,4 @@ $(document).ready(function() {
   });
 
   get_worker_calendar();
-
 });

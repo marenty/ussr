@@ -16,4 +16,5 @@ urlpatterns = [
     url(r'^get_worker_calendar/', views.generate_worker_calendar, name = 'get_worker_calendar'),
     url(r'^service_resignation/', views.client_service_resignation, name = 'service_resignation'),
     url(r'^generate_service_report/', views.generate_service_report, name = 'generate_service_report'),
+    url(r'^generate_weekly_report/', views.generate_weakly_worker_services_report, name = 'generate_weekly_report'),
 ]

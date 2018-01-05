@@ -7,35 +7,35 @@ function resignation(id_resources_usage){
       // handle a successful response
       success : function(response) {
         $('#resignation-message').html(response);
+        $('#reservation-resignation-box').modal('hide');
+        $('#confirmed-resignation-box').modal('show');
       },
 
   });
 }
 
-function OnOffResignationWindow()
-{
-  if (document.getElementById('reservation-resignation-box').style.display == "block") {
-      document.getElementById('reservation-resignation-box').style.display = "none";
-  }
-  else {
-    document.getElementById('reservation-resignation-box').style.display = "block";
-  }
+
+function OnResignationWindow(){
+  $('#reservation-resignation-box').modal('show');
+}
+
+function OffResignationWindow(){
+  $('#reservation-resignation-box').modal('hide');
 }
 
 function show_confirmation_window(chosen){
 
-  OnOffResignationWindow();
+  OnResignationWindow();
 
   $('#confirm-button').click(function(e){
     e.preventDefault();
     console.log(chosen);
     resignation(chosen);
-    OnOffResignationWindow();
   });
 
   $('#decline-button').click(function(e){
     e.preventDefault();
-    OnOffResignationWindow();
+    OffResignationWindow();
     console.log('Declined')
     $( "#confirm-button" ).unbind();
     $( "#decline-button" ).unbind();

@@ -1,7 +1,7 @@
 import django_tables2 as tables
 from utilities.models import ResourcesUsage
 TEMPLATE = """
-<button class = "resignation-button" value="{{record.id_resources_usage}}">Zrezygnuj</button>
+<button class = "resignation-button" value="{{record.id_resources_usage}}" data-toggle="modal" href="#reservation-resignation-box">Zrezygnuj</button>
 """
 
 
