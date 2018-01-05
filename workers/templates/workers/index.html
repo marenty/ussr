@@ -18,33 +18,33 @@
 var csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
 </script>
 
-<p> Jesteś poprwanie zalogowanym pracownikiem </p>
+<!-- <p> Jesteś poprwanie zalogowanym pracownikiem </p> -->
 <div id = "worker-panel-grid">
   <div id = "navigation-panel">
 
     <div class = "worker-navigation-element">
-      <a class = "worker-navigation-link" href="/services/worker_services/?start_timestamp={{date}}"> Szczegoly rezerwacji</a>
+      <a class = "worker-navigation-link" href="/services/worker_services/?start_timestamp={{date}}">Szczegóły rezerwacji</a>
     </div>
 
     <div class = "worker-navigation-element">
-      <a class = "worker-navigation-link" href="{% url 'workers:personal_informations' %}"> Zmień swoje dane </a>
+      <a class = "worker-navigation-link" href="{% url 'workers:personal_informations' %}">Zmień swoje dane</a>
     </div>
 
     <div class = "worker-navigation-element">
-      <a class = "worker-navigation-link" href="{% url 'workers:client_list' %})"> Klienci </a>
+      <a class = "worker-navigation-link" href="{% url 'workers:client_list' %})">Klienci</a>
     </div>
     <div class = "worker-navigation-element">
-      <a class = "worker-navigation-link" href="{% url 'workers:woNotifications' %})"> Notatki </a>
+      <a class = "worker-navigation-link" href="{% url 'workers:woNotifications' %})">Notatki</a>
     </div>
     <div class = "worker-navigation-element">
-      <a class = "worker-navigation-link" href="{% url 'machines:machinetypes' %})"> Maszyny </a>
+      <a class = "worker-navigation-link" href="{% url 'machines:machinetypes' %})">Maszyny</a>
     </div>
     <div class = "worker-navigation-element">
-      <a class = "worker-navigation-link" href="{% url 'workers:wRaports' %})"> P-Raporty </a>
+      <a class = "worker-navigation-link" href="{% url 'workers:wRaports' %})">Raporty</a>
     </div>
   </div>
   <div id = "worker-calendar">
-    
+
 
 
     <form id = "format-form" method="get" action = "{% url 'services:generate_weekly_report' %}">
