@@ -18,10 +18,10 @@ class CheckBoxColumnWithName(tables.CheckBoxColumn):
 
 
 class ClientTable(tables.Table):
-    selection = CheckBoxColumnWithName(accessor='id_client', exclude_from_export=True)
-    edit = tables.TemplateColumn(TEMPLATE, exclude_from_export=True)
-    napisz = tables.TemplateColumn(EMAIL, exclude_from_export=True)
-    zarezerwuj = tables.TemplateColumn(RESERVATION, exclude_from_export=True)
+    selection = CheckBoxColumnWithName(accessor='id_client', exclude_from_export=True, orderable=False)
+    edit = tables.TemplateColumn(TEMPLATE, exclude_from_export=True, orderable=False)
+    napisz = tables.TemplateColumn(EMAIL, exclude_from_export=True, orderable=False)
+    zarezerwuj = tables.TemplateColumn(RESERVATION, exclude_from_export=True, orderable=False)
     class Meta:
         model = Client
         fields = ( 'first_name', 'last_name', 'sex', 'address.street', 'address.house_no', 'address.apartment_no', 'address.city', 'address.zip', 'address.phone', 'address.email')

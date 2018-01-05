@@ -47,9 +47,6 @@ def client_services(request):
         RequestConfig(request, paginate={"per_page": 10, "page": 1}).configure(client_finished_services_table)
         context.update({'client_finished_services_table' : client_finished_services_table})
 
-    if context == {}:
-        return render(request, 'services/client_empty_services.html')
-
     return render(request, 'services/client_services.html', context)
 
 def client_service_resignation(request):
