@@ -23,8 +23,13 @@ from .filters import ResourcesUsageFilter
 from django_tables2.export.export import TableExport
 
 def services(request):
-    services = SeDict.objects.all()
-    context = {'services': services}
+    services = SeDict.objects.all().order_by('se_group')
+    segrupes = SeDict.objects.all().filter(se_group="ZWIERZ")
+    segrupees = SeDict.objects.all().filter(se_group="SAMOCHOD")
+    segrupeees = SeDict.objects.all().filter(se_group=None)
+    segroupdicts = SeGroupDict.objects.all()
+    #ses = SeDict.objects.all()
+    context = {'services': services, 'segrupes':segrupes, 'segrupees':segrupees, 'segrupeees': segrupeees, 'segroupdicts':segroupdicts}
     return render(request, 'services/services.html', context)
 
 # Displaying Services
