@@ -41,7 +41,6 @@ var csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
       </div>
     </div>
   </div>
-  {% if client_finished_services_table %}
   <div class="card">
     <div class="card-header" role="tab" id="headingTwo">
       <h5 class="mb-0">
@@ -52,11 +51,14 @@ var csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
     </div>
     <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo" data-parent="#accordion">
       <div class="card-body">
-        {% render_table client_finished_services_table %}
+        {% if client_finished_services_table %}
+          {% render_table client_finished_services_table %}
+        {% else %}
+          <p> Nie posiadasz zakończonych uslug uslug.<p>
+        {% endif %}
       </div>
     </div>
   </div>
-  {% endif %}
 </div>
 
 <div class="modal fade" id="reservation-resignation-box" tabindex="-2" role="dialog" aria-labelledby="reservation-resignation" aria-hidden="true" data-backdrop="false" data-keyboard="false">
