@@ -3,8 +3,8 @@
 
 {% block content %}
 
-  <p>Dodaj nowy typ maszyn:</p>
-
+  <h3>Dodaj nowy typ maszyn:</h3>
+  <br>
   <form action="{% url 'machines:new_machinetype' %}" method='post' class="form-horizontal">
     {% csrf_token %}
     {% for field in form %}

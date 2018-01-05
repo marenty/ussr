@@ -4,8 +4,8 @@
 
   <p><a href="{% url 'machines:machinetype' machinetype.id_machine_type %}"><button type="button" class="btn btn-primary">{{ machinetype }}</button></a></p>
 
-  <p>Edycja wpisu:</p>
-
+  <h3>Edycja wpisu:</h3>
+  <br>
   <form action="{% url 'machines:edit_machine' machine.id_machine %}" method='post' class="form-horizontal">
     {% csrf_token %}
     {% for field in form %}
