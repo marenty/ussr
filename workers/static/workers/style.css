@@ -13,8 +13,6 @@
   width:100%;
   grid-auto-rows: 50px;
   grid-row-gap: 15px;
-
-
 }
 
 .worker-navigation-link{
@@ -40,4 +38,38 @@
 #calendat{
   width: 100%;
   height: 100%;
+}
+
+#edit-client-data{
+  margin-top: 10vh;
+  margin-left: 30%;
+  margin-right: 30%;
+  margin-bottom: 20vh;
+}
+
+@media only screen and (max-width: 1400px) {
+  .street-label{
+    margin-top: 1.5em;
+  }
+}
+
+.house-no-label{
+  margin-top: 0;
+}
+
+@media only screen and (min-width: 1014px) {
+  .house-no-label{
+    margin-top: 1.5em;
+  }
+}
+
+@media only screen and (min-width: 1400px) {
+  .house-no-label{
+    margin-top: 0;
+  }
+}
+
+#edit-client-information-text{
+  font-size: 30px;
+  margin-bottom: 4vh;
 }
