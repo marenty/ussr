@@ -146,8 +146,8 @@ class WoGroupPrivilege(models.Model):
 # po jakiś eventach
 class WoNotification(models.Model):
     id_wo_notification = models.AutoField(primary_key=True, verbose_name='Id')
-    worker = models.ForeignKey('Worker', models.DO_NOTHING, db_column='worker', verbose_name='Pracownik')
-    worker_group = models.ForeignKey(WoGroupDict, models.DO_NOTHING, db_column='worker_group', verbose_name='Grupa pracowników')
+    worker = models.ForeignKey('Worker', models.DO_NOTHING, blank=True, null=True, db_column='worker', verbose_name='Pracownik')
+    worker_group = models.ForeignKey(WoGroupDict, models.DO_NOTHING, blank=True, null=True, db_column='worker_group', verbose_name='Grupa pracowników')
     notification_subject = models.CharField(max_length=200, blank=True, null=True, verbose_name='Temat przypomnienia')
     notification_text = models.CharField(max_length=400, blank=True, null=True, verbose_name='Tekst przypomnienia')
     severity = models.IntegerField(blank=True, null=True, verbose_name='Ważność')
