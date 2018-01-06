@@ -278,9 +278,9 @@ def calculate_date_to_display():
 
 def generate_calendar(request):
 
-    if request.method == 'POST' and request.is_ajax():
+    if request.method == 'GET' and request.is_ajax():
 
-        service = SeDict.objects.get(id_se_dict = request.POST.get('service_code'))
+        service = SeDict.objects.get(id_se_dict = request.GET.get('service_code'))
 
         workday_calendar = WorkdayCalendarParams.objects.get(id_workday_calendar_params = 1)
 
