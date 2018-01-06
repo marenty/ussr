@@ -6,7 +6,7 @@ from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User, Group
 from django.contrib.auth.decorators import user_passes_test
 from .models import Worker
-from utilities.models import Address
+from utilities.models import Address, ResourcesUsage
 from .forms import WorkerAddressForm, WorkerPersonalInformationsForm, WoNotificationForm
 from django.core.exceptions import ObjectDoesNotExist
 from .models import WoNotification
@@ -151,3 +151,9 @@ def wRaport3(request):
     workers = Worker.objects.all().filter(active=True).order_by('last_name')
     context = {'workers': workers}
     return render(request, 'workers/wRaport3.html', context)
+
+@user_passes_test(is_logged_employee, login_url = 'users/login/', redirect_field_name = None)
+def wRaport4(request):
+    resources = ResourcesUsage.objects.all().order_by('-finish_timestamp')
+    context = {'resources': resources}
+    return render(request, 'workers/wRaport4.html', context)
