@@ -6,7 +6,9 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User, Group
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth import authenticate, login
-from utilities.models import Address
+from utilities.models import Address, ResourcesUsage
+from services.models import SeDict, SeRequirement
+#from .tables import AllSerWorTable
 
 from .models import *
 from .forms import MachineTypeForm, MachineForm
@@ -15,8 +17,8 @@ def is_logged_employee(user):
     if user is not None:
         return user.groups.filter(name='workers').exists()
 
+@user_passes_test(is_logged_employee, login_url = 'users/login/', redirect_field_name = None)
 def index(request):
-    """Strona główna dla aplikacji ussr."""
     return render(request, 'machines/index.html')
 
 @user_passes_test(is_logged_employee, login_url = 'users/login/', redirect_field_name = None)

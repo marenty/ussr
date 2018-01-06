@@ -2,9 +2,9 @@
 
 {% block content %}
 
-  <p>Typy maszyn:</p>
+  <h3 align="center">Typy maszyn</h3>
 
-  <a href="{% url 'machines:new_machinetype' %}"><button type="button" class="btn btn-primary">Dodaj nowy typ</button></a>
+  <p align="center"><a href="{% url 'machines:new_machinetype' %}"><button type="button" class="btn btn-primary">Dodaj nowy typ</button></a></p>
   <br>
   <br>
 <table class="table">
@@ -19,6 +19,6 @@
   </tr>
   </tbody>
 </table>
-  <a href="{% url 'machines:new_machinetype' %}"><button type="button" class="btn btn-primary">Dodaj nowy typ</button></a>
+  <p align="center"><a href="{% url 'machines:new_machinetype' %}"><button type="button" class="btn btn-primary" align="center">Dodaj nowy typ</button></a></p>
 
 {% endblock content %}

@@ -1,11 +1,14 @@
 {% extends "workers/base.html" %}
+{% load bootstrap4 %}
 
 {% block content %}
 
   <h1>Raporty:</h1>
   <p>Raporty do maszyn:</p>
+
   <p><a href="{% url 'workers:wRaport1' %}"><button type="button" class="btn btn-primary">Wszystkie Maszyny</button></a></p>
   <p><a href="{% url 'workers:wRaport2' %}"><button type="button" class="btn btn-primary">Sprawne Maszyny</button></a></p>
+
   <br>
   <p>Raporty dla pracowników:</p>
   <p><a href="{% url 'workers:wRaport3' %}"><button type="button" class="btn btn-primary">Pracownicy</button></a></p>
