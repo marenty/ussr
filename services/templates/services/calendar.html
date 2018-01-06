@@ -1,6 +1,7 @@
 
 {% load staticfiles %}
-
+{% load bootstrap4 %}
+{% bootstrap_javascript %}
 
 <!doctype html>
 
@@ -24,6 +25,8 @@
   $(document).ready(function() {
 
     $("#calendar").fullCalendar({
+      height: 700,
+      handleWindowResize : true,
       locale:'pl',
   		defaultView: 'agendaWeek',
       hiddenDays: [ 0 ],
@@ -61,12 +64,12 @@
       let service = '{{service.id_se_dict}}';
       let service_name = '{{service.se_dict_name}}';
       let text = ("Czy chcesz zarezerwowac usługę " + service_name + " dnia " + date.format("D-M-Y") + " o godzinie " + date.format("H:mm?"));
-      $('#reservation-confirm-box').append('<div id = "reservation-text-box"><p id = "reservation-confirm-text">' + text + '</p><div><button id = "reservation-confirm-yes-button">Tak</button><button id = "reservation-confirm-no-button">Nie</button></div></div>');
-      $('#reservation-confirm-window').show();
+      $('#reservation-confirm-modal').modal('show');
+      $('#reservation-confirm-box').html('<div id = "reservation-text-box"><p id = "reservation-confirm-text">' + text + '</p><div><button id = "reservation-confirm-yes-button" class="btn btn-success">Tak</button><button id = "reservation-confirm-no-button" class="btn btn-danger">Nie</button></div></div>');
 
       $('#reservation-confirm-no-button').click(function(e){
         e.preventDefault();
-        $('#reservation-confirm-window').hide();
+        $('#reservation-confirm-modal').modal('hide');
         $('#reservation-text-box').remove();
       });
 
