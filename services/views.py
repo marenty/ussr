@@ -132,9 +132,11 @@ def generate_summary(request):
         reservation_form = ReservationFormForClient(request.POST)
         if reservation_form.is_valid():
             service = SeDict.objects.get(id_se_dict = reservation_form.cleaned_data['service'])
+            se_req = SeRequirement.objects.get(service_code = service)
             datetime = reservation_form.cleaned_data['date']
 
             context = {'service' : service,
+                        'se_req' : se_req,
                        'datetime' : datetime}
 
             return render(request, 'services/reservation_summary.html', context)
@@ -164,14 +166,15 @@ def save_reservation(request):
             if result is not None:
                 result = result[0]
                 client = Client.objects.get(client_user_login = request.user.id)
+                se_req = SeRequirement.objects.get(service_code = service_id)
 
                 new_service = Service()
                 new_service.service_code = service_id
                 new_service.client = client
                 new_service.create_invoice = facture
                 new_service.planned_start = date_time
-                if service_id.avg_time is not None:
-                    new_service.planned_end = date_time + datetime.timedelta(minutes = service_id.avg_time)
+                if se_req.time_minutes is not None:
+                    new_service.planned_end = date_time + datetime.timedelta(minutes = se_req.time_minutes)
                 new_service.save()
 
                 resources_to_reservation = get_resources_to_reservation(result)
@@ -181,8 +184,8 @@ def save_reservation(request):
                 new_resources_usage.worker = Worker.objects.get(id_worker = resources_to_reservation['free_worker'])
                 new_resources_usage.location = Location.objects.get(id_location = resources_to_reservation['free_location'])
                 new_resources_usage.start_timestamp = date_time
-                if service_id.avg_time is not None:
-                    new_resources_usage.finish_timestamp = date_time + datetime.timedelta(minutes = service_id.avg_time)
+                if se_req.time_minutes is not None:
+                    new_resources_usage.finish_timestamp = date_time + datetime.timedelta(minutes = se_req.time_minutes)
                 new_resources_usage.calendar_date = WorkdayCalendar(id_workday_calendar = date_time)
                 new_resources_usage.save()
 
