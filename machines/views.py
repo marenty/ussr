@@ -23,7 +23,7 @@ def index(request):
 
 @user_passes_test(is_logged_employee, login_url = 'users/login/', redirect_field_name = None)
 def machinetypes(request):
-    machinetypes = MachineType.objects.all()
+    machinetypes = MachineType.objects.all().order_by('machine_type_name')
     context = {'machinetypes': machinetypes}
     return render(request, 'machines/machinetypes.html', context)
 
