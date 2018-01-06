@@ -148,6 +148,6 @@ def wRaport2(request):
 
 @user_passes_test(is_logged_employee, login_url = 'users/login/', redirect_field_name = None)
 def wRaport3(request):
-    workers = Worker.objects.all()
+    workers = Worker.objects.all().filter(active=True).order_by('last_name')
     context = {'workers': workers}
     return render(request, 'workers/wRaport3.html', context)
