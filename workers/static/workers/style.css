@@ -4,7 +4,7 @@
   justify-self: center;
   align-self:center;
   background-color: rgba(134, 142, 150, 0.6);
-  text-align: center;
+  text-align:center;
 }
 
 #navigation-panel{
@@ -27,7 +27,7 @@
   margin-left: 3%;
   margin-right: 3%;
   grid-template-columns: 24% 74%;
-  grid-column-gap: 2%
+  grid-column-gap: 2%;
 }
 
 #worker-calendar{
