@@ -21,6 +21,10 @@ from .tables import AllServicesTable, ClientServicesTable, ClientFinishedService
 from django_tables2 import RequestConfig
 from .filters import ResourcesUsageFilter
 from django_tables2.export.export import TableExport
+from workers.views import is_logged_and_in_worker_table, is_logged_employee
+from clients.views import is_logged_client
+from django.contrib.auth.decorators import user_passes_test
+
 
 def services(request):
     services_groups = SeGroupDict.objects.all()
@@ -29,7 +33,8 @@ def services(request):
     return render(request, 'services/services.html', context)
 
 # Displaying Services
-
+@login_required
+@user_passes_test(is_logged_client, login_url = '/clients/is_not_in_client_table/', redirect_field_name = None)
 def client_services(request):
     request_client = Client.objects.get(client_user_login = request.user.id)
     client_services = Service.objects.filter(client = request_client)
@@ -50,6 +55,8 @@ def client_services(request):
 
     return render(request, 'services/client_services.html', context)
 
+@login_required
+@user_passes_test(is_logged_client, login_url = '/client/is_not_in_client_table/', redirect_field_name = None)
 def client_service_resignation(request):
     if request.method == 'POST' and request.is_ajax():
         service_resources_usage = get_object_or_404(ResourcesUsage, id_resources_usage = request.POST.get("id_resources_usage"))
@@ -66,6 +73,8 @@ def client_service_resignation(request):
         html = '<p>Rezygnacja nie powiodla się. Spróbuj później lub skontaktuj się z nami</p>'
         return HttpResponse(html)
 
+@user_passes_test(is_logged_employee, login_url = '/users/login/', redirect_field_name = None)
+@user_passes_test(is_logged_and_in_worker_table, login_url = '/workers/is_not_in_worker_table/', redirect_field_name = None)
 def worker_services_table(request):
     queryset = ResourcesUsage.objects.select_related().all()
     f = ResourcesUsageFilter(request.GET, queryset=queryset)
@@ -82,9 +91,9 @@ def worker_services_table(request):
     return render(request, 'services/worker_services.html', context)
 
 # Generate Service reports
-
+@user_passes_test(is_logged_employee, login_url = '/users/login/', redirect_field_name = None)
+@user_passes_test(is_logged_and_in_worker_table, login_url = '/workers/is_not_in_worker_table/', redirect_field_name = None)
 def generate_service_report(request):
-
     if request.method == 'GET':
 
         queryset = ResourcesUsage.objects.select_related().all()
@@ -96,6 +105,8 @@ def generate_service_report(request):
             exporter = TableExport(export_format, table)
             return exporter.response('report.{}'.format(export_format))
 
+@user_passes_test(is_logged_employee, login_url = '/users/login/', redirect_field_name = None)
+@user_passes_test(is_logged_and_in_worker_table, login_url = '/workers/is_not_in_worker_table/', redirect_field_name = None)
 def generate_weakly_worker_services_report(request):
 
     if request.method == 'GET':
@@ -111,7 +122,6 @@ def generate_weakly_worker_services_report(request):
             return exporter.response('weekly_report.{}'.format(export_format))
 
 # Client Service reservation
-
 def reservation(request):
 
     services_groups = SeGroupDict.objects.all()
@@ -123,6 +133,8 @@ def reservation(request):
 
     return render(request, 'services/calendar_for_reservation.html', context)
 
+@login_required
+@user_passes_test(is_logged_client, login_url = '/clients/is_not_in_client_table/', redirect_field_name = None)
 def generate_summary(request):
     if request.method == 'POST':
         reservation_form = ReservationFormForClient(request.POST)
@@ -152,7 +164,8 @@ def get_resources_to_reservation(result):
                 'free_location' : free_location }
 
     return resources
-
+@login_required
+@user_passes_test(is_logged_client, login_url = '/clients/is_not_in_client_table/', redirect_field_name = None)
 def save_reservation(request):
     if request.method == 'POST':
         reservation_form = ReservationFormForClient(request.POST)
@@ -201,6 +214,7 @@ def save_reservation(request):
 
 # Worker Service reservation
 
+@user_passes_test(is_logged_employee, login_url = '/users/login/', redirect_field_name = None)
 def worker_reservation(request, id_client):
     services_groups = SeGroupDict.objects.all()
     services = SeDict.objects.all()
@@ -212,7 +226,7 @@ def worker_reservation(request, id_client):
 
     return render(request, 'services/calendar_for_worker_reservation.html', context)
 
-
+@user_passes_test(is_logged_employee, login_url = '/users/login/', redirect_field_name = None)
 def generate_worker_reservation_summary(request):
     if request.method == 'POST':
         reservation_form = ReservationForm(request.POST)
@@ -230,6 +244,7 @@ def generate_worker_reservation_summary(request):
 
         return render(request, 'services/reservation_worker_summary.html', context)
 
+@user_passes_test(is_logged_employee, login_url = '/users/login/', redirect_field_name = None)
 def save_worker_reservation(request):
     if request.method == 'POST':
         reservation_form = ReservationForm(request.POST)
@@ -338,7 +353,7 @@ def generate_calendar(request):
 #     sqlResult = sqlSelect()
 #     return render(request, 'company/sql.html', {'queryResult': sqlResult})
 
-
+@user_passes_test(is_logged_and_in_worker_table, login_url = '/workers/is_not_in_worker_table/', redirect_field_name = None)
 def generate_worker_calendar(request):
 
     if request.method == 'GET' and request.is_ajax():
