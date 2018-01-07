@@ -14,6 +14,6 @@ urlpatterns = [
     url(r'^edit_woNotification/(?P<woNotification_id>\w+)/$', views.edit_woNotification, name='edit_woNotification'),
     url(r'^new_woNotification/', views.new_woNotification, name='new_woNotification'),
     url(r'^personal/', views.change_personal_informations, name='personal_informations'),
-    url(r'^clients/', clientCRUDlist, name='client_list')
-
+    url(r'^clients/', clientCRUDlist, name='client_list'),
+    url(r'^is_not_in_worker_table/', views.is_not_in_worker_table, name='is_not_in_worker_table'),
 ]
