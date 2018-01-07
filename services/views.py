@@ -139,8 +139,14 @@ def generate_summary(request):
 
 def get_resources_to_reservation(result):
     free_worker = result.free_workers[0]
-    free_machine = result.free_machines[0]
-    free_location = result.free_locations[0]
+    if result.free_machines[0] != '-':
+        free_machine = result.free_machines[0]
+    else:
+        free_machine = False
+    if result.free_locations[0] != '-':
+        free_location = result.free_locations[0]
+    else:
+        free_location = False
     resources = {'free_worker' : free_worker,
                 'free_machine' : free_machine,
                 'free_location' : free_location }
@@ -176,9 +182,11 @@ def save_reservation(request):
                 resources_to_reservation = get_resources_to_reservation(result)
                 new_resources_usage = ResourcesUsage()
                 new_resources_usage.service = new_service
-                new_resources_usage.machine = Machine.objects.get(id_machine = resources_to_reservation['free_machine'])
+                if  resources_to_reservation['free_machine'] != False:
+                    new_resources_usage.machine = Machine.objects.get(id_machine = resources_to_reservation['free_machine'])
                 new_resources_usage.worker = Worker.objects.get(id_worker = resources_to_reservation['free_worker'])
-                new_resources_usage.location = Location.objects.get(id_location = resources_to_reservation['free_location'])
+                if  resources_to_reservation['free_location'] != False:
+                    new_resources_usage.location = Location.objects.get(id_location = resources_to_reservation['free_location'])
                 new_resources_usage.start_timestamp = date_time
                 if se_req.time_minutes is not None:
                     new_resources_usage.finish_timestamp = date_time + datetime.timedelta(minutes = se_req.time_minutes)
@@ -251,9 +259,11 @@ def save_worker_reservation(request):
                 resources_to_reservation = get_resources_to_reservation(result)
                 new_resources_usage = ResourcesUsage()
                 new_resources_usage.service = new_service
-                new_resources_usage.machine = Machine.objects.get(id_machine = resources_to_reservation['free_machine'])
+                if  resources_to_reservation['free_machine'] != False:
+                    new_resources_usage.machine = Machine.objects.get(id_machine = resources_to_reservation['free_machine'])
                 new_resources_usage.worker = Worker.objects.get(id_worker = resources_to_reservation['free_worker'])
-                new_resources_usage.location = Location.objects.get(id_location = resources_to_reservation['free_location'])
+                if  resources_to_reservation['free_location'] != False:
+                    new_resources_usage.location = Location.objects.get(id_location = resources_to_reservation['free_location'])
                 new_resources_usage.start_timestamp = date_time
                 if se_req.time_minutes is not None:
                     new_resources_usage.finish_timestamp = date_time + datetime.timedelta(minutes = se_req.time_minutes)
