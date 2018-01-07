@@ -1,7 +1,7 @@
 {% extends "MainPage/base.html" %}
+{% load staticfiles %}
 
 {% block content %}
-{% load staticfiles %}
 <script type="text/javascript" src='{% static "services/scripts/ajax_setup.js" %}'></script>
 <script type="text/javascript" src='{% static "services/scripts/resignation.js" %}'></script>
 <link rel="stylesheet" href="{% static "services/client_services.css" %}" />
@@ -9,7 +9,7 @@
 <script type="text/javascript">
 var csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
 </script>
-
+ 
 {% load render_table from django_tables2 %}
 <div id = "whole-page">
   <div id="accordion" role="tablist">
