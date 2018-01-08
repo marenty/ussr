@@ -1,4 +1,6 @@
 .worker-navigation-element{
+  display: grid;
+  grid-template-rows: 100%;
   height: 100%;
   width: 100%;
   justify-self: center;
@@ -20,6 +22,7 @@
   font-weight: bold;
   height: 1.5em;
   margin: auto;
+  align-self:center;
 }
 
 #worker-panel-grid{
@@ -72,4 +75,9 @@
 #edit-client-information-text{
   font-size: 30px;
   margin-bottom: 4vh;
+}
+
+#format-form{
+  margin-top: 2vh;
+  margin-bottom: 1vh;
 }
