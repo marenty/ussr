@@ -133,11 +133,15 @@ def CreateClient(request):
                 client.address = address
                 client = name_form.save()
                 client.save()
+            else:
+                context = {'name_form' : name_form,
+                            'address_form' : address_form}
+                return render(request, 'clients/new_client_form.html', context)
 
         context = {'name_form' : name_form,
                     'address_form' : address_form}
 
-        return render(request, 'clients/new_client_form.html', context)
+        return JsonResponse({'success' : "success"})
 
 @user_passes_test(is_logged_employee, login_url = '/users/login/', redirect_field_name = None)
 def GenerateTable(request):

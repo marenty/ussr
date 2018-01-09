@@ -118,7 +118,6 @@ function email_check(id) {
       type : "POST", // http method
       data : {'id' : id }, // data sent with the post request
       success : function(response) {
-          console.log(response.email);
           if ( response.email == true ){
             $('#email-modal').modal('show');
           }
@@ -191,8 +190,13 @@ function create_client() {
         // handle a successful response
         success : function(response) {
             $('#client-form').trigger("reset");
-            $('#new-client-box').empty();
-            $('#new-client-box').html(response);
+            if ( response.success == "success" ){
+              $('#newmodal').modal('hide');
+            }
+            else{
+              $('#new-client-box').empty();
+              $('#new-client-box').html(response);
+            }
 
             $( '#client-form' ).submit(function( event ){
                 event.preventDefault();
