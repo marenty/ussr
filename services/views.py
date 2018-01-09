@@ -27,13 +27,9 @@ from django.contrib.auth.decorators import user_passes_test
 from .mails import SendReservationConfirmEmail, EmailCheck
 
 def services(request):
-    services = SeDict.objects.all().order_by('se_group')
-    segrupes = SeDict.objects.all().filter(se_group="ZWIERZ")
-    segrupees = SeDict.objects.all().filter(se_group="SAMOCHOD")
-    segrupeees = SeDict.objects.all().filter(se_group=None)
-    segroupdicts = SeGroupDict.objects.all()
-    #ses = SeDict.objects.all()
-    context = {'services': services, 'segrupes':segrupes, 'segrupees':segrupees, 'segrupeees': segrupeees, 'segroupdicts':segroupdicts}
+    services_groups = SeGroupDict.objects.all()
+    services = SeDict.objects.all()
+    context = {'services_groups': services_groups, 'services': services}
     return render(request, 'services/services.html', context)
 
 # Displaying Services
