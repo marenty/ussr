@@ -1,14 +1,20 @@
 from django import forms
 from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.forms import ModelForm
 from utilities.models import Address
 from clients.models import Client
+
+class UserAuthenticationForm(AuthenticationForm):
+        username = forms.CharField(label=("Nazwa użytkownika"))
+        password = forms.CharField(label=("Hasło"), widget=forms.PasswordInput)
+
 
 class UserCreateForm(UserCreationForm):
     username = forms.CharField(label=("Nazwa użytkownika"))
     password1 = forms.CharField(label=("Hasło"), widget=forms.PasswordInput, help_text=("Hasło musi zawierać co najmniej 8 liter"))
     password2 = forms.CharField(label=("Powtórz hasło"), help_text=("Powtórz powyższe hasło"), widget=forms.PasswordInput)
+    terms_of_use = forms.BooleanField(required = True, label = ('Zgadzam się i akceptuje warunki <a data-toggle="modal" href="#terms-modal">Regulaminu</a>'))
 
 
 class ClientAddressForm(ModelForm):

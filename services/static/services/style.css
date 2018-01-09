@@ -6,13 +6,13 @@
 }
 
 #calendar-box{
+  height: 880px;
   margin-top: 4vh;
   margin-bottom: 10vh;
 }
 
 .select-service{
-  margin-left: 40%;
-  width: 300px;
+  width: 330px;
 }
 
 .disactive-select-service{
@@ -33,7 +33,8 @@
 }
 
 #select-service-box{
-  text-align: center;
+  display: grid;
+  justify-content: center;
 }
 
 #select-service-message{

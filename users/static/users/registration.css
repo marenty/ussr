@@ -31,3 +31,7 @@
   font-size: 30px;
   margin-bottom: 4vh;
 }
+
+#terms-text{
+white-space: pre-wrap;
+}

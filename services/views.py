@@ -24,7 +24,7 @@ from django_tables2.export.export import TableExport
 from workers.views import is_logged_and_in_worker_table, is_logged_employee
 from clients.views import is_logged_client
 from django.contrib.auth.decorators import user_passes_test
-
+from .mails import SendReservationConfirmEmail, EmailCheck
 
 def services(request):
     services = SeDict.objects.all().order_by('se_group')
@@ -210,6 +210,8 @@ def save_reservation(request):
                 new_resources_usage.calendar_date = WorkdayCalendar(id_workday_calendar = date_time)
                 new_resources_usage.save()
 
+                if EmailCheck(client):
+                    SendReservationConfirmEmail(client, service_id, new_resources_usage)
 
                 context = {'date' : service_date,
                             'result' : result,
@@ -289,7 +291,9 @@ def save_worker_reservation(request):
                 new_resources_usage.calendar_date = WorkdayCalendar(id_workday_calendar = date_time)
                 new_resources_usage.save()
 
-
+                if EmailCheck(client):
+                    SendReservationConfirmEmail(client, service_id, new_resources_usage)
+                    
                 context = {'date' : service_date,
                             'result' : result,
                             'facture' : new_resources_usage.machine}

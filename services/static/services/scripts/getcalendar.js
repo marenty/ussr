@@ -19,6 +19,8 @@ function getcalendar(service_code){
       success : function(response) {
           $('#calendar').remove();
           $('#calendar-box').html(response);
+          $('#select-colapse').collapse()
+          $("#show-services-button-text").css('visibility', 'visible');
           console.log("success"); // another sanity check
       },
 

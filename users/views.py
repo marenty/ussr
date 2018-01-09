@@ -7,7 +7,7 @@ from utilities.models import Address
 from clients.models import Client
 from django.db import transaction
 from django.contrib.auth.forms import AuthenticationForm
-from .forms import UserCreateForm
+from .forms import UserCreateForm, UserAuthenticationForm
 
 
 def logout_view(request):
@@ -77,7 +77,7 @@ def register(request):
 
 def user_login(request):
     if request.method == 'POST':
-        form = AuthenticationForm(data = request.POST)
+        form = UserAuthenticationForm(data = request.POST)
         if form.is_valid():
             username = form.data['username']
             password = form.data['password']
@@ -94,5 +94,5 @@ def user_login(request):
         else:
             return render(request, 'users/login.html', {'form': form})
     else:
-        form = AuthenticationForm()
+        form = UserAuthenticationForm()
         return render(request, 'users/login.html', {'form': form})
