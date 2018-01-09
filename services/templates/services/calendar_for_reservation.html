@@ -28,30 +28,44 @@
 <body>
   <div id = "whole-page">
 
-    <div id = "select-service-group-box">
-      <h3>Wybierz grupę usług</h3>
-      <select id = "select-service-group" class="custom-select">
-        <option value="" selected disabled hidden>Wybierz grupę usług</option>
-        {% for group in services_groups %}
-        <option value="{{group.id_se_group_dict}}">{{group.se_group_dict_name}}</option>
-        {% endfor %}
-      </select>
+    <p id = "show-services-button">
+      <a class="btn btn-primary" data-toggle="collapse" href="#select-colapse" role="button" aria-expanded="false" aria-controls="select-colapse" id = "show-services-button-text">Pokaż usługi</a>
+    </p>
+    <div class="row">
+      <div class="col">
+        <div class="collapse show" id="select-colapse">
+          <div class="card card-body">
+              <div id = "select-service-group-box">
+                <h3>Wybierz grupę usług</h3>
+                <select id = "select-service-group" class="custom-select">
+                  <option value="" selected disabled hidden>Wybierz grupę usług</option>
+                  {% for group in services_groups %}
+                  <option value="{{group.id_se_group_dict}}">{{group.se_group_dict_name}}</option>
+                  {% endfor %}
+                </select>
+              </div>
+
+              <div id = "select-service-message">
+                <h3>Wybierz usługę</h3>
+              </div>
+
+            <div id = "select-service-box">
+            {% for group in services_groups %}
+                <select id = "{{group.id_se_group_dict}}"  class = "select-service disactive-select-service custom-select mr-sm-10">
+                  <option value="" selected disabled hidden>Wybierz usługę</option>
+                  {% for service in group.services_in_group.all %}
+                  <option value="{{service.id_se_dict}}">{{service.se_dict_name}}</option>
+                  {% endfor %}
+                </select>
+            {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <div id = "select-service-message">
-      <h3>Wybierz usługę</h3>
-    </div>
 
-  <div id = "select-service-box">
-  {% for group in services_groups %}
-      <select id = "{{group.id_se_group_dict}}"  class = "select-service disactive-select-service custom-select mr-sm-10">
-        <option value="" selected disabled hidden>Wybierz usługę</option>
-        {% for service in group.services_in_group.all %}
-        <option value="{{service.id_se_dict}}">{{service.se_dict_name}}</option>
-        {% endfor %}
-      </select>
-  {% endfor %}
-  </div>
+
 
 
     <div id = 'calendar-box'>

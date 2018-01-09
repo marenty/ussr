@@ -45,6 +45,11 @@
       {% bootstrap_field address_form.city form_group_class="form-group col-md-8" %}
       {% bootstrap_field address_form.zip form_group_class="form-group col-md-4" %}
     </div>
+    <div class = "form-row">
+      <div class="form-check form-check-inline">
+        {% bootstrap_field user_form.terms_of_use form_group_class="form-group col-md-12" show_label=False %}
+      </div>
+    </div>
     {% buttons %}
     <button name="submit" class="btn btn-primary">Rejestruj</button>
     {% endbuttons %}
@@ -72,5 +77,66 @@
     </div>
   </div>
 
+  <div class="modal fade" id="terms-modal" tabindex="-1" role="dialog" aria-labelledby="terms-modal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="terms-modal-title">Regulamin</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" id="terms-text">ROZDZIAŁ I
+Przepisy wstępne
+
+§ 1
+1.	Regulamin rodzinnego ogrodu działkowego, zwany dalej „regulaminem”, określa szczegółowe zasady zagospodarowania i korzystania z działki oraz funkcjonowania i zagospodarowania rodzinnego ogrodu działkowego, a także zasady korzystania z terenu ogólnego i infrastruktury ogrodowej.
+2.	Regulamin obowiązuje wszystkich przebywających na obszarze rodzinnego ogrodu działkowego.
+3.	W rozumieniu regulaminu, rodzinnym ogrodem działkowym, zwanym dalej „ROD”, jest wyłącznie ROD prowadzony przez stowarzyszenie ogrodowe Polski Związek Działkowców.
+
+§ 2
+1.	ROD jest podstawową jednostką organizacyjną Polskiego Związku Działkowców, zwanego dalej „PZD”.
+2.	ROD stanowi wydzielony obszar lub obszary przeznaczone na cele rodzinnych ogrodów działkowych, składające się z działek i terenu ogólnego, służące do wspólnego korzystania przez działkowców, wyposażone w infrastrukturę ogrodową.
+3.	ROD powinien posiadać nazwę uchwaloną przez walne zebranie i zatwierdzoną przez prezydium okręgowego zarządu PZD.
+
+§ 3
+ROD są urządzeniami użyteczności publicznej, służącymi zaspokajaniu wypoczynkowych, rekreacyjnych i innych potrzeb socjalnych członków społeczności lokalnych poprzez zapewnienie im powszechnego dostępu do ROD oraz działek dających możliwość prowadzenia upraw ogrodniczych na własne potrzeby, a także podniesienie standardów ekologicznych otoczenia.
+
+§ 4
+1.	ROD może składać się z kilku terenów.
+2.	Teren, jako obszar gruntu, jest wydzieloną jednostką przestrzenną podzieloną na działki.
+3.	ROD (w tym także teren), w zależności od wielkości, można podzielić na sektory.
+4.	Sektor jest pomocniczą jednostką przestrzenną ROD ułatwiającą zarządzanie i funkcjonowanie ROD, oznaczoną na planie zagospodarowania ROD.
+
+§ 5
+1.	Działka jest podstawową jednostką przestrzenną ROD, której powierzchnia nie może przekraczać 500 m2, służącą zaspokajaniu potrzeb działkowca i jego rodziny w zakresie prowadzenia upraw ogrodniczych, wypoczynku i rekreacji.
+2.	Powierzchnia i granice działki muszą być zgodne z planem zagospodarowania ROD.
+3.	Działka nie podlega podziałowi na mniejsze jednostki przestrzenne.
+
+§ 6
+1.	Działka w ROD nie może być wykorzystywana do innych celów, niż określone w § 5 ust.1, a w szczególności obowiązuje całkowity zakaz prowadzenia na działce działalności gospodarczej lub innej działalności zarobkowej oraz wynajmowania części lub całej działki.
+2.	Zakaz, określony w ust. 1, stosuje się odpowiednio do altany działkowej.
+
+§ 7
+1.	Działka nie może być wykorzystywana do zamieszkiwania.
+2.	Przez zamieszkiwanie rozumie się przebywanie z zamiarem skupienia i realizacji swoich spraw życiowych.
+3.	Altana działkowa na terenie działki w ROD nie jest obiektem mieszkalnym; przebywanie w niej nie może stanowić podstawy do urzędowego potwierdzenia czasowego lub stałego pobytu.
+
+§ 8
+Działkowcem jest pełnoletnia osoba fizyczna uprawniona do korzystania z działki w ROD na podstawie prawa do działki nabytego zgodnie z ustawą z dnia 13 grudnia 2013 roku o rodzinnych ogrodach działkowych, zwanej dalej „ustawą".
+
+§ 9
+1.	Działkowiec jest w szczególności uprawniony do:
+1)	zagospodarowania działki i wyposażenia jej w odpowiednie obiekty i urządzenia zgodnie z ustawą i regulaminem,
+2)	udziału w szkoleniach organizowanych przez zarząd ROD i okręgowy zarząd PZD,
+3)	korzystania z biblioteki ogrodowej,
+4)	występowania do zarządu ROD w sprawach dotyczących zagospodarowania i użytkowania ROD i działki,
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Zamknij</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
 {% endblock content %}
