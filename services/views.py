@@ -292,8 +292,11 @@ def save_worker_reservation(request):
                 new_resources_usage.save()
 
                 if EmailCheck(client):
-                    SendReservationConfirmEmail(client, service_id, new_resources_usage)
-                    
+                    try:
+                        SendReservationConfirmEmail(client, service_id, new_resources_usage)
+                    except SMTPException:
+                        print ("Blad wysylanai maila")
+
                 context = {'date' : service_date,
                             'result' : result,
                             'facture' : new_resources_usage.machine}
