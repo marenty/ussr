@@ -6,41 +6,43 @@
     <script>
       function initMap() {
 
-        var szara = { "lat" : 50.021624,
-                          "lng" : 19.985222};
+        var cords = []
 
-        var stojalkowskiego = { "lat" : 50.0062328,
-                      "lng" : 19.9514129};
+        {% for branch in branches_list %}
 
-        var koszarowka = { "lat" : 50.011746,
-                          "lng" : 19.901430};
+        cords.push({"lat" : {{branch.latitude}},
+                    "lng" : {{branch.longitude}}
+                  });
 
+        {% endfor %}
+
+        console.log(cords[1]);
         var map = new google.maps.Map(document.getElementById('map-1'), {
           zoom: 16,
-          center: szara
+          center: cords[0]
         });
 
         var map2 = new google.maps.Map(document.getElementById('map-2'), {
           zoom: 16,
-          center: koszarowka
+          center: cords[1]
         });
 
         var map3 = new google.maps.Map(document.getElementById('map-3'), {
           zoom: 16,
-          center:  stojalkowskiego
+          center: cords[2]
         });
         var marker = new google.maps.Marker({
-          position: szara,
+          position: cords[0],
           map: map,
         });
 
         var marker2 = new google.maps.Marker({
-          position: koszarowka,
+          position: cords[1],
           map: map2,
         });
 
         var marker3 = new google.maps.Marker({
-          position: stojalkowskiego,
+          position: cords[2],
           map: map3,
         });
       }
