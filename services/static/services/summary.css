@@ -21,6 +21,17 @@
 font-size: 22px;
 }
 
+@media only screen and (max-width: 768px){
+  #reservation-text-box p{
+  font-size: 15px;
+  }
+
+  #text-header{
+    font-size: 20px;
+  }
+
+}
+
 .facture{
   padding-left: 10%;
   font-size: 17px;
