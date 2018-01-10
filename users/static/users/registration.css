@@ -5,6 +5,13 @@
   margin-bottom: 20vh;
 }
 
+@media only screen and (max-width: 768px){
+  #register-client-data{
+    margin-left: 10%;
+    margin-right: 10%;
+  }
+}
+
 @media only screen and (max-width: 1400px) {
   .street-label{
     margin-top: 1.5em;

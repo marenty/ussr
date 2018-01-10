@@ -6,6 +6,27 @@
   grid-column-gap: 8%;
 }
 
+@media only screen and (max-width: 768px){
+  #login-grid{
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: 53vh 53vh;
+    margin-left: 10%;
+    margin-right: 10%;
+  }
+}
+
+#hidden-register-link{
+  display: none;
+  float: right;
+}
+
+@media only screen and (max-width: 768px){
+  #hidden-register-link{
+    display: inline;
+    float: right;
+  }
+}
 #login-text{
   text-align: center;
   font-size: 40px;
@@ -21,6 +42,16 @@
 #registration-button{
   font-size: 25px;
   width: 100%;
+}
+
+#registration-box{
+  display: block;
+}
+
+@media only screen and (max-width: 768px){
+  #registration-box{
+    display: none;
+  }
 }
 
 #registration-button-box{

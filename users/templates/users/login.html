@@ -50,6 +50,7 @@
             </div>
     {% buttons %}
     <button name="submit" class="btn btn-primary">Zaloguj</button>
+    <a href="/users/register/" id ="hidden-register-link">Nie masz jeszcze konta?</a>
     {% endbuttons %}
     <input type="hidden" name="next" value="{% url 'MainPage:index' %}" />
     </form>
