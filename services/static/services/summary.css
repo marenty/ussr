@@ -41,3 +41,8 @@ font-size: 22px;
   margin-top: 10vh;
   margin-bottom: 5vh;
 }
+
+#summary-last-text{
+  margin-top: 15px;
+  margin-left: 15px;
+}

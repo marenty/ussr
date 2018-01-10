@@ -8,11 +8,11 @@ function submitreservation(){
       success : function(response) {
           if (response == 'success'){
             $('#success-modal').modal('show');
-            $('#ok-button').before('<p>Rezerwacja sie udala</p>');
+            $('#ok-button').before('<p> Rezerwacja sie udala</p>');
           }
           else{
             $('#success-modal').modal('show');
-            $('#ok-button').before('<p>Rezerwacja sie nie udala</p>');
+            $('#ok-button').before('<p> Rezerwacja sie nie udala</p>');
           }
       },
   });
