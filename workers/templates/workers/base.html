@@ -28,17 +28,27 @@
           <li class="nav-item">
             <a class="nav-link" href="{% url 'workers:employee_index' %}">Strona główna pracownika</a>
           </li>
-
-
+          <li class="nav-item">
+            <a class="nav-link" href="/employee/clients/">Klienci</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/employee/woNotifications/">Notatki</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/machines/machinetypes/">Maszyny</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/employee/wRaports/">Raporty</a>
+          </li>
         </ul>
           <ul class="navbar-nav ml-auto">
 
-            <li class="nav-item" style = "margin-right: 30px">
+            <li class="nav-item" style = "margin-right: 30px" id="username">
               <span class="navbar-text">
                 Witaj {{ user.username }}!
               </span>
             </li>
-
+            <div class="dropdown-divider"></div>
               <li class="nav-item">
                   <a class = "nav-link" href="{% url 'users:logout' %}" >Wyloguj</a>
               </li>

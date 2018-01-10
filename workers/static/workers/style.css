@@ -21,7 +21,6 @@
   font-size: 20px;
   font-weight: bold;
   height: 1.5em;
-  margin: auto;
   align-self:center;
 }
 
@@ -32,6 +31,38 @@
   grid-template-columns: 24% 74%;
   grid-column-gap: 2%;
 }
+
+@media only screen and (max-width: 768px){
+  #worker-panel-grid{
+    display: grid;
+    margin-left: 3%;
+    margin-right: 3%;
+    grid-template-columns: 100%;
+    grid-column-gap: 2%;
+}
+    #details{
+      font-size: 20px;
+    }
+
+    #navigation-panel{
+      margin-top: 50px;
+      margin-bottom: 50px;
+    }
+
+}
+
+@media only screen and (min-width: 768px){
+  #details{
+    font-size: 17px;
+  }
+}
+
+@media only screen and (min-width: 900px){
+  #details{
+    font-size: 20px;
+  }
+}
+
 
 #worker-calendar{
   width: 100%;
