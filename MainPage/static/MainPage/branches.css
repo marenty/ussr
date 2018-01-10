@@ -20,7 +20,7 @@
 @media only screen and (max-width: 768px){
   .branch-box{
     grid-template-columns: 100%;
-    grid-template-rows: repeat(6, 300px);
+    grid-template-rows: repeat(6, 200px);
     text-align: center;
     grid-row-gap: 0px;
   }
@@ -38,6 +38,11 @@
     padding-top: 2em;
     display: grid;
     align-items: center;
+    padding-bottom: 15vh;
+  }
+
+  .address-box h3{
+    font-size: 17px;
   }
 }
 #map-1-box{
