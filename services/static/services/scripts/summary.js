@@ -8,33 +8,18 @@ function submitreservation(){
       success : function(response) {
           if (response == 'success'){
             $('#success-modal').modal('show');
-            $('#ok-button').before('<p>Rezerwacja się udała</p>');
+            $('#success-modal-box').before('<p id = "summary-last-text">Rezerwacja sie udala</p>');
+          }
+
+          else if (response == 'fail') {
+            $('#success-modal').modal('show');
+            $('#Edit-Title').html('Przekroczyłeś limit');
+            $('#success-modal-box').before('<p id = "summary-last-text">Przekroczyleś maksymalny czas możliwy do zarezerwowania.</p>');
           }
           else{
             $('#success-modal').modal('show');
-            $('#ok-button').before('<p>Rezerwacja się nie udała</p>');
-          }
-      },
-
-  });
-   
-}
-
-function submitWorkerReservation(){
-  $.ajax({
-      url : "/services/save_reservation/", // the endpoint
-      type : "POST", // http method
-      data : $('#reservation-form').serialize(), // data sent with the post request
-
-      // handle a successful response
-      success : function(response) {
-          if (response == 'success'){
-            $('#reservation-confirm-window').show();
-            $('#ok-button').before('<p>Rezerwacja się udała</p>');
-          }
-          else{
-            $('#reservation-confirm-window').show();
-            $('#ok-button').before('<p>Rezerwacja się nie udała</p>');
+            $('#Edit-Title').html('Błąd');
+            $('#success-modal-box').before('<p id = "summary-last-text">Rezerwacja się nie udała</p>');
           }
       },
 

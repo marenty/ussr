@@ -7,7 +7,7 @@ import datetime
 from company.sqlSelect import *
 import json
 from .models import *
-from clients.models import Client
+from clients.models import Client, ClParams
 from services.models import SeDict, SeGroupDict
 from machines.models import Machine
 from workers.models import Worker
@@ -162,8 +162,21 @@ def get_resources_to_reservation(result):
     resources = {'free_worker' : free_worker,
                 'free_machine' : free_machine,
                 'free_location' : free_location }
-
     return resources
+
+def reserved_less_than_max(client_to_test):
+    time = datetime.timedelta(days = 0)
+    client_services = Service.objects.filter(client = client_to_test, planned_start__gt = datetime.datetime.now())
+    cl_params = ClParams.objects.get(company_branch = 'main')
+    for service in client_services:
+        if service.planned_start != None and service.planned_end != None:
+            time += service.planned_end - service.planned_start
+            int_time = time.days * 24 * 60 + time.seconds // 60
+            if int_time >= cl_params.max_worktime_wo_conf_minutes:
+                return False
+    return True
+
+
 @login_required
 @user_passes_test(is_logged_client, login_url = '/clients/is_not_in_client_table/', redirect_field_name = None)
 def save_reservation(request):
@@ -182,6 +195,9 @@ def save_reservation(request):
                 result = result[0]
                 client = Client.objects.get(client_user_login = request.user.id)
                 se_req = SeRequirement.objects.get(service_code = service_id)
+
+                if reserved_less_than_max(client) != True:
+                    return HttpResponse('fail')
 
                 new_service = Service()
                 new_service.service_code = service_id
@@ -209,9 +225,6 @@ def save_reservation(request):
                 if EmailCheck(client):
                     SendReservationConfirmEmail(client, service_id, new_resources_usage)
 
-                context = {'date' : service_date,
-                            'result' : result,
-                            'facture' : new_resources_usage.machine}
                 return HttpResponse('success')
 
 # Worker Service reservation
