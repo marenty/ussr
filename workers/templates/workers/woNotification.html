@@ -1,7 +1,7 @@
 {% extends "workers/base.html" %}
 
 {% block content %}
-  <a href="{% url 'workers:woNotifications' %}"><button type="button" class="btn btn-primary">Powrót-notatki</button></a>
+  <div class="col-md-8 offset-md-3"><a href="{% url 'workers:woNotifications' %}"><button type="button" class="btn btn-primary">Powrót-notatki</button></a></div>
   <div class="row">
    <div class="col-md-8 offset-md-2">
    <p><b>Temat:</b> {{ woNotification.notification_subject }}</p>

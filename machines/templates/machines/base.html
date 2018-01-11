@@ -20,10 +20,19 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <a class="nav-link" href="{% url 'workers:employee_index' %}">Strona pracownika</a>
+        <a class="nav-link" href="{% url 'workers:employee_index' %}">Strona główna pracownika</a>
       </li>
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'machines:machinetypes' %}">Typy maszyn</a>
+            <a class="nav-link" href="/employee/clients/">Klienci</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/employee/woNotifications/">Notatki</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/machines/machinetypes/">Maszyny</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/employee/wRaports/">Raporty</a>
           </li>
 </ul>
 

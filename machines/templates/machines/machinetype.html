@@ -4,7 +4,7 @@
 
   <h4 align="center">Typ maszyn: {{ machinetype }} - {{ machinetype.machine_type_name }}</h4>
   <p align="center"><a href="{% url 'machines:new_machine' machinetype.id_machine_type %}"><button type="button" class="btn btn-primary">Dodaj nową maszynę</button></a></p>
-<table class="table">
+<table class="table table-responsive-sm table-striped table-hover">
 <thead class="thead-dark" align="center">
 <tr>
 <th scope="col">Nazwa</th>
