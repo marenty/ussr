@@ -9,5 +9,6 @@ urlpatterns = [
     url(r'^new_machine/(?P<machinetype_id>\w+)/$', views.new_machine, name='new_machine'),
     url(r'^edit_machine/(?P<machine_id>\w+)/$', views.edit_machine, name='edit_machine'),
     url(r'^delete_machine/(?P<machine_id>\w+)/$', views.delete_machine, name='delete_machine'),
+    url(r'^delete_machinetype/(?P<machinetype_id>\w+)/$', views.delete_machinetype, name='delete_machinetype'),
     url(r'^$', views.index, name='machines_index'),
 ]

@@ -5,18 +5,18 @@
   <h1>Nasze wszechstronne usługi:</h1>
 <ul>
   <div class="row">
-  <div class="col-md-6 offset-md-1">
+    <div class="col-md-6 offset-md-1">
       <div class="form-group">
-  {% for group in services_groups %}
-<br>
-   <h4><b>{{group.se_group_dict_name}}</b></h4>
-    {% for service in group.services_in_group.all %}
-    <li> <h5> {{service.se_dict_name}} </h5>
-      <p> {{service.notes}} </p> </li>
-      {% endfor %}
-   {% endfor %}
- </div>
-   </div>
+        {% for group in services_groups %}
+       <br>
+         <h4><b>{{group.se_group_dict_name}}</b></h4>
+            {% for service in group.services_in_group.all %}
+        <li> <h5> {{service.se_dict_name}} </h5>
+           <p> {{service.notes}} </p> </li>
+            {% endfor %}
+         {% endfor %}
+       </div>
+     </div>
    </div>
 </ul>
 

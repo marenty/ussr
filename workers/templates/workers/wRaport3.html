@@ -1,12 +1,11 @@
 {% extends "workers/base.html" %}
 
 {% block content %}
-<a href="{% url 'workers:wRaports' %}"><button type="button" class="btn btn-primary">Raporty</button></a>
-<a href="{% url 'workers:wRaport1' %}"><button type="button" class="btn btn-primary">Wszystkie Maszyny</button></a>
-<a href="{% url 'workers:wRaport2' %}"><button type="button" class="btn btn-primary">Sprawne Maszyny</button></a>
-<a href="{% url 'workers:wRaport4' %}"><button type="button" class="btn btn-primary">Wykorzystanie zasobów</button></a>
+<a href="{% url 'workers:wRaport1' %}"><button type="button" class="btn btn-outline-primary">Wszystkie Maszyny</button></a>
+<a href="{% url 'workers:wRaport2' %}"><button type="button" class="btn btn-outline-primary">Sprawne Maszyny</button></a>
+<a href="{% url 'workers:wRaport4' %}"><button type="button" class="btn btn-outline-primary">Wykorzystanie zasobów</button></a>
 <br><br>
-<table class="table">
+<table class="table table-responsive-sm table-striped table-hover">
 <thead class="thead-dark" align="center">
 <tr>
 <th scope="col">Imię</th>
