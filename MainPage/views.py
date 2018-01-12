@@ -6,6 +6,7 @@ from django.core.exceptions import MultipleObjectsReturned
 from .forms import ContactForm, LookupForm
 from django.core.mail import send_mail
 from django.views.generic.edit import FormView
+from MainPage import findClosestBranch
 #from django.contrib.gis.geos import Point
 #from django.contrib.gis.db.models.functions import Distance
 
@@ -65,7 +66,11 @@ def about(request):
     return render(request, 'MainPage/about.html', context)
 
 def directions(request):
-    return render(request, 'MainPage/gmaps.html')
+    location_str = request.POST.get('location')
+    u_lat, u_lon = location_str.split(', ')
+    branch = findClosestBranch.getClosest(u_lat, u_lon)
+    context = {'branch': branch}
+    return render(request, 'MainPage/gmaps.html', context)
 
 """
 class LookupView(FormView):

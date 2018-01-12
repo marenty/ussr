@@ -2,11 +2,11 @@
 {% block content %}
 <style>
   #map-x {
-    height: 100%;
+    height: 400px;
   }
 </style>
 
-<div id="map" class="map-box">
+<div id="map-x" class="map-x">
   <p>Placeholder pod ładowaną mapę</p>
 </div>
 
@@ -30,11 +30,13 @@
     var dirDisp = new google.maps.DirectionsRenderer;
 
     szara = {
-      "lat": 50.021624,
-      "lng": 19.985222
+      "lat": {{ branch.latitude }},
+      "lng": {{ branch.longitude }}
+      //"lat": 50.021624,
+      //"lng": 19.985222
     };
 
-    var map = new google.maps.Map(document.getElementById('map'), {
+    var map = new google.maps.Map(document.getElementById('map-x'), {
       zoom: 16,
       center: szara
     });

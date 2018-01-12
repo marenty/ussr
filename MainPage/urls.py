@@ -8,5 +8,5 @@ urlpatterns = [
     url(r'^about/', views.about, name='about'),
     url(r'^directions/', views.directions, name='directions'),
     url(r'^contact_form/', views.contact_form, name='contact_form'),
-#    url(r'^test/', views.LookupView, name='lookup'),
+    # url(r'^test/', views.LookupView, name='lookup'),
     ]

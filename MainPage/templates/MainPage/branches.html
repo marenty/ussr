@@ -33,7 +33,35 @@
   <div id ="first-row"></div>
   <div id ="second-row"></div>
   <div id ="third-row"></div>
-
 </div>
 
+<form id="geolocation" action="/directions/" method="POST">
+  {% csrf_token %}
+  <input type="text" id="location" name="location" value="" />
+  <input type="submit" />
+</form>
+
+<script type="text/javascript">
+
+window.onload = getLocation;
+
+function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(fillLoc); //setCor);
+  } else {
+    window.alert("Urządzenie nie zewzwala na geolokalizację");
+  }
+}
+
+function fillLoc(position) {
+  var u_lat = position.coords.latitude;
+  var u_lon = position.coords.longitude;
+  document.getElementById("location").value = u_lat + ', ' + u_lon;
+}
+
+function submitLoc() {
+  document.getElementById("geolocation").submit();
+}
+
+</script>
 {% endblock content %}
