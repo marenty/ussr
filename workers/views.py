@@ -175,12 +175,21 @@ def wRaport4(request):
     context = {'resources': resources}
     return render(request, 'workers/wRaport4.html', context)
 
-#@user_passes_test(is_logged_employee, login_url = '/users/login/', redirect_field_name = None)
-#@user_passes_test(is_logged_and_in_worker_table, login_url = '/employee/is_not_in_worker_table/', redirect_field_name = None)
-#def wRaport5(request):
-    #last_service = Machine.last_service
-    #service_interval = Machine.service_interval
-    #if service_interval is not None:
-        #machines = Machine.objects.all().filter(last_service__lt = datetime.date.today() - datetime.timedelta(days=service_interval) )
-    #context = {'machines': machines}
-    #return render(request, 'workers/wRaport5.html', context)
+@user_passes_test(is_logged_employee, login_url = '/users/login/', redirect_field_name = None)
+@user_passes_test(is_logged_and_in_worker_table, login_url = '/employee/is_not_in_worker_table/', redirect_field_name = None)
+def wRaport5(request):
+    machines = Machine.objects.all()
+    last_service = Machine.last_service
+    service_interval = Machine.service_interval
+    arr = []
+    for machine in machines:
+        if machine.last_service != None:
+            if machine.service_interval != None:
+                if last_service > datetime.date.today() - datetime.timedelta(days = service_interval):
+                    is_costam = True
+                if iscostam == True:
+                    arr.append(machine.id_machine)
+
+    machines = Machine.objects.filter(id_machine__in = arr)
+    context = {'machines': machines}
+    return render(request, 'workers/wRaport5.html', context)
