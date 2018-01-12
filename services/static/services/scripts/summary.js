@@ -16,21 +16,18 @@ function submitreservation(){
             $('#Edit-Title').html('Przekroczyłeś limit');
             $('#success-modal-box').before('<p id = "summary-last-text">Przekroczyleś maksymalny czas możliwy do zarezerwowania.</p>');
           }
-          else{
-            $('#success-modal').modal('show');
-            $('#Edit-Title').html('Błąd');
-            $('#success-modal-box').before('<p id = "summary-last-text">Rezerwacja się nie udała</p>');
-          }
       },
-
+      error : function() {
+        $('#success-modal').modal('show');
+        $('#Edit-Title').html('Błąd');
+        $('#success-modal-box').before('<p id = "summary-last-text">Rezerwacja się nie udała. Spróbuj ponownie.</p>');
+      }
   });
-
 }
 
 $(document).ready(function() {
 
   $('#select-service-group').change(function(){
-    console.log(this.text);
     showSelectService(this.value);
 
   });

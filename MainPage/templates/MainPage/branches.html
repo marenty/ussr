@@ -3,10 +3,17 @@
 {% block content %}
 
 <link rel="stylesheet" type="text/css" href="{% static "MainPage/branches.css" %}" />
-<div style="margin: 50px">
+<div style="margin: 50px; margin-bottom: 0px;">
   <h2>Nasze placówki</h2>
 </div>
 
+<div id="location-form-box">
+  <form id="geolocation" action="/directions/" method="POST">
+    {% csrf_token %}
+    <input type="hidden" id="location" name="location" value="" />
+    <input type="submit" value = "Pokaż najbliższy oddział" id="show-location-button" class="btn btn-success"/>
+  </form>
+</div>
 
 <div class = "branch-box">
 
@@ -35,11 +42,7 @@
   <div id ="third-row"></div>
 </div>
 
-<form id="geolocation" action="/directions/" method="POST">
-  {% csrf_token %}
-  <input type="text" id="location" name="location" value="" />
-  <input type="submit" />
-</form>
+
 
 <script type="text/javascript">
 
@@ -57,6 +60,7 @@ function fillLoc(position) {
   var u_lat = position.coords.latitude;
   var u_lon = position.coords.longitude;
   document.getElementById("location").value = u_lat + ', ' + u_lon;
+  $('#show-location-button').show();
 }
 
 function submitLoc() {

@@ -204,3 +204,7 @@ footer {
     display: inline;
   }
 }
+
+#map-site-body{
+  height: 100vh;
+}
