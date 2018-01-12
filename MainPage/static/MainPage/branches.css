@@ -99,3 +99,18 @@
 .grid-row-map:nth-child(odd){
   background-color: rgba(28, 27, 28, 0.39);
 }
+
+#show-location-button{
+  display: none;
+  width: 400px;
+  height: 70px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+#location-form-box{
+  height: 150px;
+  display: grid;
+  align-items: center;
+  justify-content: center;
+}

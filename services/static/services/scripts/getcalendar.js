@@ -8,7 +8,6 @@ function showSelectService(service){
 }
 
 function getcalendar(service_code){
-  console.log("Odpalam " + service_code);
 
   $.ajax({
       url : "/services/get_calendar/", // the endpoint
@@ -21,7 +20,6 @@ function getcalendar(service_code){
           $('#calendar-box').html(response);
           $('#select-colapse').collapse()
           $("#show-services-button-text").css('visibility', 'visible');
-          console.log("success"); // another sanity check
       },
 
   });
@@ -31,7 +29,6 @@ function getcalendar(service_code){
 $(document).ready(function() {
 
   $('#select-service-group').change(function(){
-    console.log(this.text);
     showSelectService(this.value);
 
   });

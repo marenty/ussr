@@ -29,14 +29,12 @@ function show_confirmation_window(chosen){
 
   $('#confirm-button').click(function(e){
     e.preventDefault();
-    console.log(chosen);
     resignation(chosen);
   });
 
   $('#decline-button').click(function(e){
     e.preventDefault();
     OffResignationWindow();
-    console.log('Declined')
     $( "#confirm-button" ).unbind();
     $( "#decline-button" ).unbind();
   });

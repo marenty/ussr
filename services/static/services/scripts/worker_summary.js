@@ -10,40 +10,20 @@ function submitreservation(){
             $('#success-modal').modal('show');
             $('#ok-button').before('<p> Rezerwacja sie udala</p>');
           }
-          else{
-            $('#success-modal').modal('show');
-            $('#ok-button').before('<p> Rezerwacja sie nie udala</p>');
-          }
       },
+      error : function(response) {
+      else{
+        $('#success-modal').modal('show');
+        $('#ok-button').before('<p> Rezerwacja sie nie udala</p>');
+      }
+    }
   });
 }
 
-function submitWorkerReservation(){
-  $.ajax({
-      url : "/services/save_reservation/", // the endpoint
-      type : "POST", // http method
-      data : $('#reservation-form').serialize(), // data sent with the post request
-
-      // handle a successful response
-      success : function(response) {
-          if (response == 'success'){
-            $('#success-modal').modal('show');
-            $('#ok-button').before('<p>Rezerwacja sie udala</p>');
-          }
-          else{
-            $('#success-modal').modal('show');
-            $('#ok-button').before('<p>Rezerwacja sie nie udala</p>');
-          }
-      },
-
-  });
-
-}
 
 $(document).ready(function() {
 
   $('#select-service-group').change(function(){
-    console.log(this.text);
     showSelectService(this.value);
 
   });
