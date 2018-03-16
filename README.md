@@ -1,2 +1,3 @@
 # ussr
-nie wiem, co ja robie
+
+http://ussr-ug.herokuapp.com/
